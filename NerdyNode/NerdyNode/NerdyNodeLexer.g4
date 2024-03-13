@@ -1,4 +1,4 @@
-lexer grammar GraphLexer;
+lexer grammar NerdyNodeLexer;
 
 //Seperators 
 EQ: '=';

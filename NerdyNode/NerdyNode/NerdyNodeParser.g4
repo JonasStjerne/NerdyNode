@@ -1,6 +1,6 @@
-parser grammar GraphParser;
+parser grammar NerdyNodeParser;
 options {
-	tokenVocab = GraphLexer;
+	tokenVocab = NerdyNodeLexer;
 }
 
 program: block EOF;
