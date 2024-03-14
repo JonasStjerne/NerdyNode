@@ -1,15 +1,15 @@
 using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 using Antlr4.Runtime.Misc;
 
 public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 {
-    // public bool Boolean;
-    // public override object VisitBool(NerdyNodeParser.BoolContext context)
-    // {
-    //     Boolean = bool.Parse(context.GetText());
-    //     return Boolean;
-    // }
-    Scope scope = new Scope();
+    private Stack<Scope> symbolTable = new Stack<Scope>();
+    public BasicNerdyNodeVisitor()
+    {
+        var globalScope = new Scope();
+        symbolTable.Push(globalScope);
+    }
 
     public override object VisitIfstmt(NerdyNodeParser.IfstmtContext context)
     {
@@ -23,20 +23,22 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 
     public override object VisitBlock([NotNull] NerdyNodeParser.BlockContext context)
     {
-        // Scope localScope = new Scope();
+        //Get the top most scope from the stack
+        var parentScope = symbolTable.Peek();
+        var newScope = new Scope(parentScope);
+        symbolTable.Push(newScope);
+
         foreach (var statement in context.statement())
         {
             Visit(statement);
         }
+        symbolTable.Pop();
         return null;
     }
 
 
     public override object VisitStatement([NotNull] NerdyNodeParser.StatementContext context)
     {
-        //get the scope of the parent
-        var scope = context
-            .GetRuleContext<NerdyNodeParser.BlockContext>(0);
         if (context.forstmt() != null)
         {
             Visit(context.forstmt());
@@ -62,12 +64,17 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 
     public override object VisitForstmt(NerdyNodeParser.ForstmtContext context)
     {
+        Scope forLoopWrapperScope = new Scope(symbolTable.Peek());
+        symbolTable.Push(forLoopWrapperScope);
         var start = (int)Visit(context.list().expr(0));
         var end = (int)Visit(context.list().expr(1));
+        forLoopWrapperScope.declare(context.IDENTIFIER().GetText(), null);
         for (int i = start; i <= end; i++)
         {
+            forLoopWrapperScope.assign(context.IDENTIFIER().GetText(), i);
             Visit(context.block());
         }
+        symbolTable.Pop();
         return null;
     }
 
@@ -75,34 +82,19 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
     {
         var type = context.type().GetText();
         var variableName = context.assignment().IDENTIFIER().GetText();
-        scope.declare(variableName, null);
+        symbolTable.Peek().declare(variableName, null);
         Visit(context.assignment());
-
-        // //The code should return the different values somehow
-        // switch (type)
-        // {
-        //     case "int":
-        //         int intVal = (int)value;
-        //         return intVal;
-        //     case "bool":
-        //         bool boolVal = (bool)value;
-        //         return boolVal;
-        //     case "string":
-        //         string stringVal = (string)value;
-        //         return stringVal;
-        //         // case "TYPEGRAPH": // TO DO implement these
-        // }
 
         return null;
     }
 
     public override object VisitAssignment(NerdyNodeParser.AssignmentContext context)
     {
-        if (scope.hasVariable(context.IDENTIFIER().GetText()))
+        if (symbolTable.Peek().hasVariable(context.IDENTIFIER().GetText()))
         {
             var variableName = context.IDENTIFIER().GetText();
             var value = Visit(context.expr());
-            scope.assign(variableName, value);
+            symbolTable.Peek().assign(variableName, value);
         }
         else
         {
@@ -120,16 +112,16 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         }
         else if (context.IDENTIFIER() != null)
         {
-            //Return value of the variable with the name of the identifier Probably not working in this state as the text is returned
-            return context.IDENTIFIER().GetText();
-
+            return symbolTable.Peek().retrieve(context.IDENTIFIER().GetText());
         }
         else if (context.numop() != null)
         {
             switch (context.numop().GetText())
             {
                 case "+":
-                    return (int)Visit(context.expr(0)) + (int)Visit(context.expr(1));
+                    var left = (int)Visit(context.expr(0));
+                    var right = (int)Visit(context.expr(1));
+                    return left + right;
                 case "-":
                     return (int)Visit(context.expr(0)) - (int)Visit(context.expr(1));
                 case "*":
@@ -160,7 +152,7 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
     {
         if (context.IDENTIFIER() != null)
         {
-            Console.WriteLine(scope.retrieve(context.IDENTIFIER().GetText()));
+            Console.WriteLine(symbolTable.Peek().retrieve(context.IDENTIFIER().GetText()));
         }
         else if (context.value() != null)
         {
