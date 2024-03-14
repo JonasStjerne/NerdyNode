@@ -62,6 +62,8 @@ NOTIN: 'not' 'in';
 
 ADDTOGRAPH: '<<';
 
+PRINT: 'print';
+
 //Asignments
 IDENTIFIER: [a-zA-Z_][a-zA-Z_0-9]*;
 //Exstra

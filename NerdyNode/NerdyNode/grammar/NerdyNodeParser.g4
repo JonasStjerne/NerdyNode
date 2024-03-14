@@ -42,3 +42,5 @@ nodeset: SETSTART identlist SETEND;
 edgeset: SETSTART identlist SETEND;
 
 identlist: IDENTIFIER | (IDENTIFIER COMMA)+;
+
+print: PRINT STRING;
