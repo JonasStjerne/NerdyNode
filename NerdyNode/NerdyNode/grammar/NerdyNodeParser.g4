@@ -43,4 +43,4 @@ edgeset: SETSTART identlist SETEND;
 
 identlist: IDENTIFIER | (IDENTIFIER COMMA)+;
 
-print: PRINT value;
+print: PRINT value | PRINT IDENTIFIER;

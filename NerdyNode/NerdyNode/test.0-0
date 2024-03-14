@@ -1,6 +1,6 @@
 begin
     int testInt = 2 + 2;
     if true begin
-        print "if statement works";
+        print testInt;
     end;
 end

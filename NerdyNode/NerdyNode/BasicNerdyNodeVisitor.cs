@@ -3,12 +3,13 @@ using Antlr4.Runtime.Misc;
 
 public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 {
-    public bool Boolean;
-    public override object VisitBool(NerdyNodeParser.BoolContext context)
-    {
-        Boolean = bool.Parse(context.GetText());
-        return Boolean;
-    }
+    // public bool Boolean;
+    // public override object VisitBool(NerdyNodeParser.BoolContext context)
+    // {
+    //     Boolean = bool.Parse(context.GetText());
+    //     return Boolean;
+    // }
+    Scope scope = new Scope();
 
     public override object VisitIfstmt(NerdyNodeParser.IfstmtContext context)
     {
@@ -22,6 +23,7 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 
     public override object VisitBlock([NotNull] NerdyNodeParser.BlockContext context)
     {
+        // Scope localScope = new Scope();
         foreach (var statement in context.statement())
         {
             Visit(statement);
@@ -32,6 +34,9 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 
     public override object VisitStatement([NotNull] NerdyNodeParser.StatementContext context)
     {
+        //get the scope of the parent
+        var scope = context
+            .GetRuleContext<NerdyNodeParser.BlockContext>(0);
         if (context.forstmt() != null)
         {
             Visit(context.forstmt());
@@ -68,11 +73,10 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 
     public override object VisitDeclaration(NerdyNodeParser.DeclarationContext context)
     {
-        Dictionary<String, dynamic> variables = new Dictionary<String, dynamic>();
-
         var type = context.type().GetText();
         var variableName = context.assignment().IDENTIFIER().GetText();
-        var value = Visit(context.assignment());
+        scope.declare(variableName, null);
+        Visit(context.assignment());
 
         // //The code should return the different values somehow
         // switch (type)
@@ -94,9 +98,17 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 
     public override object VisitAssignment(NerdyNodeParser.AssignmentContext context)
     {
-        var variableName = context.IDENTIFIER().GetText();
-        var value = Visit(context.expr());
-        Console.WriteLine($"Variable: {variableName} set to Value: {value}");
+        if (scope.hasVariable(context.IDENTIFIER().GetText()))
+        {
+            var variableName = context.IDENTIFIER().GetText();
+            var value = Visit(context.expr());
+            scope.assign(variableName, value);
+        }
+        else
+        {
+            throw new Exception("Variable not declared");
+        }
+
         return null;
     }
 
@@ -146,7 +158,14 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 
     public override object VisitPrint([NotNull] NerdyNodeParser.PrintContext context)
     {
-        Console.WriteLine(context.value().GetText().Trim('"'));
+        if (context.IDENTIFIER() != null)
+        {
+            Console.WriteLine(scope.retrieve(context.IDENTIFIER().GetText()));
+        }
+        else if (context.value() != null)
+        {
+            Console.WriteLine(Visit(context.value()));
+        }
         return null;
     }
 

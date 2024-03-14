@@ -2,12 +2,12 @@ public class Scope
 {
     public Dictionary<string, object> variables = new Dictionary<string, object>();
     private Scope? parent;
-    Scope()
+    public Scope()
     {
         this.variables = new Dictionary<string, object>();
         this.parent = null;
     }
-    Scope(Scope parent)
+    public Scope(Scope parent)
     {
         this.variables = new Dictionary<string, object>();
         this.parent = parent;
@@ -59,6 +59,22 @@ public class Scope
         else
         {
             this.variables[name] = value;
+        }
+    }
+
+    public bool hasVariable(string name)
+    {
+        if (this.variables.ContainsKey(name))
+        {
+            return true;
+        }
+        else if (this.parent != null)
+        {
+            return this.parent.hasVariable(name);
+        }
+        else
+        {
+            return false;
         }
     }
 
