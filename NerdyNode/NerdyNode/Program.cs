@@ -2,31 +2,53 @@
 using System.Text;
 using Antlr4.Runtime;
 
-Console.WriteLine("Running NerdyNode");
-
-    try
+class Program
+{
+    static void Main(string[] args)
     {
-        string input = "";
-        StringBuilder text = new StringBuilder();
-        Console.WriteLine("Input the chat.");
-        
-        // to type the EOF character and end the input: use CTRL+D, then press <enter>
-        while ((input = Console.ReadLine()) != "u0004")
+        Console.WriteLine("Running NerdyNode");
+
+        if (args.Length == 0)
         {
-            text.AppendLine(input);
+            Console.WriteLine("Please provide a file to parse.");
+            return;
         }
-        
-        AntlrInputStream inputStream = new AntlrInputStream(text.ToString());
-        NerdyNodeLexer NerdyNodeLexer = new NerdyNodeLexer(inputStream);
-        CommonTokenStream commonTokenStream = new CommonTokenStream(NerdyNodeLexer);
-        NerdyNodeParser nerdyNodeParser = new NerdyNodeParser(commonTokenStream);
 
-        NerdyNodeParser.BoolContext boolContext = nerdyNodeParser.@bool();
-        BasicNerdyNodeVisitor visitor = new BasicNerdyNodeVisitor();   
-        visitor.Visit(boolContext);
-        Console.WriteLine(visitor.Boolean);
+        string filePath = args[0];
+        // Check if the file exists
+        if (!File.Exists(filePath))
+        {
+            Console.WriteLine("File does not exist.");
+            return;
+        }
+
+        string fileContents = "";
+
+        try
+        {
+            fileContents = File.ReadAllText(filePath);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error reading the file: {ex.Message}");
+        }
+
+        try
+        {
+
+            AntlrInputStream inputStream = new AntlrInputStream(fileContents);
+            NerdyNodeLexer NerdyNodeLexer = new NerdyNodeLexer(inputStream);
+            CommonTokenStream commonTokenStream = new CommonTokenStream(NerdyNodeLexer);
+            NerdyNodeParser nerdyNodeParser = new NerdyNodeParser(commonTokenStream);
+
+            NerdyNodeParser.BoolContext boolContext = nerdyNodeParser.@bool();
+            BasicNerdyNodeVisitor visitor = new BasicNerdyNodeVisitor();
+            visitor.Visit(boolContext);
+            Console.WriteLine(visitor.Boolean);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: " + ex);
+        }
     }
-    catch (Exception ex)
-    {
-        Console.WriteLine("Error: " + ex);                
-    }
+}
