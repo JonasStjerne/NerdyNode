@@ -7,7 +7,7 @@ program: block EOF;
 
 block: BEGIN (statement SEMI)* END;
 
-statement: forstmt | ifstmt | declaration | assignment;
+statement: forstmt | ifstmt | declaration | assignment | print;
 
 forstmt: FOR IDENTIFIER IN list block;
 
