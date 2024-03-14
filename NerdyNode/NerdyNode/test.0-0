@@ -1,3 +1,6 @@
-if (true) {
-    print("if statement works");
-}
+begin
+    int testInt = 2 + 2;
+    if true begin
+        print "if statement works";
+    end;
+end

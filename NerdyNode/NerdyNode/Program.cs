@@ -41,10 +41,9 @@ class Program
             CommonTokenStream commonTokenStream = new CommonTokenStream(NerdyNodeLexer);
             NerdyNodeParser nerdyNodeParser = new NerdyNodeParser(commonTokenStream);
 
-            NerdyNodeParser.BoolContext boolContext = nerdyNodeParser.@bool();
+            NerdyNodeParser.BlockContext blockContext = nerdyNodeParser.block();
             BasicNerdyNodeVisitor visitor = new BasicNerdyNodeVisitor();
-            visitor.Visit(boolContext);
-            Console.WriteLine(visitor.Boolean);
+            visitor.Visit(blockContext);
         }
         catch (Exception ex)
         {
