@@ -48,8 +48,9 @@ SUPSET=47
 SUPERSET=48
 NOTIN=49
 ADDTOGRAPH=50
-IDENTIFIER=51
-WS=52
+PRINT=51
+IDENTIFIER=52
+WS=53
 '='=1
 ';'=2
 ':'=3
@@ -97,3 +98,4 @@ WS=52
 'subset'=47
 'superset'=48
 '<<'=50
+'print'=51

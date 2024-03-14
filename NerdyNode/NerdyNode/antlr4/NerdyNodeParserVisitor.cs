@@ -139,4 +139,10 @@ public interface INerdyNodeParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitIdentlist([NotNull] NerdyNodeParser.IdentlistContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="NerdyNodeParser.print"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPrint([NotNull] NerdyNodeParser.PrintContext context);
 }
