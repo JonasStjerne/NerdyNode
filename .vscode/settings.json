@@ -3,6 +3,7 @@
 		"mode": "external",
 		"language": "CSharp",
 		"listeners": false,
-		"visitors": true
+		"visitors": true,
+		"outputDir": "../antlr4"
 	}
 }
