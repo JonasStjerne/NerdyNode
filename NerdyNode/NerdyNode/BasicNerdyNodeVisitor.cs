@@ -68,6 +68,8 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 
     public override object VisitDeclaration(NerdyNodeParser.DeclarationContext context)
     {
+        Dictionary<String, dynamic> variables = new Dictionary<String, dynamic>();
+
         var type = context.type().GetText();
         var variableName = context.assignment().IDENTIFIER().GetText();
         var value = Visit(context.assignment());
@@ -144,7 +146,7 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 
     public override object VisitPrint([NotNull] NerdyNodeParser.PrintContext context)
     {
-        Console.WriteLine(context.STRING().GetText().Trim('"'));
+        Console.WriteLine(context.value().GetText().Trim('"'));
         return null;
     }
 
