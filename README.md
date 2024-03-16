@@ -41,18 +41,37 @@ end
 
 ```
 begin
+    int width = 10;
+    int height = 10;
     graph latticeGraph = Graph;
-    for y in [0..height] begin
-        for x in [0..width] begin
+    for y in [1..height] begin
+        for x in [1..width] begin
             node newNode = Node(x+","+y);
             latticeGraph.addNode(newNode)
-            if x > 0 begin
+            if x > 1 begin
                 newNode <--> latticeGraph.getNodeByLabel(x-1+","+y);
             end;
-            if y > 0 begin
+            if y > 1 begin
                 newNode <--> latticeGraph.getNodeByLabel(x+","+y-1);
             end;
         end;
+    end;
+end
+```
+
+### Binary Tree
+
+```
+begin
+    int depth = 4;
+    graph binaryTree = Graph
+    node initialNode = node("1");
+    for i in [2..depth] begin
+        graph left = binaryTree;
+        graph right = binaryTree.copy();
+        binaryTree = left union right;
+        node newRootNode = Node(i);
+        binaryTree.addNode(newRootNode, i-1)
     end;
 end
 ```
