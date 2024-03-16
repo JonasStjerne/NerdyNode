@@ -40,6 +40,7 @@ end
 ### Lattice graph
 
 ````
+begin
     graph latticeGraph = Graph;
     for y in [0..height] begin
         for x in [0..width] begin
