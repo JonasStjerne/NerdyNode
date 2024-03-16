@@ -71,7 +71,8 @@ begin
         graph right = binaryTree.copy();
         binaryTree = left union right;
         node newRootNode = Node(i);
-        binaryTree.addNode(newRootNode, i-1)
+        binaryTree.addNode(newRootNode);
+        newRootNode --> binaryTree.getNodes(i-1);
     end;
 end
 ```
