@@ -11,6 +11,12 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         symbolTable.Push(globalScope);
     }
 
+    public override object VisitProgram([NotNull] NerdyNodeParser.ProgramContext context)
+    {
+        Visit(context.block());
+        return null;
+    }
+
     public override object VisitIfstmt(NerdyNodeParser.IfstmtContext context)
     {
         var condition = (bool)Visit(context.expr());
@@ -119,9 +125,7 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
             switch (context.numop().GetText())
             {
                 case "+":
-                    var left = (int)Visit(context.expr(0));
-                    var right = (int)Visit(context.expr(1));
-                    return left + right;
+                    return (int)Visit(context.expr(0)) + (int)Visit(context.expr(1));
                 case "-":
                     return (int)Visit(context.expr(0)) - (int)Visit(context.expr(1));
                 case "*":
@@ -175,7 +179,17 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         {
             return context.STRING().GetText().Trim('"');
         }
+        else if (context.graph() != null)
+        {
+            return Visit(context.graph());
+        }
         return null;
+    }
+
+    public override object VisitGraph([NotNull] NerdyNodeParser.GraphContext context)
+    {
+
+        return base.VisitGraph(context);
     }
 
 }

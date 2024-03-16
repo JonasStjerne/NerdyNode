@@ -1,6 +1,6 @@
 public class Scope
 {
-    public Dictionary<string, object> variables = new Dictionary<string, object>();
+    private Dictionary<string, object> variables = new Dictionary<string, object>();
     private Scope? parent;
     public Scope()
     {
