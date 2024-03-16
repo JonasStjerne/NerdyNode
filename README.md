@@ -13,9 +13,9 @@ The next big thing in the world of unwanted programming languages
 
 ## Development
 
-- Follow the getting started guide for antlr4 [here](https://github.com/antlr/antlr4/blob/master/doc/getting-started.md).
+-   Follow the getting started guide for antlr4 [here](https://github.com/antlr/antlr4/blob/master/doc/getting-started.md).
 
-- Download Visual Studio Code extension [here](https://marketplace.visualstudio.com/items?itemName=mike-lischke.vscode-antlr4).
+-   Download Visual Studio Code extension [here](https://marketplace.visualstudio.com/items?itemName=mike-lischke.vscode-antlr4).
 
 ## Examples
 
@@ -36,3 +36,23 @@ begin
     print "nej";
 end
 ```
+
+### Lattice graph
+
+````
+    graph latticeGraph = Graph;
+    for y in [0..height] begin
+        for x in [0..width] begin
+            node newNode = Node(x+","+y);
+            latticeGraph.addNode(newNode)
+            if x > 0 begin
+                newNode <--> latticeGraph.getNodeByLabel(x-1+","+y);
+            end;
+            if y > 0 begin
+                newNode <--> latticeGraph.getNodeByLabel(x+","+y-1);
+            end;
+        end;
+    end;
+end
+```
+````
