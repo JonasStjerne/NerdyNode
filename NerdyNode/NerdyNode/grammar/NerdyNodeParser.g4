@@ -2,45 +2,83 @@ parser grammar NerdyNodeParser;
 options {
 	tokenVocab = NerdyNodeLexer;
 }
-
 program: block EOF;
 
 block: BEGIN (statement SEMI)* END;
 
-statement: forstmt | ifstmt | declaration | assignment | print;
+statement:
+	forstmt
+	| ifstmt
+	| declaration
+	| assignment
+	| funccall
+	| print;
 
 forstmt: FOR IDENTIFIER IN list block;
 
-ifstmt: IF expr block;
+ifstmt: IF expr block (ELSE block)?;
 
 declaration: type assignment;
 
 assignment: IDENTIFIER EQ expr;
 
-type: | TYPEINT | TYPESTRING | TYPEBOOL | TYPEGRAPH;
+type:
+	TYPEINT
+	| TYPESTRING
+	| TYPEBOOL
+	| TYPENODE
+	| TYPEEDGE
+	| TYPEGRAPH
+	| TYPENODESET
+	| TYPEEDGESET;
 
 expr:
 	value
 	| IDENTIFIER
+	| funccall
 	| expr numop expr
 	| expr boolop expr
-	| PARANSTART expr PARANEND;
+	| expr graphop expr
+	| PARANSTART expr PARANEND
+	| LISTSTART expr LISTEND
+	| SETSTART IDENTIFIER arrow IDENTIFIER SETEND;
 
-value: | INT | STRING | bool | graph | nodeset | edgeset;
+value: INT | STRING | bool | graph | nodeset | edgeset;
 
 bool: TRUE | FALSE;
 
-list: LISTSTART expr ELLIPSIS expr LISTEND;
+arrow: RIGHTDIRECTION | LEFTDIRECTION | UNDIRECTED;
+
+list:
+	LISTSTART expr ELLIPSIS expr LISTEND
+	| nodeset
+	| edgeset
+	| IDENTIFIER;
 
 numop: PLUS | MINUS | DIVIDE | TIMES | MODOLUS;
 
-boolop: EQUALS;
+boolop:
+	EQUALS
+	| NOTEQUAL
+	| LESSEQUAL
+	| GRATEREQUAL
+	| LESSTHAN
+	| GREATERTHAN
+	| AND
+	| OR;
+
+graphop: UNION;
 
 graph: PARANSTART nodeset COMMA edgeset PARANEND;
 
 nodeset: SETSTART identlist SETEND;
 edgeset: SETSTART identlist SETEND;
 
-identlist: IDENTIFIER | (IDENTIFIER COMMA)+;
+identlist: IDENTIFIER? | (IDENTIFIER COMMA)+;
 
-print: PRINT value | PRINT IDENTIFIER;
+funccall:
+	IDENTIFIER DOT IDENTIFIER PARANSTART paramlist PARANEND;
+
+paramlist: expr? | (expr COMMA)+;
+
+print: PRINT expr;

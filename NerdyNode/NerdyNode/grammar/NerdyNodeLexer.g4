@@ -4,6 +4,7 @@ lexer grammar NerdyNodeLexer;
 EQ: '=';
 SEMI: ';';
 COL: ':';
+DOT: '.';
 BEGIN: 'begin';
 END: 'end';
 LISTSTART: '[';
@@ -18,10 +19,12 @@ LABEL: '"';
 
 //Types
 TYPEINT: 'int';
-INT: [0-9]+;
 TYPESTRING: 'string';
-STRING: '"' .*? '"';
 TYPEBOOL: 'boolean';
+
+//values:
+INT: [0-9]+;
+STRING: '"' .*? '"';
 TRUE: 'true';
 FALSE: 'false';
 
@@ -29,17 +32,23 @@ FALSE: 'false';
 TYPEGRAPH: 'graph';
 TYPENODE: 'node';
 TYPEEDGE: 'edge';
+TYPENODESET: 'nodeset';
+TYPEEDGESET: 'edgeset';
 
+// Program constructs
 FOR: 'for';
-FOREACH: 'foreach';
+IN: 'in';
 IF: 'if';
+ELSE: 'else';
 
-//Operators
+//Numop
 PLUS: '+';
 MINUS: '-';
 DIVIDE: '/';
 TIMES: '*';
 MODOLUS: '%';
+
+//Boolop
 EQUALS: '==';
 NOTEQUAL: '/=';
 LESSEQUAL: '<=';
@@ -48,23 +57,19 @@ LESSTHAN: '<';
 GREATERTHAN: '>';
 AND: '&&';
 OR: '||';
-NOT: 'not';
-IN: 'in';
 
 //Graph operators
 UNION: 'union';
-INTERSECTION: 'inter';
-COMPLIMENT: '\\';
-CARTESIANPRODUCT: 'product';
-SUPSET: 'subset';
-SUPERSET: 'superset';
-NOTIN: 'not' 'in';
+//INTERSECTION: 'inter'; COMPLIMENT: '\\'; CARTESIANPRODUCT: 'product'; SUPSET: 'subset'; SUPERSET:
+// 'superset';
 
-ADDTOGRAPH: '<<';
+RIGHTDIRECTION: '->';
+LEFTDIRECTION: '<-';
+UNDIRECTED: '<->';
 
 PRINT: 'print';
-
-//Asignments
 IDENTIFIER: [a-zA-Z_][a-zA-Z_0-9]*;
-//Exstra
+
 WS: [ \t\n\r\f]+ -> skip;
+COMMENT: '//' ~[\n]* -> skip;
+BLOCKCOMMENT: '/*' (.)*? '*/' -> skip;
