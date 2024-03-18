@@ -74,7 +74,7 @@ graph: PARANSTART nodeset COMMA edgeset PARANEND;
 nodeset: SETSTART identlist SETEND;
 edgeset: SETSTART identlist SETEND;
 
-identlist: (IDENTIFIER COMMA)* IDENTIFIER?;
+identlist: IDENTIFIER? | (IDENTIFIER COMMA)+ IDENTIFIER;
 
 funccall:
 	IDENTIFIER DOT IDENTIFIER PARANSTART paramlist PARANEND
