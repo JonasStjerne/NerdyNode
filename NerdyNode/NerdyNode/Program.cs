@@ -6,12 +6,11 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Running NerdyNode");
 
         if (args.Length == 0)
         {
-            Console.WriteLine("Please provide a file to parse.");
-            return;
+            Console.WriteLine("No path to file provided. Defaulting to test.0-0");
+            args = new string[] { "test.0-0" };
         }
 
         string filePath = args[0];
@@ -41,9 +40,9 @@ class Program
             CommonTokenStream commonTokenStream = new CommonTokenStream(NerdyNodeLexer);
             NerdyNodeParser nerdyNodeParser = new NerdyNodeParser(commonTokenStream);
 
-            NerdyNodeParser.BlockContext blockContext = nerdyNodeParser.block();
+            NerdyNodeParser.ProgramContext programContext = nerdyNodeParser.program();
             BasicNerdyNodeVisitor visitor = new BasicNerdyNodeVisitor();
-            visitor.Visit(blockContext);
+            visitor.Visit(programContext);
         }
         catch (Exception ex)
         {
