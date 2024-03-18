@@ -80,9 +80,14 @@ identlist: IDENTIFIER? | (IDENTIFIER COMMA)+ IDENTIFIER;
 funccall:
 	IDENTIFIER DOT IDENTIFIER PARANSTART paramlist PARANEND;
 
-graphfunc:
-	(IDENTIFIER | funccall) ADDEDGETOGRAPH (IDENTIFIER | funccall);
+paramlist: expr? | (expr COMMA)+ expr;
 
-paramlist: expr? | (expr COMMA)* expr;
+graphfunc:
+	(IDENTIFIER | funccall) addtograph (IDENTIFIER | funccall);
+
+addtograph:
+	ADDUNDIRECTED
+	| ADDLEFTDIRECTION
+	| ADDRIGHTDIRECTION;
 
 print: PRINT expr;
