@@ -81,10 +81,7 @@ funccall:
 	IDENTIFIER DOT IDENTIFIER PARANSTART paramlist PARANEND;
 
 graphfunc:
-	IDENTIFIER ADDEDGETOGRAPH funccall
-	| funccall ADDEDGETOGRAPH IDENTIFIER
-	| funccall ADDEDGETOGRAPH funccall
-	| IDENTIFIER ADDEDGETOGRAPH IDENTIFIER;
+	(IDENTIFIER | funccall) ADDEDGETOGRAPH (IDENTIFIER | funccall);
 
 paramlist: expr? | (expr COMMA)* expr;
 

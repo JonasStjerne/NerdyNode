@@ -21,7 +21,7 @@ public class Graph
 
     public override string ToString()
     {
-        
-        return "Graph: " + string.Join(", ", nodes);
+
+        return "Graph: " + string.Join("| |", nodes);
     }
 }
