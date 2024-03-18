@@ -2,7 +2,7 @@ public class Node
 {
     string? label;
     List<Edge> edges;
-    public Node(string? label, List<Edge>? edges)
+    public Node(string? label, List<Edge>? edges = null)
     {
         if (edges == null)
         {

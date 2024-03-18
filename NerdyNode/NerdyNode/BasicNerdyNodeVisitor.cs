@@ -78,10 +78,10 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         symbolTable.Push(forLoopWrapperScope);
         var start = (int)Visit(context.list().expr(0));
         var end = (int)Visit(context.list().expr(1));
-        forLoopWrapperScope.declare(context.IDENTIFIER().GetText(), null);
+        forLoopWrapperScope.Declare(context.IDENTIFIER().GetText(), null);
         for (int i = start; i <= end; i++)
         {
-            forLoopWrapperScope.assign(context.IDENTIFIER().GetText(), i);
+            forLoopWrapperScope.Assign(context.IDENTIFIER().GetText(), i);
             Visit(context.block());
         }
         symbolTable.Pop();
@@ -92,7 +92,7 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
     {
         var type = context.type().GetText();
         var variableName = context.assignment().IDENTIFIER().GetText();
-        symbolTable.Peek().declare(variableName, null);
+        symbolTable.Peek().Declare(variableName, null);
         Visit(context.assignment());
 
         return null;
@@ -100,11 +100,11 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 
     public override object VisitAssignment(NerdyNodeParser.AssignmentContext context)
     {
-        if (symbolTable.Peek().hasVariable(context.IDENTIFIER().GetText()))
+        if (symbolTable.Peek().HasVariable(context.IDENTIFIER().GetText()))
         {
             var variableName = context.IDENTIFIER().GetText();
             var value = Visit(context.expr());
-            symbolTable.Peek().assign(variableName, value);
+            symbolTable.Peek().Assign(variableName, value);
         }
         else
         {
@@ -130,7 +130,7 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         }
         else if (context.IDENTIFIER(0) != null)
         {
-            return symbolTable.Peek().retrieve(context.IDENTIFIER(0).GetText());
+            return symbolTable.Peek().Retrieve(context.IDENTIFIER(0).GetText());
         }
         else if (context.numop() != null)
         {
@@ -159,6 +159,12 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         else if (context.PARANSTART() != null)
         {
             return Visit(context.expr(0));
+        }
+        else if (context.LABEL() != null)
+        {
+            var label = Visit(context.expr(0)).ToString();
+            var node = new Node(label);
+            return node;
         }
 
         return null;
@@ -210,11 +216,21 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
     public override object VisitNodeset([NotNull] NerdyNodeParser.NodesetContext context)
     {
         var nodes = new List<Node>();
-        foreach (var node in context.identlist().IDENTIFIER().ToList())
+        foreach (var identifier in context.identlist().IDENTIFIER())
         {
-            nodes.Add((Node)Visit(node));
+            var identifierName = identifier.GetText();
+            var value = symbolTable.Peek().Retrieve(identifierName);
+            if (value is Node)
+            {
+                nodes.Add((Node)value);
+            }
+            else
+            {
+                throw new Exception("Object in nodeset is not a node");
+            }
         }
         return nodes;
     }
+
 
 }

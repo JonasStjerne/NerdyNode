@@ -18,4 +18,10 @@ public class Graph
     {
         return nodes;
     }
+
+    public override string ToString()
+    {
+        
+        return "Graph: " + string.Join(", ", nodes);
+    }
 }

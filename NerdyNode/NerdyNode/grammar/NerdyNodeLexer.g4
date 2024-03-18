@@ -15,7 +15,7 @@ PARANSTART: '(';
 PARANEND: ')';
 COMMA: ',';
 ELLIPSIS: '..';
-LABEL: '"';
+LABEL: '|';
 
 //Types
 TYPEINT: 'int';

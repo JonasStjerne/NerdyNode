@@ -18,7 +18,7 @@ public class Scope
         return new Scope(this);
     }
 
-    public object retrieve(string name)
+    public object Retrieve(string name)
     {
         if (this.variables.ContainsKey(name))
         {
@@ -26,7 +26,7 @@ public class Scope
         }
         else if (this.parent != null)
         {
-            return this.parent.retrieve(name);
+            return this.parent.Retrieve(name);
         }
         else
         {
@@ -34,7 +34,7 @@ public class Scope
         }
     }
 
-    public void assign(string name, object value)
+    public void Assign(string name, object value)
     {
         if (this.variables.ContainsKey(name))
         {
@@ -42,7 +42,7 @@ public class Scope
         }
         else if (this.parent != null)
         {
-            this.parent.assign(name, value);
+            this.parent.Assign(name, value);
         }
         else
         {
@@ -50,7 +50,7 @@ public class Scope
         }
     }
 
-    public void declare(string name, object value)
+    public void Declare(string name, object value)
     {
         if (this.variables.ContainsKey(name))
         {
@@ -62,7 +62,7 @@ public class Scope
         }
     }
 
-    public bool hasVariable(string name)
+    public bool HasVariable(string name)
     {
         if (this.variables.ContainsKey(name))
         {
@@ -70,7 +70,7 @@ public class Scope
         }
         else if (this.parent != null)
         {
-            return this.parent.hasVariable(name);
+            return this.parent.HasVariable(name);
         }
         else
         {
