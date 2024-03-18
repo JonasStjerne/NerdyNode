@@ -82,6 +82,6 @@ funccall:
 	| funccall ADDEDGETOGRAPH funccall
 	| IDENTIFIER ADDEDGETOGRAPH IDENTIFIER;
 
-paramlist: (expr COMMA)* expr?;
+paramlist: expr? | (expr COMMA)* expr;
 
 print: PRINT expr;
