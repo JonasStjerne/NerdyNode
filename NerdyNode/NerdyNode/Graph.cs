@@ -8,20 +8,31 @@ public class Graph
     }
     public void AddNode(Node node)
     {
+        node.graph = this;
         nodes.Add(node);
     }
     public void RemoveNode(Node node)
     {
+        node.graph = null;
         nodes.Remove(node);
     }
-    public List<Node> GetNodes()
+    public Node GetNode(string label)
     {
-        return nodes;
+        var node = nodes.Find(n => n.GetLabel() == label);
+        return node;
     }
 
     public override string ToString()
     {
 
-        return "Graph: " + string.Join("| |", nodes);
+        return "Graph: |" + string.Join("| |", nodes) + "|";
+    }
+
+    public void PrintEdges()
+    {
+        foreach (var node in nodes)
+        {
+            Console.WriteLine(node.GetLabel() + " -> " + string.Join(", ", node.GetEdges().Select(e => e.GetEndNode().GetLabel()).ToArray()));
+        }
     }
 }

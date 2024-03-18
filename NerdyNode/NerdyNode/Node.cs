@@ -1,6 +1,7 @@
 public class Node
 {
     string? label;
+    public Graph? graph;
     List<Edge> edges;
     public Node(string? label, List<Edge>? edges = null)
     {
@@ -14,25 +15,25 @@ public class Node
         }
         this.label = label;
     }
-    public void addEdge(Edge edge)
+    public void AddEdge(Edge edge)
     {
         edges.Add(edge);
     }
-    public void removeEdge(Edge edge)
+    public void RemoveEdge(Edge edge)
     {
         edges.Remove(edge);
     }
-    public List<Edge> getEdges()
+    public List<Edge> GetEdges()
     {
         return edges;
     }
 
 
-    public string? getLabel()
+    public string? GetLabel()
     {
         return label;
     }
-    public void setLabel(string? label)
+    public void SetLabel(string? label)
     {
         this.label = label;
     }

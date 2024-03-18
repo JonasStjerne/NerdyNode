@@ -69,6 +69,14 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         {
             Visit(context.print());
         }
+        else if (context.funccall() != null)
+        {
+            Visit(context.funccall());
+        }
+        else if (context.graphfunc() != null)
+        {
+            Visit(context.graphfunc());
+        }
         return null;
     }
 
@@ -137,6 +145,12 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
             switch (context.numop().GetText())
             {
                 case "+":
+                    var left = Visit(context.expr(0));
+                    var right = Visit(context.expr(1));
+                    if (left is string || right is string)
+                    {
+                        return left.ToString() + right.ToString();
+                    }
                     return (int)Visit(context.expr(0)) + (int)Visit(context.expr(1));
                 case "-":
                     return (int)Visit(context.expr(0)) - (int)Visit(context.expr(1));
@@ -154,11 +168,26 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
             {
                 case "==":
                     return (int)Visit(context.expr(0)) == (int)Visit(context.expr(1));
+                case "!=":
+                    return (int)Visit(context.expr(0)) != (int)Visit(context.expr(1));
+                case ">":
+                    return (int)Visit(context.expr(0)) > (int)Visit(context.expr(1));
+                case "<":
+                    return (int)Visit(context.expr(0)) < (int)Visit(context.expr(1));
+                case ">=":
+                    return (int)Visit(context.expr(0)) >= (int)Visit(context.expr(1));
+                case "<=":
+                    return (int)Visit(context.expr(0)) <= (int)Visit(context.expr(1));
             }
         }
         else if (context.PARANSTART() != null)
         {
             return Visit(context.expr(0));
+        }
+        else if (context.funccall() != null)
+        {
+            var result = Visit(context.funccall());
+            return result;
         }
         else if (context.LABEL() != null)
         {
@@ -232,5 +261,65 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         return nodes;
     }
 
+    public override object VisitFunccall([NotNull] NerdyNodeParser.FunccallContext context)
+    {
+        var value = symbolTable.Peek().Retrieve(context.IDENTIFIER(0).GetText());
+        var method = context.IDENTIFIER(1).GetText();
+        var methodInfo = value.GetType().GetMethod(method);
+        if (methodInfo != null)
+        {
+            var parameters = new List<object>();
+            if (context.paramlist() != null)
+            {
+                foreach (var expr in context.paramlist().expr())
+                {
+                    parameters.Add(Visit(expr));
+                }
+            }
+            return methodInfo.Invoke(value, parameters.ToArray());
+        }
+        else
+        {
+            throw new Exception("Method not found");
+        }
+    }
+
+    public override object VisitGraphfunc([NotNull] NerdyNodeParser.GraphfuncContext context)
+    {
+        var left = context.IDENTIFIER(0) == null ? VisitFunccall(context.funccall(0)) : symbolTable.Peek().Retrieve(context.IDENTIFIER(0).GetText());
+        if (!(left is Node))
+        {
+            throw new Exception("Left side of graph function is not a node");
+        }
+        var right = context.IDENTIFIER(1) == null ? VisitFunccall(context.funccall(1)) : symbolTable.Peek().Retrieve(context.IDENTIFIER(1).GetText());
+        if (!(right is Node))
+        {
+            throw new Exception("Right side of graph function is not a node");
+        }
+        if (((Node)left).graph != ((Node)right).graph)
+        {
+            throw new Exception("Nodes are not in the same graph");
+        }
+
+        switch (context.addtograph().GetText())
+        {
+            case "<-->":
+                var toRight1 = new Edge((Node)right);
+                ((Node)left).AddEdge(toRight1);
+                var toLeft1 = new Edge((Node)left);
+                ((Node)right).AddEdge(toLeft1);
+                break;
+            case "-->":
+                var toRight2 = new Edge((Node)right);
+                ((Node)left).AddEdge(toRight2);
+                break;
+            case "<--":
+                var toLeft3 = new Edge((Node)left);
+                ((Node)right).AddEdge(toLeft3);
+                break;
+        }
+
+        return null;
+    }
 
 }
