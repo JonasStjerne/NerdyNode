@@ -12,6 +12,7 @@ statement:
 	| declaration
 	| assignment
 	| funccall
+	| graphfunc
 	| print;
 
 forstmt: FOR IDENTIFIER IN list block;
@@ -77,8 +78,11 @@ edgeset: SETSTART identlist SETEND;
 identlist: IDENTIFIER? | (IDENTIFIER COMMA)+ IDENTIFIER;
 
 funccall:
-	IDENTIFIER DOT IDENTIFIER PARANSTART paramlist PARANEND
-	| IDENTIFIER ADDEDGETOGRAPH funccall
+	IDENTIFIER DOT IDENTIFIER PARANSTART paramlist PARANEND;
+
+graphfunc:
+	IDENTIFIER ADDEDGETOGRAPH funccall
+	| funccall ADDEDGETOGRAPH IDENTIFIER
 	| funccall ADDEDGETOGRAPH funccall
 	| IDENTIFIER ADDEDGETOGRAPH IDENTIFIER;
 
