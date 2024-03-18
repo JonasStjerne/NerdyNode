@@ -40,7 +40,7 @@ expr:
 	| expr boolop expr
 	| expr graphop expr
 	| PARANSTART expr PARANEND
-	| LISTSTART expr LISTEND
+	| LABEL expr LABEL
 	| SETSTART IDENTIFIER arrow IDENTIFIER SETEND;
 
 value: INT | STRING | bool | graph | nodeset | edgeset;
@@ -77,7 +77,10 @@ edgeset: SETSTART identlist SETEND;
 identlist: IDENTIFIER? | (IDENTIFIER COMMA)+;
 
 funccall:
-	IDENTIFIER DOT IDENTIFIER PARANSTART paramlist PARANEND;
+	IDENTIFIER DOT IDENTIFIER PARANSTART paramlist PARANEND
+	| IDENTIFIER ADDEDGETOGRAPH funccall
+	| funccall ADDEDGETOGRAPH funccall
+	| IDENTIFIER ADDEDGETOGRAPH IDENTIFIER;
 
 paramlist: expr? | (expr COMMA)+;
 

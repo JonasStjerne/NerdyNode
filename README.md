@@ -82,7 +82,7 @@ end
 ```
 begin
     int depth = 4;
-    node initialNode = [1];
+    node initialNode = "1";
     graph binaryTree = ({initialNode},{});
     for i in [2..depth] begin
         graph left = binaryTree;
@@ -99,7 +99,7 @@ begin
 end
 ```
 
-### Lattice graph
+### Lattice graph 2.0
 
 ```
 // Lattice graph 10x10
