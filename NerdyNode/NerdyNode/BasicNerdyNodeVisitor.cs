@@ -22,7 +22,11 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         var condition = (bool)Visit(context.expr());
         if (condition)
         {
-            Visit(context.block());
+            Visit(context.block(0));
+        }
+        else if (context.block(1) != null)
+        {
+            Visit(context.block(1));
         }
         return null;
     }
@@ -116,9 +120,17 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         {
             return Visit(context.value());
         }
-        else if (context.IDENTIFIER() != null)
+        else if (context.arrow() != null)
         {
-            return symbolTable.Peek().retrieve(context.IDENTIFIER().GetText());
+            // var graph = (Graph)Visit(context.graph());
+            // var start = (Node)Visit(context.identlist().IDENTIFIER(0));
+            // var end = (Node)Visit(context.identlist().IDENTIFIER(1));
+            // return graph.FindPath(start, end);
+            throw new NotImplementedException();
+        }
+        else if (context.IDENTIFIER(0) != null)
+        {
+            return symbolTable.Peek().retrieve(context.IDENTIFIER(0).GetText());
         }
         else if (context.numop() != null)
         {
@@ -154,13 +166,11 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 
     public override object VisitPrint([NotNull] NerdyNodeParser.PrintContext context)
     {
-        if (context.IDENTIFIER() != null)
+
+        if (context.expr() != null)
         {
-            Console.WriteLine(symbolTable.Peek().retrieve(context.IDENTIFIER().GetText()));
-        }
-        else if (context.value() != null)
-        {
-            Console.WriteLine(Visit(context.value()));
+            var eval = Visit(context.expr());
+            Console.WriteLine(eval);
         }
         return null;
     }
@@ -188,8 +198,23 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 
     public override object VisitGraph([NotNull] NerdyNodeParser.GraphContext context)
     {
+        var graph = new Graph();
+        var nodes = (List<Node>)Visit(context.nodeset());
+        foreach (var node in nodes)
+        {
+            graph.AddNode(node);
+        }
+        return graph;
+    }
 
-        return base.VisitGraph(context);
+    public override object VisitNodeset([NotNull] NerdyNodeParser.NodesetContext context)
+    {
+        var nodes = new List<Node>();
+        foreach (var node in context.identlist().IDENTIFIER().ToList())
+        {
+            nodes.Add((Node)Visit(node));
+        }
+        return nodes;
     }
 
 }

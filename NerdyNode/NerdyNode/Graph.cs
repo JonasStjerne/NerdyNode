@@ -6,15 +6,15 @@ public class Graph
     {
         nodes = new List<Node>();
     }
-    public void addNode(Node node)
+    public void AddNode(Node node)
     {
         nodes.Add(node);
     }
-    public void removeNode(Node node)
+    public void RemoveNode(Node node)
     {
         nodes.Remove(node);
     }
-    public List<Node> getNodes()
+    public List<Node> GetNodes()
     {
         return nodes;
     }
