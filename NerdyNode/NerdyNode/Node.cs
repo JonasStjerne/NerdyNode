@@ -3,7 +3,7 @@ public class Node
     string? label;
     public Graph? graph;
     List<Edge> edges;
-    public Node(string? label, List<Edge>? edges = null)
+    public Node(string? label, Graph? graph = null, List<Edge>? edges = null)
     {
         if (edges == null)
         {
@@ -14,6 +14,7 @@ public class Node
             this.edges = edges;
         }
         this.label = label;
+        this.graph = graph;
     }
     public void AddEdge(Edge edge)
     {

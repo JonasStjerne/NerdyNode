@@ -1,7 +1,7 @@
 public class Edge
 {
     Node endNode { get; }
-    int? weight { get; }
+    public int? weight { get; }
     public Edge(Node endNode, int? weight = null)
     {
         this.endNode = endNode;
