@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using Antlr4.Runtime.Misc;
+using Microsoft.VisualBasic;
 
 public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 {
@@ -98,11 +99,15 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 
     public override object VisitDeclaration(NerdyNodeParser.DeclarationContext context)
     {
-        var type = context.type().GetText();
+        var type = Visit(context.type());
         var variableName = context.assignment().IDENTIFIER().GetText();
         symbolTable.Peek().Declare(variableName, null);
         Visit(context.assignment());
-
+        var value = symbolTable.Peek().Retrieve(variableName);
+        if (value.GetType() != type)
+        {
+            throw new Exception("Type mismatch in declaration");
+        }
         return null;
     }
 
@@ -180,6 +185,23 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
                     return (int)Visit(context.expr(0)) <= (int)Visit(context.expr(1));
             }
         }
+        else if (context.graphop() != null)
+        {
+            var left = Visit(context.expr(0));
+            var right = Visit(context.expr(1));
+            if (left is Graph && right is Graph)
+            {
+                switch (context.graphop().GetText())
+                {
+                    case "union":
+                        return ((Graph)left).Union((Graph)right);
+                }
+            }
+            else
+            {
+                throw new Exception("Both sides of graph operation must be a graph");
+            }
+        }
         else if (context.PARANSTART() != null)
         {
             return Visit(context.expr(0));
@@ -228,6 +250,14 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         {
             return Visit(context.graph());
         }
+        else if (context.nodeset() != null)
+        {
+            return Visit(context.nodeset());
+        }
+        // else if (context.edg() != null)
+        // {
+        //     return symbolTable.Peek().Retrieve(context.IDENTIFIER().GetText());
+        // }
         return null;
     }
 
@@ -280,7 +310,7 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         }
         else
         {
-            throw new Exception("Method not found");
+            throw new Exception("Method " + method + " not found on the value " + context.IDENTIFIER(0).GetText() + " of type " + value.GetType().Name);
         }
     }
 
@@ -319,6 +349,40 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
                 break;
         }
 
+        return null;
+    }
+
+    //map types from antlr to c# types
+    public override object VisitType([NotNull] NerdyNodeParser.TypeContext context)
+    {
+        if (context.TYPEINT() != null)
+        {
+            return typeof(int);
+        }
+        else if (context.TYPESTRING() != null)
+        {
+            return typeof(string);
+        }
+        else if (context.TYPEBOOL() != null)
+        {
+            return typeof(bool);
+        }
+        else if (context.TYPEGRAPH() != null)
+        {
+            return typeof(Graph);
+        }
+        else if (context.TYPENODE() != null)
+        {
+            return typeof(Node);
+        }
+        else if (context.TYPEEDGE() != null)
+        {
+            return typeof(Edge);
+        }
+        else if (context.TYPENODESET() != null)
+        {
+            return typeof(List<Node>);
+        }
         return null;
     }
 
