@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Diagnostics;
+using System.Runtime.InteropServices.Marshalling;
 using System.Security.Cryptography.X509Certificates;
 using Antlr4.Runtime.Misc;
 using Microsoft.VisualBasic;
@@ -85,15 +87,30 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
     {
         Scope forLoopWrapperScope = new Scope(symbolTable.Peek());
         symbolTable.Push(forLoopWrapperScope);
-        var start = (int)Visit(context.list().expr(0));
-        var end = (int)Visit(context.list().expr(1));
-        forLoopWrapperScope.Declare(context.IDENTIFIER().GetText(), null);
-        for (int i = start; i <= end; i++)
+        if (context.list().expr(0) != null)
         {
-            forLoopWrapperScope.Assign(context.IDENTIFIER().GetText(), i);
-            Visit(context.block());
+            var start = (int)Visit(context.list().expr(0));
+            var end = (int)Visit(context.list().expr(1));
+            forLoopWrapperScope.Declare(context.IDENTIFIER().GetText(), null);
+            for (int i = start; i <= end; i++)
+            {
+                forLoopWrapperScope.Assign(context.IDENTIFIER().GetText(), i);
+                Visit(context.block());
+            }
+            symbolTable.Pop();
         }
-        symbolTable.Pop();
+        else if (context.list().IDENTIFIER() != null)
+        {
+            //list of type object or node or edge
+            var list = symbolTable.Peek().Retrieve(context.list().IDENTIFIER().GetText()) as IEnumerable;
+            forLoopWrapperScope.Declare(context.IDENTIFIER().GetText(), null);
+            foreach (var item in list)
+            {
+                forLoopWrapperScope.Assign(context.IDENTIFIER().GetText(), item);
+                Visit(context.block());
+            }
+            symbolTable.Pop();
+        }
         return null;
     }
 

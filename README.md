@@ -67,16 +67,20 @@ end
 ```
 begin
     int depth = 4;
-    graph binaryTree = Graph
-    node initialNode = node("1");
+    node initialNode = |"1"|;
+    graph binaryTree = ({initialNode},{});
     for i in [2..depth] begin
         graph left = binaryTree;
-        graph right = binaryTree.copy();
+        graph right = binaryTree.Copy();
         binaryTree = left union right;
-        node newRootNode = Node(i);
-        binaryTree.addNode(newRootNode);
-        newRootNode --> binaryTree.getNodes(i-1);
+        node newRootNode = |i|;
+        binaryTree.AddNode(newRootNode);
+        nodeset ns = binaryTree.GetNodes((i-1)+"");
+        for n in ns begin
+            newRootNode --> n;
+        end;
     end;
+    print binaryTree;
 end
 ```
 

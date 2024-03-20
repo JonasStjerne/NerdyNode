@@ -52,8 +52,8 @@ arrow: RIGHTDIRECTION | LEFTDIRECTION | UNDIRECTED;
 
 list:
 	LISTSTART expr ELLIPSIS expr LISTEND
-	| nodeset
-	| edgeset
+	//| nodeset
+	//| edgeset
 	| IDENTIFIER;
 
 numop: PLUS | MINUS | DIVIDE | TIMES | MODOLUS;
