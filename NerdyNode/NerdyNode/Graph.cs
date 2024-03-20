@@ -24,8 +24,13 @@ public class Graph
 
     public override string ToString()
     {
-
-        return "Graph: |" + string.Join("| |", nodes) + "|";
+        var printList = new List<string>();
+        foreach (var node in nodes)
+        {
+            var str = node.GetLabel() + " -> " + string.Join(", ", node.GetEdges().Select(e => e.GetEndNode().GetLabel()).ToArray());
+            printList.Add(str);
+        }
+        return string.Join("\n", printList);
     }
 
     public void PrintEdges()

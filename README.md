@@ -41,21 +41,24 @@ end
 
 ```
 begin
-    int width = 10;
-    int height = 10;
-    graph latticeGraph = Graph;
+    int width = 4;
+    int height = 4;
+    graph latticeGraph = ({},{});
     for y in [1..height] begin
         for x in [1..width] begin
-            node newNode = Node(x+","+y);
-            latticeGraph.addNode(newNode)
+            node newNode = |x+","+y|;
+            latticeGraph.AddNode(newNode);
             if x > 1 begin
-                newNode <--> latticeGraph.getNodeByLabel(x-1+","+y);
+                node n = latticeGraph.GetNode((x-1)+","+y);
+                newNode <--> n;
             end;
             if y > 1 begin
-                newNode <--> latticeGraph.getNodeByLabel(x+","+y-1);
+                node n = latticeGraph.GetNode(x+","+(y-1));
+                newNode <--> n;
             end;
         end;
     end;
+    print latticeGraph;
 end
 ```
 
