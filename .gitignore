@@ -1,5 +1,4 @@
 obj/
 bin/
 .antlr/
-antlr4/
 .DS_store
