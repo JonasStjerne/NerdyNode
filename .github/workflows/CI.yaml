@@ -15,7 +15,7 @@ jobs:
             - name: Setup dotnet
               uses: actions/setup-dotnet@v4
               with:
-                  dotnet-version: 5.0.x
+                  dotnet-version: 7.0.x
             - run: dotnet restore ./NerdyNode
             - run: dotnet build ./NerdyNode
             - run: dotnet test ./NerdyNode
