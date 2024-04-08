@@ -21,7 +21,19 @@ public class ArithmeticTests
         return consoleOutput.ToString().Trim();
     }
 
+    [Fact]
+    public void VisitorTest()
+    {
+        AntlrInputStream inputStream = new AntlrInputStream("begin print 2+2; end");
+        NerdyNodeLexer NerdyNodeLexer = new NerdyNodeLexer(inputStream);
+        CommonTokenStream commonTokenStream = new CommonTokenStream(NerdyNodeLexer);
+        NerdyNodeParser nerdyNodeParser = new NerdyNodeParser(commonTokenStream);
 
+        BasicNerdyNodeVisitor visitor = new BasicNerdyNodeVisitor();
+
+        var res = visitor.VisitValue(nerdyNodeParser.value());
+        Assert.Equal(2, res);
+    }
 
     [Fact]
     public void Plus()
