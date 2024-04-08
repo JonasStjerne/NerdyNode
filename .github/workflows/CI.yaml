@@ -1,0 +1,19 @@
+# CI for the intercepter. Runs test for the intercepter
+
+name: .NET CI
+
+on:
+    push:
+        branches: ["main"]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+            - name: Setup dotnet
+              uses: actions/setup-dotnet@v4
+              with:
+                  dotnet-version: 5.0.x
+            - run: dotnet test
