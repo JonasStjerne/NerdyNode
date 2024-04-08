@@ -17,4 +17,5 @@ jobs:
               with:
                   dotnet-version: 5.0.x
             - run: dotnet restore ./NerdyNode
+            - run: dotnet build ./NerdyNode
             - run: dotnet test ./NerdyNode
