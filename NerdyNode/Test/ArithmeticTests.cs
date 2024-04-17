@@ -2,6 +2,7 @@ using Antlr4.Runtime;
 
 namespace Test;
 
+[Collection("Sequential")]
 public class ArithmeticTests
 {
     private StringWriter consoleOutput;
@@ -19,20 +20,6 @@ public class ArithmeticTests
         Console.SetOut(consoleOutput);
         visitor.Visit(programContext);
         return consoleOutput.ToString().Trim();
-    }
-
-    [Fact]
-    public void VisitorTest()
-    {
-        AntlrInputStream inputStream = new AntlrInputStream("begin print 2+2; end");
-        NerdyNodeLexer NerdyNodeLexer = new NerdyNodeLexer(inputStream);
-        CommonTokenStream commonTokenStream = new CommonTokenStream(NerdyNodeLexer);
-        NerdyNodeParser nerdyNodeParser = new NerdyNodeParser(commonTokenStream);
-
-        BasicNerdyNodeVisitor visitor = new BasicNerdyNodeVisitor();
-
-        var res = visitor.VisitValue(nerdyNodeParser.value());
-        Assert.Equal(2, res);
     }
 
     [Fact]

@@ -28,4 +28,12 @@
     <ProjectReference Include="..\NerdyNode\NerdyNode.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="assets\binaryTree.0-0" />
+    <None Remove="assets\lattice.0-0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\binaryTree.0-0" />
+    <Content Include="assets\lattice.0-0" />
+  </ItemGroup>
 </Project>
