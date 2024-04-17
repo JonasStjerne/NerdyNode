@@ -5,7 +5,6 @@ namespace Test;
 [Collection("Sequential")]
 public class ArithmeticTests
 {
-    private StringWriter consoleOutput;
     private string setup(string input)
     {
         input = "begin print " + input + "; end";
@@ -16,7 +15,7 @@ public class ArithmeticTests
 
         NerdyNodeParser.ProgramContext programContext = nerdyNodeParser.program();
         BasicNerdyNodeVisitor visitor = new BasicNerdyNodeVisitor();
-        consoleOutput = new StringWriter();
+        StringWriter consoleOutput = new StringWriter();
         Console.SetOut(consoleOutput);
         visitor.Visit(programContext);
         return consoleOutput.ToString().Trim();

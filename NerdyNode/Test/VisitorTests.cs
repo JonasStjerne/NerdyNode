@@ -79,6 +79,15 @@ public class VisitorTests
         Assert.Equal(typeof(List<Node>), type);
     }
 
+    [Fact]
+    public void TestVisitTypeUnknownType()
+    {
+        var context = setup("notarealtype");
+        BasicNerdyNodeVisitor Visitor = new BasicNerdyNodeVisitor();
+        var type = Visitor.VisitType(context.type());
+        Assert.Null(type);
+    }
+
     // [Fact]
     // public void TestVisitDeclarationInvalid()
     // {
