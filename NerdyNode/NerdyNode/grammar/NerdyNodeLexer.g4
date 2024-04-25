@@ -40,6 +40,7 @@ FOR: 'for';
 IN: 'in';
 IF: 'if';
 ELSE: 'else';
+RETURN: 'return';
 
 //Numop
 PLUS: '+';

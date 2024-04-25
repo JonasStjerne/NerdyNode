@@ -13,9 +13,9 @@ The next big thing in the world of unwanted programming languages
 
 ## Development
 
--   Follow the getting started guide for antlr4 [here](https://github.com/antlr/antlr4/blob/master/doc/getting-started.md).
+- Follow the getting started guide for antlr4 [here](https://github.com/antlr/antlr4/blob/master/doc/getting-started.md).
 
--   Download Visual Studio Code extension [here](https://marketplace.visualstudio.com/items?itemName=mike-lischke.vscode-antlr4).
+- Download Visual Studio Code extension [here](https://marketplace.visualstudio.com/items?itemName=mike-lischke.vscode-antlr4).
 
 ## Examples
 
@@ -130,5 +130,33 @@ begin
             end;
         end;
     end;
+end
+```
+
+```
+// Test til function decleration
+begin
+  int a = 5;
+  int x = 2;
+  int y = 3;
+  if a > 4 begin
+    int w = 3;
+    y = double(w, 9);
+    y.one();
+  end;
+end
+
+int double(int x, int y) begin
+  int z = x * a; //bør fejle
+  return z;
+end
+
+int one() begin
+    echo("hello, world!")
+    return 1;
+end
+
+string echo(string s) begin
+    return s;
 end
 ```

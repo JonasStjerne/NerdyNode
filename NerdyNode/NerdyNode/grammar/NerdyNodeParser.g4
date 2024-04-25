@@ -2,9 +2,16 @@ parser grammar NerdyNodeParser;
 options {
 	tokenVocab = NerdyNodeLexer;
 }
-program: block EOF;
+program: block (funcdeclaration)* EOF;
 
 block: BEGIN (statement SEMI)* END;
+
+funcdeclaration:
+	type IDENTIFIER PARANSTART paramdecllist PARANEND block;
+
+paramdecllist: paramdecl? | (paramdecl COMMA)+ paramdecl;
+
+paramdecl: type IDENTIFIER;
 
 statement:
 	forstmt
@@ -13,7 +20,8 @@ statement:
 	| assignment
 	| funccall
 	| graphfunc
-	| print;
+	| print
+	| returnstmt;
 
 forstmt: FOR IDENTIFIER IN list block;
 
@@ -52,8 +60,7 @@ arrow: RIGHTDIRECTION | LEFTDIRECTION | UNDIRECTED;
 
 list:
 	LISTSTART expr ELLIPSIS expr LISTEND
-	//| nodeset
-	//| edgeset
+	//| nodeset | edgeset
 	| IDENTIFIER;
 
 numop: PLUS | MINUS | DIVIDE | TIMES | MODOLUS;
@@ -78,7 +85,7 @@ edgeset: SETSTART identlist SETEND;
 identlist: IDENTIFIER? | (IDENTIFIER COMMA)+ IDENTIFIER;
 
 funccall:
-	IDENTIFIER DOT IDENTIFIER PARANSTART paramlist PARANEND;
+	(IDENTIFIER DOT)? IDENTIFIER PARANSTART paramlist PARANEND;
 
 paramlist: expr? | (expr COMMA)+ expr;
 
@@ -90,4 +97,5 @@ addtograph:
 	| ADDLEFTDIRECTION
 	| ADDRIGHTDIRECTION;
 
+returnstmt: RETURN expr;
 print: PRINT expr;
