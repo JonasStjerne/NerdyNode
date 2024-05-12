@@ -5,8 +5,9 @@ namespace Test;
 [Collection("Sequential")]
 public class E2ETest
 {
-    private StringWriter consoleOutput;
-    private string setup(string input)
+    private StringWriter? consoleOutput;
+
+    private string Setup(string input)
     {
         AntlrInputStream inputStream = new AntlrInputStream(input);
         NerdyNodeLexer NerdyNodeLexer = new NerdyNodeLexer(inputStream);
@@ -47,8 +48,8 @@ public class E2ETest
             print latticeGraph;
         end
         ";
-        var result = setup(LatticeGraphAlgo);
-        Assert.Equal("1,1 -> 2,1, 1,2\n2,1 -> 1,1, 3,1, 2,2\n3,1 -> 2,1, 4,1, 3,2\n4,1 -> 3,1, 4,2\n1,2 -> 1,1, 2,2, 1,3\n2,2 -> 1,2, 2,1, 3,2, 2,3\n3,2 -> 2,2, 3,1, 4,2, 3,3\n4,2 -> 3,2, 4,1, 4,3\n1,3 -> 1,2, 2,3\n2,3 -> 1,3, 2,2, 3,3\n3,3 -> 2,3, 3,2, 4,3\n4,3 -> 3,3, 4,2\n", result);
+        var result = Setup(LatticeGraphAlgo);
+        Assert.Equal("1,1 -> 2,1; 1,2\n2,1 -> 1,1; 3,1; 2,2\n3,1 -> 2,1; 4,1; 3,2\n4,1 -> 3,1; 4,2\n1,2 -> 1,1; 2,2; 1,3\n2,2 -> 1,2; 2,1; 3,2; 2,3\n3,2 -> 2,2; 3,1; 4,2; 3,3\n4,2 -> 3,2; 4,1; 4,3\n1,3 -> 1,2; 2,3\n2,3 -> 1,3; 2,2; 3,3\n3,3 -> 2,3; 3,2; 4,3\n4,3 -> 3,3; 4,2\n", result);
     }
 
 
@@ -76,8 +77,8 @@ public class E2ETest
             print binaryTree;
         end
         ";
-        var result = setup(BinaryTreeAlgo);
-        Assert.Equal("1 -> \n1 -> \n2 -> 1, 1\n1 -> \n1 -> \n2 -> 1, 1\n3 -> 2, 2\n1 -> \n1 -> \n2 -> 1, 1\n1 -> \n1 -> \n2 -> 1, 1\n3 -> 2, 2\n4 -> 3, 3\n", result);
+        var result = Setup(BinaryTreeAlgo);
+        Assert.Equal("1 -> \n1 -> \n2 -> 1; 1\n1 -> \n1 -> \n2 -> 1; 1\n3 -> 2; 2\n1 -> \n1 -> \n2 -> 1; 1\n1 -> \n1 -> \n2 -> 1; 1\n3 -> 2; 2\n4 -> 3; 3\n", result);
     }
 
 }

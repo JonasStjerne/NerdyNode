@@ -4,8 +4,7 @@ namespace Test;
 
 public class ScopeTests
 {
-    private StringWriter consoleOutput;
-    private string setup(string input)
+    private string Setup(string input)
     {
         input = "begin " + input + " end";
         AntlrInputStream inputStream = new AntlrInputStream(input);
@@ -15,7 +14,7 @@ public class ScopeTests
 
         NerdyNodeParser.ProgramContext programContext = nerdyNodeParser.program();
         BasicNerdyNodeVisitor visitor = new BasicNerdyNodeVisitor();
-        consoleOutput = new StringWriter();
+        StringWriter consoleOutput = new StringWriter();
         Console.SetOut(consoleOutput);
         visitor.Visit(programContext);
         return consoleOutput.ToString().Trim();
@@ -25,7 +24,7 @@ public class ScopeTests
     // public void TestScope()
     // {
     //     string input = "int x = 2; print x + 2;";
-    //     string output = setup(input);
+    //     string output = Setup(input);
     //     Assert.Equal("4", output);
     // }
 
@@ -33,7 +32,7 @@ public class ScopeTests
     // public void TestScope2()
     // {
     //     string input = "let x = 10; let y = 20; begin let x = 30; print x + y; end;";
-    //     string output = setup(input);
+    //     string output = Setup(input);
     //     Assert.Equal("50", output);
     // }
 

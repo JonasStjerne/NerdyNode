@@ -6,7 +6,7 @@ namespace Test;
 
 public class VisitorTests
 {
-    private NerdyNodeParser setup(string Input)
+    private static NerdyNodeParser Setup(string Input)
     {
         AntlrInputStream inputStream = new AntlrInputStream(Input);
         NerdyNodeLexer NerdyNodeLexer = new NerdyNodeLexer(inputStream);
@@ -19,7 +19,7 @@ public class VisitorTests
     [Fact]
     public void TestVisitTypeInt()
     {
-        var context = setup("int");
+        var context = Setup("int");
         BasicNerdyNodeVisitor Visitor = new BasicNerdyNodeVisitor();
         var type = Visitor.VisitType(context.type());
         Assert.Equal(typeof(int), type);
@@ -28,7 +28,7 @@ public class VisitorTests
     [Fact]
     public void TestVisitTypeString()
     {
-        var context = setup("string");
+        var context = Setup("string");
         BasicNerdyNodeVisitor Visitor = new BasicNerdyNodeVisitor();
         var type = Visitor.VisitType(context.type());
         Assert.Equal(typeof(string), type);
@@ -37,7 +37,7 @@ public class VisitorTests
     [Fact]
     public void TestVisitTypeBool()
     {
-        var context = setup("boolean");
+        var context = Setup("boolean");
         BasicNerdyNodeVisitor Visitor = new BasicNerdyNodeVisitor();
         var type = Visitor.VisitType(context.type());
         Assert.Equal(typeof(bool), type);
@@ -46,7 +46,7 @@ public class VisitorTests
     [Fact]
     public void TestVisitTypeGraph()
     {
-        var context = setup("graph");
+        var context = Setup("graph");
         BasicNerdyNodeVisitor Visitor = new BasicNerdyNodeVisitor();
         var type = Visitor.VisitType(context.type());
         Assert.Equal(typeof(Graph), type);
@@ -55,7 +55,7 @@ public class VisitorTests
     [Fact]
     public void TestVisitTypeNode()
     {
-        var context = setup("node");
+        var context = Setup("node");
         BasicNerdyNodeVisitor Visitor = new BasicNerdyNodeVisitor();
         var type = Visitor.VisitType(context.type());
         Assert.Equal(typeof(Node), type);
@@ -64,7 +64,7 @@ public class VisitorTests
     [Fact]
     public void TestVisitTypeEdge()
     {
-        var context = setup("edge");
+        var context = Setup("edge");
         BasicNerdyNodeVisitor Visitor = new BasicNerdyNodeVisitor();
         var type = Visitor.VisitType(context.type());
         Assert.Equal(typeof(Edge), type);
@@ -73,7 +73,7 @@ public class VisitorTests
     [Fact]
     public void TestVisitTypeNodeSet()
     {
-        var context = setup("nodeset");
+        var context = Setup("nodeset");
         BasicNerdyNodeVisitor Visitor = new BasicNerdyNodeVisitor();
         var type = Visitor.VisitType(context.type());
         Assert.Equal(typeof(List<Node>), type);
@@ -82,16 +82,15 @@ public class VisitorTests
     [Fact]
     public void TestVisitTypeUnknownType()
     {
-        var context = setup("notarealtype");
+        var context = Setup("notarealtype");
         BasicNerdyNodeVisitor Visitor = new BasicNerdyNodeVisitor();
-        var type = Visitor.VisitType(context.type());
-        Assert.Null(type);
+        Assert.Throws<NotImplementedException>(() => Visitor.VisitType(context.type()));
     }
 
     // [Fact]
     // public void TestVisitDeclarationInvalid()
     // {
-    //     var context = setup("int x = \"teststring\";");
+    //     var context = Setup("int x = \"teststring\";");
     //     var mocker = new AutoMocker();
     //     mocker.Setup<BasicNerdyNodeVisitor, object>(x => x.VisitType(It.IsAny<NerdyNodeParser.TypeContext>())).Returns(typeof(int));
     //     mocker.Setup<BasicNerdyNodeVisitor, object>(x => x.VisitAssignment(It.IsAny<NerdyNodeParser.AssignmentContext>()));

@@ -5,7 +5,7 @@ namespace Test;
 [Collection("Sequential")]
 public class ArithmeticTests
 {
-    private string setup(string input)
+    private string Setup(string input)
     {
         input = "begin print " + input + "; end";
         AntlrInputStream inputStream = new AntlrInputStream(input);
@@ -24,63 +24,63 @@ public class ArithmeticTests
     [Fact]
     public void Plus()
     {
-        var result = setup("2+2");
+        var result = Setup("2+2");
         Assert.Equal(4, Int32.Parse(result));
     }
 
     [Fact]
     public void PlusParenthesis()
     {
-        var result = setup("2+(2+2)");
+        var result = Setup("2+(2+2)");
         Assert.Equal(6, Int32.Parse(result));
     }
 
     [Fact]
     public void Minus()
     {
-        var result = setup("2-2");
+        var result = Setup("2-2");
         Assert.Equal(0, Int32.Parse(result));
     }
 
     [Fact]
     public void MinusParenthesis()
     {
-        var result = setup("2-(2-2)");
+        var result = Setup("2-(2-2)");
         Assert.Equal(2, Int32.Parse(result));
     }
 
     [Fact]
     public void Multiply()
     {
-        var result = setup("2*2");
+        var result = Setup("2*2");
         Assert.Equal(4, Int32.Parse(result));
     }
 
     [Fact]
     public void MultiplyParenthesis()
     {
-        var result = setup("2*(2*2)");
+        var result = Setup("2*(2*2)");
         Assert.Equal(8, Int32.Parse(result));
     }
 
     [Fact]
     public void Divide()
     {
-        var result = setup("2/2");
+        var result = Setup("2/2");
         Assert.Equal(1, Int32.Parse(result));
     }
 
     [Fact]
     public void DivideParenthesis()
     {
-        var result = setup("2/(2/2)");
+        var result = Setup("2/(2/2)");
         Assert.Equal(2, Int32.Parse(result));
     }
 
     [Fact]
     public void Modulus()
     {
-        var result = setup("2%2");
+        var result = Setup("2%2");
         Assert.Equal(0, Int32.Parse(result));
     }
 
@@ -88,7 +88,7 @@ public class ArithmeticTests
     [Fact]
     public void Parthenthesis()
     {
-        var result = setup("(2+2)*2");
+        var result = Setup("(2+2)*2");
         Assert.Equal(8, Int32.Parse(result));
     }
 
@@ -96,28 +96,28 @@ public class ArithmeticTests
     // [Fact]
     // public void ModulusParenthesis()
     // {
-    //     var result = setup("2%(2%2)");
+    //     var result = Setup("2%(2%2)");
     //     Assert.Equal(2, Int32.Parse(result));
     // }
 
     // [Fact]
     // public void Exponent()
     // {
-    //     var result = setup("2^2");
+    //     var result = Setup("2^2");
     //     Assert.Equal(4, Int32.Parse(result));
     // }
 
     // [Fact]
     // public void ExponentParenthesis()
     // {
-    //     var result = setup("2^(2^2)");
+    //     var result = Setup("2^(2^2)");
     //     Assert.Equal(16, Int32.Parse(result));
     // }
 
     // [Fact]
     // public void ExponentParenthesis2()
     // {
-    //     var result = setup("(2^2)^2");
+    //     var result = Setup("(2^2)^2");
     //     Assert.Equal(16, Int32.Parse(result));
     // }
 
