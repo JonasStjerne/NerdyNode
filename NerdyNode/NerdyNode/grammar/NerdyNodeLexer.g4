@@ -63,6 +63,7 @@ OR: '||';
 UNION: 'union';
 //INTERSECTION: 'inter'; COMPLIMENT: '\\'; CARTESIANPRODUCT: 'product'; SUPSET: 'subset'; SUPERSET:
 // 'superset';
+ADD_TO: '<<';
 
 RIGHTDIRECTION: '->';
 LEFTDIRECTION: '<-';
@@ -72,6 +73,8 @@ ADDLEFTDIRECTION: '<--';
 ADDRIGHTDIRECTION: '-->';
 
 PRINT: 'print';
+DRAW: 'draw';
+
 IDENTIFIER: [a-zA-Z_][a-zA-Z_0-9]*;
 
 WS: [ \t\n\r\f]+ -> skip;

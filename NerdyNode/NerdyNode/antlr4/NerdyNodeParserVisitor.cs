@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from /Users/jonasstjerne/Documents/Privat/Repos/NerdyNode/NerdyNode/NerdyNode/grammar/NerdyNodeParser.g4 by ANTLR 4.13.1
+// Generated from NerdyNodeParser.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -43,6 +43,24 @@ public interface INerdyNodeParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitBlock([NotNull] NerdyNodeParser.BlockContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="NerdyNodeParser.funcdeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFuncdeclaration([NotNull] NerdyNodeParser.FuncdeclarationContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="NerdyNodeParser.paramdecllist"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitParamdecllist([NotNull] NerdyNodeParser.ParamdecllistContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="NerdyNodeParser.paramdecl"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitParamdecl([NotNull] NerdyNodeParser.ParamdeclContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="NerdyNodeParser.statement"/>.
 	/// </summary>
@@ -176,9 +194,21 @@ public interface INerdyNodeParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitAddtograph([NotNull] NerdyNodeParser.AddtographContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="NerdyNodeParser.returnstmt"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitReturnstmt([NotNull] NerdyNodeParser.ReturnstmtContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="NerdyNodeParser.print"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitPrint([NotNull] NerdyNodeParser.PrintContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="NerdyNodeParser.draw"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitDraw([NotNull] NerdyNodeParser.DrawContext context);
 }

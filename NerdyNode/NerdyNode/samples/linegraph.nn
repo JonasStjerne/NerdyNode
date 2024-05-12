@@ -1,0 +1,19 @@
+begin
+    int size = 10;
+    graph G = ({},{});
+
+    node rootNode = |"v" + 1|;
+    G << rootNode;
+
+    node prev = rootNode;
+    for y in [2..size] begin
+      node newNode = |"v" + y|;
+      G << newNode;
+      newNode <--> prev;
+      prev = newNode;
+    end;
+    
+    print "Line Graph with size " + size; 
+    print G;
+    draw G;
+end

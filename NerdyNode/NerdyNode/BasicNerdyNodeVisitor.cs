@@ -1,37 +1,54 @@
 using System.Collections;
-using System.Diagnostics;
-using System.Runtime.InteropServices.Marshalling;
-using System.Security.Cryptography.X509Certificates;
 using Antlr4.Runtime.Misc;
-using Microsoft.VisualBasic;
 
 public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 {
+
     private Stack<Scope> symbolTable = new Stack<Scope>();
+    private Scope globalScope;
+
+
     public BasicNerdyNodeVisitor()
     {
-        var globalScope = new Scope();
+        globalScope = new Scope();
+        globalScope.Declare("INFINITY", int.MaxValue);
         symbolTable.Push(globalScope);
     }
 
     public override object VisitProgram([NotNull] NerdyNodeParser.ProgramContext context)
     {
-        Visit(context.block());
-        return null;
+        // we need to handle func definitions before we evaluate main block - as the functions defined will be used in the main block
+        foreach (var funcdef in context.funcdeclaration())
+        {
+            Visit(funcdef);
+        }
+
+        // Now evaluate the main program block
+        return Visit(context.block());
+    }
+
+    public override object VisitFuncdeclaration([NotNull] NerdyNodeParser.FuncdeclarationContext context)
+    {
+        var variableName = context.IDENTIFIER().GetText();
+        symbolTable.Peek().Declare(variableName, context);
+        return context;
     }
 
     public override object VisitIfstmt(NerdyNodeParser.IfstmtContext context)
     {
-        var condition = (bool)Visit(context.expr());
+        var condition = AssertBool(Visit(context.expr()), context.expr().GetText());
         if (condition)
         {
-            Visit(context.block(0));
+            return Visit(context.block(0));
         }
         else if (context.block(1) != null)
         {
-            Visit(context.block(1));
+            return Visit(context.block(1));
         }
-        return null;
+        else
+        {
+            return false;
+        }
     }
 
     public override object VisitBlock([NotNull] NerdyNodeParser.BlockContext context)
@@ -41,12 +58,19 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         var newScope = new Scope(parentScope);
         symbolTable.Push(newScope);
 
-        foreach (var statement in context.statement())
+        try
         {
-            Visit(statement);
+            object returnValue = false;
+            foreach (var statement in context.statement())
+            {
+                returnValue = Visit(statement);
+            }
+            return returnValue;
         }
-        symbolTable.Pop();
-        return null;
+        finally
+        {
+            symbolTable.Pop();
+        }
     }
 
 
@@ -54,94 +78,133 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
     {
         if (context.forstmt() != null)
         {
-            Visit(context.forstmt());
+            return Visit(context.forstmt());
         }
         else if (context.ifstmt() != null)
         {
-            Visit(context.ifstmt());
+            return Visit(context.ifstmt());
         }
         else if (context.declaration() != null)
         {
-            Visit(context.declaration());
+            return Visit(context.declaration());
         }
         else if (context.assignment() != null)
         {
-            Visit(context.assignment());
+            return Visit(context.assignment());
         }
         else if (context.print() != null)
         {
-            Visit(context.print());
+            return Visit(context.print());
+        }
+        else if (context.draw() != null)
+        {
+            return Visit(context.draw());
         }
         else if (context.funccall() != null)
         {
-            Visit(context.funccall());
+            return Visit(context.funccall());
         }
         else if (context.graphfunc() != null)
         {
-            Visit(context.graphfunc());
+            return Visit(context.graphfunc());
         }
-        return null;
+        else if (context.returnstmt() != null)
+        {
+            return Visit(context.returnstmt());
+        }
+        throw new NotImplementedException("Statement type not yet implemented: " + context.GetText());
+    }
+
+    public override object VisitReturnstmt([NotNull] NerdyNodeParser.ReturnstmtContext context)
+    {
+        var value = Visit(context.expr());
+        throw new ReturnFromBlock(value);
     }
 
     public override object VisitForstmt(NerdyNodeParser.ForstmtContext context)
     {
+        object returnValue = false;
         Scope forLoopWrapperScope = new Scope(symbolTable.Peek());
         symbolTable.Push(forLoopWrapperScope);
-        if (context.list().expr(0) != null)
+        try
         {
-            var start = (int)Visit(context.list().expr(0));
-            var end = (int)Visit(context.list().expr(1));
-            forLoopWrapperScope.Declare(context.IDENTIFIER().GetText(), null);
-            for (int i = start; i <= end; i++)
+            if (context.list().expr(0) != null)
             {
-                forLoopWrapperScope.Assign(context.IDENTIFIER().GetText(), i);
-                Visit(context.block());
+                var start = AssertInt(Visit(context.list().expr(0)), context.list().GetText());
+                var end = AssertInt(Visit(context.list().expr(1)), context.list().GetText());
+                forLoopWrapperScope.Declare(context.IDENTIFIER().GetText(), start);
+                if (start < end)
+                {
+                    for (int i = start; i <= end; i++)
+                    {
+                        forLoopWrapperScope.Assign(context.IDENTIFIER().GetText(), i);
+                        returnValue = Visit(context.block());
+                    }
+
+                }
+                else
+                {
+                    for (int i = start; i >= end; i--)
+                    {
+                        forLoopWrapperScope.Assign(context.IDENTIFIER().GetText(), i);
+                        returnValue = Visit(context.block());
+                    }
+
+                }
             }
-            symbolTable.Pop();
+            else if (context.list().IDENTIFIER() != null)
+            {
+                //list of type object or node or edge
+                var listSymbol = context.list().IDENTIFIER().GetText();
+                var symbolValue = symbolTable.Peek().Retrieve(listSymbol);
+                var list = symbolValue as IEnumerable;
+                if (list != null)
+                {
+                    forLoopWrapperScope.Declare(context.IDENTIFIER().GetText(), symbolValue);
+                    foreach (var item in list)
+                    {
+                        forLoopWrapperScope.Assign(context.IDENTIFIER().GetText(), item);
+                        returnValue = Visit(context.block());
+                    }
+                }
+                else
+                {
+                    throw new Exception("Symbol in for loop ('" + listSymbol + "') must be enumerable. Type is: " + symbolValue.GetType());
+                }
+            }
+            return returnValue;
+
         }
-        else if (context.list().IDENTIFIER() != null)
+        finally
         {
-            //list of type object or node or edge
-            var list = symbolTable.Peek().Retrieve(context.list().IDENTIFIER().GetText()) as IEnumerable;
-            forLoopWrapperScope.Declare(context.IDENTIFIER().GetText(), null);
-            foreach (var item in list)
-            {
-                forLoopWrapperScope.Assign(context.IDENTIFIER().GetText(), item);
-                Visit(context.block());
-            }
             symbolTable.Pop();
+
         }
-        return null;
     }
 
     public override object VisitDeclaration(NerdyNodeParser.DeclarationContext context)
     {
         var type = Visit(context.type());
         var variableName = context.assignment().IDENTIFIER().GetText();
-        symbolTable.Peek().Declare(variableName, null);
-        Visit(context.assignment());
-        var value = symbolTable.Peek().Retrieve(variableName);
-        if (value.GetType() != type)
-        {
-            throw new Exception("Type mismatch in declaration");
-        }
-        return null;
+        var value = Visit(context.assignment().expr());
+        symbolTable.Peek().Declare(variableName, value);
+        return value;
     }
 
     public override object VisitAssignment(NerdyNodeParser.AssignmentContext context)
     {
-        if (symbolTable.Peek().HasVariable(context.IDENTIFIER().GetText()))
+        var symbolName = context.IDENTIFIER().GetText();
+        if (symbolTable.Peek().HasVariable(symbolName))
         {
-            var variableName = context.IDENTIFIER().GetText();
+            var variableName = symbolName;
             var value = Visit(context.expr());
             symbolTable.Peek().Assign(variableName, value);
+            return value;
         }
         else
         {
-            throw new Exception("Variable not declared");
+            throw new Exception("Variable '" + symbolName + "' not declared");
         }
-
-        return null;
     }
 
     public override object VisitExpr(NerdyNodeParser.ExprContext context)
@@ -162,61 +225,78 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         {
             return symbolTable.Peek().Retrieve(context.IDENTIFIER(0).GetText());
         }
+        else if (context.MINUS() != null)
+        {
+            var value = Visit(context.expr(0));
+            return -1 * AssertInt(value, context.expr(0).GetText());
+        }
+        else if (context.PLUS() != null)
+        {
+            var value = Visit(context.expr(0));
+            return AssertInt(value, context.expr(0).GetText());
+        }
         else if (context.numop() != null)
         {
+            var left = Visit(context.expr(0));
+            var right = Visit(context.expr(1));
             switch (context.numop().GetText())
             {
                 case "+":
-                    var left = Visit(context.expr(0));
-                    var right = Visit(context.expr(1));
                     if (left is string || right is string)
                     {
                         return left.ToString() + right.ToString();
                     }
-                    return (int)Visit(context.expr(0)) + (int)Visit(context.expr(1));
+                    else
+                    {
+                        return AssertInt(left, context.expr(0).GetText()) + AssertInt(right, context.expr(1).GetText());
+                    }
                 case "-":
-                    return (int)Visit(context.expr(0)) - (int)Visit(context.expr(1));
+                    return AssertInt(left, context.expr(0).GetText()) - AssertInt(right, context.expr(1).GetText());
                 case "*":
-                    return (int)Visit(context.expr(0)) * (int)Visit(context.expr(1));
+                    return AssertInt(left, context.expr(0).GetText()) * AssertInt(right, context.expr(1).GetText());
                 case "/":
-                    return (int)Visit(context.expr(0)) / (int)Visit(context.expr(1));
+                    return AssertInt(left, context.expr(0).GetText()) / AssertInt(right, context.expr(1).GetText());
                 case "%":
-                    return (int)Visit(context.expr(0)) % (int)Visit(context.expr(1));
+                    return AssertInt(left, context.expr(0).GetText()) % AssertInt(right, context.expr(1).GetText());
             }
         }
         else if (context.boolop() != null)
         {
+            var left = Visit(context.expr(0));
+            var right = Visit(context.expr(1));
             switch (context.boolop().GetText())
             {
                 case "==":
-                    return (int)Visit(context.expr(0)) == (int)Visit(context.expr(1));
+                    return left.Equals(right);
                 case "!=":
-                    return (int)Visit(context.expr(0)) != (int)Visit(context.expr(1));
+                    return !left.Equals(right);
                 case ">":
-                    return (int)Visit(context.expr(0)) > (int)Visit(context.expr(1));
+                    return (AssertInt(left, context.expr(0).GetText()) > AssertInt(right, context.expr(1).GetText()));
                 case "<":
-                    return (int)Visit(context.expr(0)) < (int)Visit(context.expr(1));
+                    return (AssertInt(left, context.expr(0).GetText()) < AssertInt(right, context.expr(1).GetText()));
                 case ">=":
-                    return (int)Visit(context.expr(0)) >= (int)Visit(context.expr(1));
+                    return (AssertInt(left, context.expr(0).GetText()) >= AssertInt(right, context.expr(1).GetText()));
                 case "<=":
-                    return (int)Visit(context.expr(0)) <= (int)Visit(context.expr(1));
+                    return (AssertInt(left, context.expr(0).GetText()) <= AssertInt(right, context.expr(1).GetText()));
             }
         }
         else if (context.graphop() != null)
         {
             var left = Visit(context.expr(0));
             var right = Visit(context.expr(1));
-            if (left is Graph && right is Graph)
+
+            switch (context.graphop().GetText())
             {
-                switch (context.graphop().GetText())
-                {
-                    case "union":
+                case "union":
+                    if (left is Graph && right is Graph)
+                    {
+
                         return ((Graph)left).Union((Graph)right);
-                }
-            }
-            else
-            {
-                throw new Exception("Both sides of graph operation must be a graph");
+                    }
+                    else
+                    {
+                        throw new Exception("Both sides of graph operation must be a graph");
+                    }
             }
         }
         else if (context.PARANSTART() != null)
@@ -235,18 +315,35 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
             return node;
         }
 
-        return null;
+        throw new NotImplementedException("Expression not yet implemented: " + context.GetText());
     }
 
     public override object VisitPrint([NotNull] NerdyNodeParser.PrintContext context)
     {
-
         if (context.expr() != null)
         {
-            var eval = Visit(context.expr());
-            Console.WriteLine(eval);
+            var value = Visit(context.expr());
+            Console.WriteLine(value);
+            return value;
         }
-        return null;
+        return false;
+    }
+
+    public override object VisitDraw([NotNull] NerdyNodeParser.DrawContext context)
+    {
+        if (context.expr() != null)
+        {
+            var value = Visit(context.expr());
+            var graph = value as Graph;
+            if (graph == null)
+            {
+                throw new Exception("Only graphs are valid for drawing - is: " + value.GetType());
+            }
+            var graphName = context.expr().GetText(); //FIXME: how to find the name of the graph, if expr contains more than just a symbol
+            graph.Draw(graphName, graphName + ".png");
+            return graph;
+        }
+        return false;
     }
 
     public override object VisitValue([NotNull] NerdyNodeParser.ValueContext context)
@@ -275,7 +372,8 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         // {
         //     return symbolTable.Peek().Retrieve(context.IDENTIFIER().GetText());
         // }
-        return null;
+
+        throw new NotImplementedException("Value type not yet implemented: " + context.GetText());
     }
 
     public override object VisitGraph([NotNull] NerdyNodeParser.GraphContext context)
@@ -295,10 +393,10 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         foreach (var identifier in context.identlist().IDENTIFIER())
         {
             var identifierName = identifier.GetText();
-            var value = symbolTable.Peek().Retrieve(identifierName);
-            if (value is Node)
+            var value = symbolTable.Peek().Retrieve(identifierName) as Node;
+            if (value != null)
             {
-                nodes.Add((Node)value);
+                nodes.Add(value);
             }
             else
             {
@@ -310,63 +408,228 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
 
     public override object VisitFunccall([NotNull] NerdyNodeParser.FunccallContext context)
     {
-        var value = symbolTable.Peek().Retrieve(context.IDENTIFIER(0).GetText());
-        var method = context.IDENTIFIER(1).GetText();
-        var methodInfo = value.GetType().GetMethod(method);
+        // if both identifier1 and identifier2 are present, the semantic meaning is that identifier1 is an object and identifier2 is a method name
+        if (context.IDENTIFIER().Length == 2)
+        {
+            return HandleObjectMethodCall(context.IDENTIFIER(0).GetText(), context.IDENTIFIER(1).GetText(), context.paramlist());
+        }
+        // if identifier1 is missing, then identifier2 is a plain function identifier
+        else if (context.IDENTIFIER().Length == 1)
+        {
+            return HandleFunctionCall(context.IDENTIFIER(0).GetText(), context.paramlist());
+        }
+        else
+        {
+            throw new Exception("Missing identififiers in function call statement: " + context.GetText());
+        }
+    }
+
+    private Object HandleObjectMethodCall(String objectIdentifier, String methodName, NerdyNodeParser.ParamlistContext paramList)
+    {
+        var value = symbolTable.Peek().Retrieve(objectIdentifier);
+        if (value == null)
+        {
+            throw new Exception("Variable '" + objectIdentifier + "' not found in current scope");
+        }
+        var methodInfo = value.GetType().GetMethod(methodName);
         if (methodInfo != null)
         {
             var parameters = new List<object>();
-            if (context.paramlist() != null)
+            if (paramList != null)
             {
-                foreach (var expr in context.paramlist().expr())
+                foreach (var expr in paramList.expr())
                 {
                     parameters.Add(Visit(expr));
                 }
             }
-            return methodInfo.Invoke(value, parameters.ToArray());
+            var returnValue = methodInfo.Invoke(value, parameters.ToArray());
+            return returnValue != null ? returnValue : false;
         }
         else
         {
-            throw new Exception("Method " + method + " not found on the value " + context.IDENTIFIER(0).GetText() + " of type " + value.GetType().Name);
+            throw new Exception("Method '" + methodName + "' not found on the value " + objectIdentifier + " of type " + value.GetType().Name);
+        }
+    }
+
+    private Object HandleFunctionCall(String functionName, NerdyNodeParser.ParamlistContext paramList)
+    {
+        var symbolValue = symbolTable.Peek().Retrieve(functionName);
+
+        var functionDecl = symbolTable.Peek().Retrieve(functionName) as NerdyNodeParser.FuncdeclarationContext;
+        if (functionDecl == null)
+        {
+            throw new Exception("Variable '" + functionName + "' does not refer to a function in current scope");
+        }
+
+        if (paramList.expr().Length != functionDecl.paramdecllist().paramdecl().Length)
+        {
+            throw new Exception("Number of arguments (" + paramList.expr().Length + ") does not match declaration (" + functionDecl.paramdecllist().paramdecl().Length + ")");
+        }
+
+
+        // First setup a new symbol table with all parameter names set
+        // The function symbol table should inherit from root table and not the current symbol table
+        var functionCallScope = new Scope(globalScope);
+
+        SetFunctionBlockSymbols(paramList, functionDecl, functionCallScope);
+
+        symbolTable.Push(functionCallScope);
+
+        try
+        {
+            return Visit(functionDecl.block());
+        }
+        catch (ReturnFromBlock val)
+        {
+            return val.value;
+        }
+        finally
+        {
+            symbolTable.Pop();
+        }
+    }
+
+    private void SetFunctionBlockSymbols(NerdyNodeParser.ParamlistContext paramList, NerdyNodeParser.FuncdeclarationContext? functionDecl, Scope functionCallScope)
+    {
+        if (functionDecl == null)
+        {
+            return;
+        }
+
+        for (var n = 0; n < functionDecl.paramdecllist().paramdecl().Length; n++)
+        {
+            var param = functionDecl.paramdecllist().paramdecl()[n];
+
+            // First find destination symbol and type for parameter
+            var paramType = param.type();
+            var paramIdent = param.IDENTIFIER().GetText();
+
+            // Next find source symbol and type
+            var arg = paramList.expr()[n];
+            var argValue = Visit(arg);
+
+            //Console.WriteLine($"{n} ; {paramIdent}; {paramType} -> {arg}; {argValue} ");
+
+            // Call-by-value or call-by-reference
+            object paramValue;
+            if (paramType.TYPEINT() != null)
+            {
+                paramValue = AssertInt(argValue, arg.GetText()); // call-by-value
+            }
+            else if (paramType.TYPESTRING() != null)
+            {
+                // make a new string as copy of argument
+                paramValue = new string(AssertString(argValue, arg.GetText()));  // call-by-value
+            }
+            else if (paramType.TYPEBOOL() != null)
+            {
+                paramValue = AssertBool(argValue, arg.GetText()); // call-by-value
+            }
+            else if (paramType.TYPEGRAPH() != null)
+            {
+                paramValue = AssertGraph(argValue, arg.GetText());  // call-by-reference
+            }
+            else if (paramType.TYPENODE() != null)
+            {
+                paramValue = AssertNode(argValue, arg.GetText());  // call-by-reference
+            }
+            else if (paramType.TYPEEDGE() != null)
+            {
+                paramValue = AssertEdge(argValue, arg.GetText());  // call-by-reference
+            }
+            else if (paramType.TYPENODESET() != null)
+            {
+                paramValue = AssertNodeSet(argValue, arg.GetText());  // call-by-reference
+            }
+            else
+            {
+                throw new NotImplementedException("Parameter type not yet implemented: " + paramType.GetText());
+            }
+
+            // Set value in function blocks symbol table
+            functionCallScope.Declare(paramIdent, paramValue);
         }
     }
 
     public override object VisitGraphfunc([NotNull] NerdyNodeParser.GraphfuncContext context)
     {
-        var left = context.IDENTIFIER(0) == null ? VisitFunccall(context.funccall(0)) : symbolTable.Peek().Retrieve(context.IDENTIFIER(0).GetText());
-        if (!(left is Node))
+        if (context.addtograph().GetText() == "<<")
         {
-            throw new Exception("Left side of graph function is not a node");
+            Graph left = GetGraphValue(context, 0) ?? throw new Exception("Left side of graph function is not a graph: " + context.GetText());
+            Node right = GetNodeValue(context, 1) ?? throw new Exception("Right side of graph function is not a node: " + context.GetText());
+            left.AddNode(right);
+            return left;
         }
-        var right = context.IDENTIFIER(1) == null ? VisitFunccall(context.funccall(1)) : symbolTable.Peek().Retrieve(context.IDENTIFIER(1).GetText());
-        if (!(right is Node))
+        else
         {
-            throw new Exception("Right side of graph function is not a node");
-        }
-        if (((Node)left).graph != ((Node)right).graph)
-        {
-            throw new Exception("Nodes are not in the same graph");
-        }
+            Node left = GetNodeValue(context, 0) ?? throw new Exception("Left side of graph function is not a node: " + context.GetText());
+            Node right = GetNodeValue(context, 1) ?? throw new Exception("Right side of graph function is not a node: " + context.GetText());
 
-        switch (context.addtograph().GetText())
-        {
-            case "<-->":
-                var toRight1 = new Edge((Node)right);
-                ((Node)left).AddEdge(toRight1);
-                var toLeft1 = new Edge((Node)left);
-                ((Node)right).AddEdge(toLeft1);
-                break;
-            case "-->":
-                var toRight2 = new Edge((Node)right);
-                ((Node)left).AddEdge(toRight2);
-                break;
-            case "<--":
-                var toLeft3 = new Edge((Node)left);
-                ((Node)right).AddEdge(toLeft3);
-                break;
-        }
+            if (left.Graph != right.Graph)
+            {
+                throw new Exception("Nodes are not in the same graph");
+            }
 
-        return null;
+            switch (context.addtograph().GetText())
+            {
+                case "<<":
+                    break;
+                case "<-->":
+                    if (left.Graph == null)
+                    {
+                        throw new Exception("Nodes must be connected to a graph");
+                    }
+                    left.Graph.AddEdge(left, right, false, 0);
+                    break;
+                case "-->":
+                    if (left.Graph == null)
+                    {
+                        throw new Exception("Left node must be connected to a graph");
+                    }
+                    left.Graph.AddEdge(left, right, true, 0);
+                    break;
+                case "<--":
+                    if (right.Graph == null)
+                    {
+                        throw new Exception("Left node must be connected to a graph");
+                    }
+                    right.Graph.AddEdge(right, left, true, 0);
+                    break;
+            }
+            return left;
+        }
+    }
+
+    private Graph? GetGraphValue(NerdyNodeParser.GraphfuncContext context, int index)
+    {
+        if (context.IDENTIFIER(index) == null && context.funccall(index) != null)
+        {
+            return VisitFunccall(context.funccall(index)) as Graph;
+        }
+        else if (context.IDENTIFIER(index) != null && context.funccall(index) == null)
+        {
+            return symbolTable.Peek().Retrieve(context.IDENTIFIER(index).GetText()) as Graph;
+        }
+        else
+        {
+            throw new Exception($"Missing identifier or function call: " + context.GetText());
+        }
+    }
+
+    private Node? GetNodeValue(NerdyNodeParser.GraphfuncContext context, int index)
+    {
+        if (context.IDENTIFIER(index) == null && context.funccall(index) != null)
+        {
+            return VisitFunccall(context.funccall(index)) as Node;
+        }
+        else if (context.IDENTIFIER(index) != null && context.funccall(index) == null)
+        {
+            return symbolTable.Peek().Retrieve(context.IDENTIFIER(index).GetText()) as Node;
+        }
+        else
+        {
+            throw new Exception($"Missing identifier or function call: " + context.GetText());
+        }
     }
 
     //map types from antlr to c# types
@@ -400,7 +663,113 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         {
             return typeof(List<Node>);
         }
-        return null;
+
+        throw new NotImplementedException("Type not yet implemented: " + context.GetText());
+    }
+
+    private static int AssertInt(object value, string text)
+    {
+        if (value == null)
+        {
+            throw new Exception("Expression is null");
+        }
+        else if (value.GetType() != typeof(int))
+        {
+            throw new Exception("Expression type should be integer - is: " + value.GetType() + " in " + text);
+        }
+        return (int)value;
+    }
+
+    private static bool AssertBool(object value, string text)
+    {
+        if (value == null)
+        {
+            throw new Exception("Expression is null");
+        }
+        else if (value.GetType() != typeof(bool))
+        {
+            throw new Exception("Expression type should be bool - is: " + value.GetType() + " in " + text);
+        }
+        return (bool)value;
+    }
+
+    private static string AssertString(object value, string text)
+    {
+        if (value == null)
+        {
+            throw new Exception("Expression is null");
+        }
+        else if (value.GetType() != typeof(string))
+        {
+            throw new Exception("Expression type should be string - is: " + value.GetType() + " in " + text);
+        }
+        return (string)value;
+    }
+
+    private static Graph AssertGraph(object value, string text)
+    {
+        if (value == null)
+        {
+            throw new Exception("Expression is null");
+        }
+        else if (value.GetType() != typeof(Graph))
+        {
+            throw new Exception("Expression type should be Graph - is: " + value.GetType() + " in " + text);
+        }
+        return (Graph)value;
+    }
+
+    private static Edge AssertEdge(object value, string text)
+    {
+        if (value == null)
+        {
+            throw new Exception("Expression is null");
+        }
+        else if (value.GetType() != typeof(Edge))
+        {
+            throw new Exception("Expression type should be Edge - is: " + value.GetType() + " in " + text);
+        }
+        return (Edge)value;
+    }
+
+    private static Node AssertNode(object value, string text)
+    {
+        if (value == null)
+        {
+            throw new Exception("Expression is null");
+        }
+        else if (value.GetType() != typeof(Node))
+        {
+            throw new Exception("Expression type should be Node - is: " + value.GetType() + " in " + text);
+        }
+        return (Node)value;
+    }
+
+    private static List<Node> AssertNodeSet(object value, string text)
+    {
+        if (value == null)
+        {
+            throw new Exception("Expression is null");
+        }
+        else if (value.GetType() != typeof(List<Node>))
+        {
+            throw new Exception("Expression type should be NodeSet - is: " + value.GetType() + " in " + text);
+        }
+        return (List<Node>)value;
+    }
+
+    public class ReturnFromBlock : Exception
+    {
+        private Object exprValue;
+        public Object value
+        {
+            get { return exprValue; }
+        }
+
+        public ReturnFromBlock(Object value)
+        {
+            exprValue = value;
+        }
     }
 
 }

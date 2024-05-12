@@ -1,46 +1,57 @@
 public class Node
 {
-    string? label;
-    public Graph? graph;
-    List<Edge> edges;
+    static int _counter = 1;
+
+    public int Id { get; }
+
+    public string? Label { get; set; }
+
+    public Graph? Graph;
+
+    public List<Edge> Edges { get; }
+
     public Node(string? label, Graph? graph = null, List<Edge>? edges = null)
     {
+        this.Id = _counter++;
+
         if (edges == null)
         {
-            this.edges = new List<Edge>();
+            this.Edges = new List<Edge>();
         }
         else
         {
-            this.edges = edges;
+            this.Edges = edges;
         }
-        this.label = label;
-        this.graph = graph;
+        this.Label = label;
+        this.Graph = graph;
     }
     public void AddEdge(Edge edge)
     {
-        edges.Add(edge);
+        Edges.Add(edge);
     }
     public void RemoveEdge(Edge edge)
     {
-        edges.Remove(edge);
+        Edges.Remove(edge);
     }
     public List<Edge> GetEdges()
     {
-        return edges;
+        return Edges;
     }
 
+    public string GetAttributes()
+    {
+        return $"[label=\"{Label}\"]";
+    }
 
-    public string? GetLabel()
+    // can be used from NerdyNode program
+    public void UpdateLabel(string label)
     {
-        return label;
+        this.Label = label;
     }
-    public void SetLabel(string? label)
-    {
-        this.label = label;
-    }
+
     public override string ToString()
     {
-        return label;
+        return Label != null ? Label : "<Node>";
     }
 
 }

@@ -1,0 +1,40 @@
+/*
+ * This file demonstrates and tests function calls in NerdyNode.
+ * The error tests must be uncommented one at a time to test
+ */
+begin
+  string s = "hello";
+  node n = |3|;
+  string z = foo(9, true, s, n);
+  print "-- after function foo";
+  print z + " expected: 'hello, world!'"; 
+  print s + " expected: 'hello' and not the modified 'hello, world'";
+  print n + " expected: the modified value 'X'";
+
+  // Test type error - expect error when uncommented
+  //foo(true, true, s, n);
+  //foo(0, 0, s, n);
+  //foo(0, true, 45, n);
+  //foo(0, true, s, s);
+
+  // Test wrong number of parameters - expect error when uncommented
+  //foo(9, true, s, n, s);
+  //foo(9, true, s);
+end
+
+string foo(int x, boolean b, string t, node m)
+begin
+  print "in function foo";
+  print "parameter value x = " + x;
+  print "parameter value b = " + b;
+  print "parameter value t = " + t;
+  print "parameter value m = " + m;
+  if (b == true) begin
+    t = t + ", world!";
+  end;
+  m.UpdateLabel("X");
+  print "node label is updated = " + m;
+  return t;
+  print "THIS SHOULD NOT BE PRINTED!";
+end
+

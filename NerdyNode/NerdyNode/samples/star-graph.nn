@@ -1,0 +1,17 @@
+begin
+    int size = 6;
+    graph G = ({},{});
+
+    node rootNode = |"c"|;
+    G << rootNode;
+
+    for i in [1..size] begin
+      node newNode = |"v" + i|;
+      G << newNode;
+      newNode <--> rootNode;
+    end;
+    
+    print "Star Graph with size " + size; 
+    print G;
+    draw G;
+end

@@ -1,0 +1,11 @@
+begin
+  print fib(9);
+end
+
+int fib(int n)
+begin
+  if (n <= 1) begin
+    return n;
+  end;
+  return fib(n - 1) + fib(n - 2);
+end

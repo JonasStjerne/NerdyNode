@@ -1,0 +1,20 @@
+begin
+    int size = 10;
+    graph G = ({},{});
+
+    node rootNode = |"v" + 1|;
+    G << rootNode;
+
+    node prev = rootNode;
+    for i in [2..size] begin
+      node newNode = |"v" + i|;
+      G << newNode;
+      newNode <--> prev;
+      prev = newNode;
+    end;
+    prev <--> rootNode;
+
+    print "Circular Graph with size " + size; 
+    print G;
+    draw G;
+end

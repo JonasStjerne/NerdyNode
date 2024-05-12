@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from /Users/jonasstjerne/Documents/Privat/Repos/NerdyNode/NerdyNode/NerdyNode/grammar/NerdyNodeParser.g4 by ANTLR 4.13.1
+// Generated from NerdyNodeParser.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -40,43 +40,48 @@ public partial class NerdyNodeParser : Parser {
 		SETEND=10, PARANSTART=11, PARANEND=12, COMMA=13, ELLIPSIS=14, LABEL=15, 
 		TYPEINT=16, TYPESTRING=17, TYPEBOOL=18, INT=19, STRING=20, TRUE=21, FALSE=22, 
 		TYPEGRAPH=23, TYPENODE=24, TYPEEDGE=25, TYPENODESET=26, TYPEEDGESET=27, 
-		FOR=28, IN=29, IF=30, ELSE=31, PLUS=32, MINUS=33, DIVIDE=34, TIMES=35, 
-		MODOLUS=36, EQUALS=37, NOTEQUAL=38, LESSEQUAL=39, GRATEREQUAL=40, LESSTHAN=41, 
-		GREATERTHAN=42, AND=43, OR=44, UNION=45, RIGHTDIRECTION=46, LEFTDIRECTION=47, 
-		UNDIRECTED=48, ADDUNDIRECTED=49, ADDLEFTDIRECTION=50, ADDRIGHTDIRECTION=51, 
-		PRINT=52, IDENTIFIER=53, WS=54, COMMENT=55, BLOCKCOMMENT=56;
+		FOR=28, IN=29, IF=30, ELSE=31, RETURN=32, PLUS=33, MINUS=34, DIVIDE=35, 
+		TIMES=36, MODOLUS=37, EQUALS=38, NOTEQUAL=39, LESSEQUAL=40, GRATEREQUAL=41, 
+		LESSTHAN=42, GREATERTHAN=43, AND=44, OR=45, UNION=46, ADD_TO=47, RIGHTDIRECTION=48, 
+		LEFTDIRECTION=49, UNDIRECTED=50, ADDUNDIRECTED=51, ADDLEFTDIRECTION=52, 
+		ADDRIGHTDIRECTION=53, PRINT=54, DRAW=55, IDENTIFIER=56, WS=57, COMMENT=58, 
+		BLOCKCOMMENT=59;
 	public const int
-		RULE_program = 0, RULE_block = 1, RULE_statement = 2, RULE_forstmt = 3, 
-		RULE_ifstmt = 4, RULE_declaration = 5, RULE_assignment = 6, RULE_type = 7, 
-		RULE_expr = 8, RULE_value = 9, RULE_bool = 10, RULE_arrow = 11, RULE_list = 12, 
-		RULE_numop = 13, RULE_boolop = 14, RULE_graphop = 15, RULE_graph = 16, 
-		RULE_nodeset = 17, RULE_edgeset = 18, RULE_identlist = 19, RULE_funccall = 20, 
-		RULE_paramlist = 21, RULE_graphfunc = 22, RULE_addtograph = 23, RULE_print = 24;
+		RULE_program = 0, RULE_block = 1, RULE_funcdeclaration = 2, RULE_paramdecllist = 3, 
+		RULE_paramdecl = 4, RULE_statement = 5, RULE_forstmt = 6, RULE_ifstmt = 7, 
+		RULE_declaration = 8, RULE_assignment = 9, RULE_type = 10, RULE_expr = 11, 
+		RULE_value = 12, RULE_bool = 13, RULE_arrow = 14, RULE_list = 15, RULE_numop = 16, 
+		RULE_boolop = 17, RULE_graphop = 18, RULE_graph = 19, RULE_nodeset = 20, 
+		RULE_edgeset = 21, RULE_identlist = 22, RULE_funccall = 23, RULE_paramlist = 24, 
+		RULE_graphfunc = 25, RULE_addtograph = 26, RULE_returnstmt = 27, RULE_print = 28, 
+		RULE_draw = 29;
 	public static readonly string[] ruleNames = {
-		"program", "block", "statement", "forstmt", "ifstmt", "declaration", "assignment", 
-		"type", "expr", "value", "bool", "arrow", "list", "numop", "boolop", "graphop", 
-		"graph", "nodeset", "edgeset", "identlist", "funccall", "paramlist", "graphfunc", 
-		"addtograph", "print"
+		"program", "block", "funcdeclaration", "paramdecllist", "paramdecl", "statement", 
+		"forstmt", "ifstmt", "declaration", "assignment", "type", "expr", "value", 
+		"bool", "arrow", "list", "numop", "boolop", "graphop", "graph", "nodeset", 
+		"edgeset", "identlist", "funccall", "paramlist", "graphfunc", "addtograph", 
+		"returnstmt", "print", "draw"
 	};
 
 	private static readonly string[] _LiteralNames = {
 		null, "'='", "';'", "':'", "'.'", "'begin'", "'end'", "'['", "']'", "'{'", 
 		"'}'", "'('", "')'", "','", "'..'", "'|'", "'int'", "'string'", "'boolean'", 
 		null, null, "'true'", "'false'", "'graph'", "'node'", "'edge'", "'nodeset'", 
-		"'edgeset'", "'for'", "'in'", "'if'", "'else'", "'+'", "'-'", "'/'", "'*'", 
-		"'%'", "'=='", "'/='", "'<='", "'>='", "'<'", "'>'", "'&&'", "'||'", "'union'", 
-		"'->'", "'<-'", "'<->'", "'<-->'", "'<--'", "'-->'", "'print'"
+		"'edgeset'", "'for'", "'in'", "'if'", "'else'", "'return'", "'+'", "'-'", 
+		"'/'", "'*'", "'%'", "'=='", "'/='", "'<='", "'>='", "'<'", "'>'", "'&&'", 
+		"'||'", "'union'", "'<<'", "'->'", "'<-'", "'<->'", "'<-->'", "'<--'", 
+		"'-->'", "'print'", "'draw'"
 	};
 	private static readonly string[] _SymbolicNames = {
 		null, "EQ", "SEMI", "COL", "DOT", "BEGIN", "END", "LISTSTART", "LISTEND", 
 		"SETSTART", "SETEND", "PARANSTART", "PARANEND", "COMMA", "ELLIPSIS", "LABEL", 
 		"TYPEINT", "TYPESTRING", "TYPEBOOL", "INT", "STRING", "TRUE", "FALSE", 
 		"TYPEGRAPH", "TYPENODE", "TYPEEDGE", "TYPENODESET", "TYPEEDGESET", "FOR", 
-		"IN", "IF", "ELSE", "PLUS", "MINUS", "DIVIDE", "TIMES", "MODOLUS", "EQUALS", 
-		"NOTEQUAL", "LESSEQUAL", "GRATEREQUAL", "LESSTHAN", "GREATERTHAN", "AND", 
-		"OR", "UNION", "RIGHTDIRECTION", "LEFTDIRECTION", "UNDIRECTED", "ADDUNDIRECTED", 
-		"ADDLEFTDIRECTION", "ADDRIGHTDIRECTION", "PRINT", "IDENTIFIER", "WS", 
-		"COMMENT", "BLOCKCOMMENT"
+		"IN", "IF", "ELSE", "RETURN", "PLUS", "MINUS", "DIVIDE", "TIMES", "MODOLUS", 
+		"EQUALS", "NOTEQUAL", "LESSEQUAL", "GRATEREQUAL", "LESSTHAN", "GREATERTHAN", 
+		"AND", "OR", "UNION", "ADD_TO", "RIGHTDIRECTION", "LEFTDIRECTION", "UNDIRECTED", 
+		"ADDUNDIRECTED", "ADDLEFTDIRECTION", "ADDRIGHTDIRECTION", "PRINT", "DRAW", 
+		"IDENTIFIER", "WS", "COMMENT", "BLOCKCOMMENT"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -115,11 +120,27 @@ public partial class NerdyNodeParser : Parser {
 			return GetRuleContext<BlockContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode Eof() { return GetToken(NerdyNodeParser.Eof, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public FuncdeclarationContext[] funcdeclaration() {
+			return GetRuleContexts<FuncdeclarationContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public FuncdeclarationContext funcdeclaration(int i) {
+			return GetRuleContext<FuncdeclarationContext>(i);
+		}
 		public ProgramContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_program; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterProgram(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitProgram(this);
+		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
@@ -132,12 +153,27 @@ public partial class NerdyNodeParser : Parser {
 	public ProgramContext program() {
 		ProgramContext _localctx = new ProgramContext(Context, State);
 		EnterRule(_localctx, 0, RULE_program);
+		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 50;
+			State = 60;
 			block();
-			State = 51;
+			State = 64;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 260505600L) != 0)) {
+				{
+				{
+				State = 61;
+				funcdeclaration();
+				}
+				}
+				State = 66;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+			}
+			State = 67;
 			Match(Eof);
 			}
 		}
@@ -171,6 +207,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_block; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterBlock(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitBlock(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitBlock(this);
@@ -186,26 +232,247 @@ public partial class NerdyNodeParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 53;
+			State = 69;
 			Match(BEGIN);
-			State = 59;
+			State = 75;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 13510800484794368L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 126100795464024064L) != 0)) {
 				{
 				{
-				State = 54;
+				State = 70;
 				statement();
-				State = 55;
+				State = 71;
 				Match(SEMI);
 				}
 				}
-				State = 61;
+				State = 77;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 62;
+			State = 78;
 			Match(END);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class FuncdeclarationContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public TypeContext type() {
+			return GetRuleContext<TypeContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(NerdyNodeParser.IDENTIFIER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PARANSTART() { return GetToken(NerdyNodeParser.PARANSTART, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ParamdecllistContext paramdecllist() {
+			return GetRuleContext<ParamdecllistContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PARANEND() { return GetToken(NerdyNodeParser.PARANEND, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public BlockContext block() {
+			return GetRuleContext<BlockContext>(0);
+		}
+		public FuncdeclarationContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_funcdeclaration; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterFuncdeclaration(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitFuncdeclaration(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitFuncdeclaration(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public FuncdeclarationContext funcdeclaration() {
+		FuncdeclarationContext _localctx = new FuncdeclarationContext(Context, State);
+		EnterRule(_localctx, 4, RULE_funcdeclaration);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 80;
+			type();
+			State = 81;
+			Match(IDENTIFIER);
+			State = 82;
+			Match(PARANSTART);
+			State = 83;
+			paramdecllist();
+			State = 84;
+			Match(PARANEND);
+			State = 85;
+			block();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class ParamdecllistContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ParamdeclContext[] paramdecl() {
+			return GetRuleContexts<ParamdeclContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ParamdeclContext paramdecl(int i) {
+			return GetRuleContext<ParamdeclContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(NerdyNodeParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
+			return GetToken(NerdyNodeParser.COMMA, i);
+		}
+		public ParamdecllistContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_paramdecllist; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterParamdecllist(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitParamdecllist(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitParamdecllist(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public ParamdecllistContext paramdecllist() {
+		ParamdecllistContext _localctx = new ParamdecllistContext(Context, State);
+		EnterRule(_localctx, 6, RULE_paramdecllist);
+		int _la;
+		try {
+			int _alt;
+			State = 99;
+			ErrorHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(TokenStream,4,Context) ) {
+			case 1:
+				EnterOuterAlt(_localctx, 1);
+				{
+				State = 88;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 260505600L) != 0)) {
+					{
+					State = 87;
+					paramdecl();
+					}
+				}
+
+				}
+				break;
+			case 2:
+				EnterOuterAlt(_localctx, 2);
+				{
+				State = 93;
+				ErrorHandler.Sync(this);
+				_alt = 1;
+				do {
+					switch (_alt) {
+					case 1:
+						{
+						{
+						State = 90;
+						paramdecl();
+						State = 91;
+						Match(COMMA);
+						}
+						}
+						break;
+					default:
+						throw new NoViableAltException(this);
+					}
+					State = 95;
+					ErrorHandler.Sync(this);
+					_alt = Interpreter.AdaptivePredict(TokenStream,3,Context);
+				} while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER );
+				State = 97;
+				paramdecl();
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class ParamdeclContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public TypeContext type() {
+			return GetRuleContext<TypeContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER() { return GetToken(NerdyNodeParser.IDENTIFIER, 0); }
+		public ParamdeclContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_paramdecl; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterParamdecl(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitParamdecl(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitParamdecl(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public ParamdeclContext paramdecl() {
+		ParamdeclContext _localctx = new ParamdeclContext(Context, State);
+		EnterRule(_localctx, 8, RULE_paramdecl);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 101;
+			type();
+			State = 102;
+			Match(IDENTIFIER);
 			}
 		}
 		catch (RecognitionException re) {
@@ -241,11 +508,27 @@ public partial class NerdyNodeParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public PrintContext print() {
 			return GetRuleContext<PrintContext>(0);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public DrawContext draw() {
+			return GetRuleContext<DrawContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ReturnstmtContext returnstmt() {
+			return GetRuleContext<ReturnstmtContext>(0);
+		}
 		public StatementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_statement; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterStatement(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitStatement(this);
+		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
@@ -257,58 +540,72 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public StatementContext statement() {
 		StatementContext _localctx = new StatementContext(Context, State);
-		EnterRule(_localctx, 4, RULE_statement);
+		EnterRule(_localctx, 10, RULE_statement);
 		try {
-			State = 71;
+			State = 113;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,1,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,5,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 64;
+				State = 104;
 				forstmt();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 65;
+				State = 105;
 				ifstmt();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 66;
+				State = 106;
 				declaration();
 				}
 				break;
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 67;
+				State = 107;
 				assignment();
 				}
 				break;
 			case 5:
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 68;
+				State = 108;
 				funccall();
 				}
 				break;
 			case 6:
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 69;
+				State = 109;
 				graphfunc();
 				}
 				break;
 			case 7:
 				EnterOuterAlt(_localctx, 7);
 				{
-				State = 70;
+				State = 110;
 				print();
+				}
+				break;
+			case 8:
+				EnterOuterAlt(_localctx, 8);
+				{
+				State = 111;
+				draw();
+				}
+				break;
+			case 9:
+				EnterOuterAlt(_localctx, 9);
+				{
+				State = 112;
+				returnstmt();
 				}
 				break;
 			}
@@ -340,6 +637,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_forstmt; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterForstmt(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitForstmt(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitForstmt(this);
@@ -350,19 +657,19 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public ForstmtContext forstmt() {
 		ForstmtContext _localctx = new ForstmtContext(Context, State);
-		EnterRule(_localctx, 6, RULE_forstmt);
+		EnterRule(_localctx, 12, RULE_forstmt);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 73;
+			State = 115;
 			Match(FOR);
-			State = 74;
+			State = 116;
 			Match(IDENTIFIER);
-			State = 75;
+			State = 117;
 			Match(IN);
-			State = 76;
+			State = 118;
 			list();
-			State = 77;
+			State = 119;
 			block();
 			}
 		}
@@ -395,6 +702,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_ifstmt; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterIfstmt(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitIfstmt(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitIfstmt(this);
@@ -405,25 +722,25 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public IfstmtContext ifstmt() {
 		IfstmtContext _localctx = new IfstmtContext(Context, State);
-		EnterRule(_localctx, 8, RULE_ifstmt);
+		EnterRule(_localctx, 14, RULE_ifstmt);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 79;
+			State = 121;
 			Match(IF);
-			State = 80;
+			State = 122;
 			expr(0);
-			State = 81;
+			State = 123;
 			block();
-			State = 84;
+			State = 126;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			if (_la==ELSE) {
 				{
-				State = 82;
+				State = 124;
 				Match(ELSE);
-				State = 83;
+				State = 125;
 				block();
 				}
 			}
@@ -454,6 +771,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_declaration; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterDeclaration(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitDeclaration(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitDeclaration(this);
@@ -464,13 +791,13 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public DeclarationContext declaration() {
 		DeclarationContext _localctx = new DeclarationContext(Context, State);
-		EnterRule(_localctx, 10, RULE_declaration);
+		EnterRule(_localctx, 16, RULE_declaration);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 86;
+			State = 128;
 			type();
-			State = 87;
+			State = 129;
 			assignment();
 			}
 		}
@@ -497,6 +824,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_assignment; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterAssignment(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitAssignment(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitAssignment(this);
@@ -507,15 +844,15 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public AssignmentContext assignment() {
 		AssignmentContext _localctx = new AssignmentContext(Context, State);
-		EnterRule(_localctx, 12, RULE_assignment);
+		EnterRule(_localctx, 18, RULE_assignment);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 89;
+			State = 131;
 			Match(IDENTIFIER);
-			State = 90;
+			State = 132;
 			Match(EQ);
-			State = 91;
+			State = 133;
 			expr(0);
 			}
 		}
@@ -545,6 +882,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_type; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterType(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitType(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitType(this);
@@ -555,12 +902,12 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public TypeContext type() {
 		TypeContext _localctx = new TypeContext(Context, State);
-		EnterRule(_localctx, 14, RULE_type);
+		EnterRule(_localctx, 20, RULE_type);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 93;
+			State = 135;
 			_la = TokenStream.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 260505600L) != 0)) ) {
 			ErrorHandler.RecoverInline(this);
@@ -593,13 +940,15 @@ public partial class NerdyNodeParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public FunccallContext funccall() {
 			return GetRuleContext<FunccallContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PARANSTART() { return GetToken(NerdyNodeParser.PARANSTART, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MINUS() { return GetToken(NerdyNodeParser.MINUS, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExprContext[] expr() {
 			return GetRuleContexts<ExprContext>();
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ExprContext expr(int i) {
 			return GetRuleContext<ExprContext>(i);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PLUS() { return GetToken(NerdyNodeParser.PLUS, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PARANSTART() { return GetToken(NerdyNodeParser.PARANSTART, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PARANEND() { return GetToken(NerdyNodeParser.PARANEND, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] LABEL() { return GetTokens(NerdyNodeParser.LABEL); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LABEL(int i) {
@@ -625,6 +974,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_expr; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterExpr(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitExpr(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitExpr(this);
@@ -642,90 +1001,106 @@ public partial class NerdyNodeParser : Parser {
 		int _parentState = State;
 		ExprContext _localctx = new ExprContext(Context, _parentState);
 		ExprContext _prevctx = _localctx;
-		int _startState = 16;
-		EnterRecursionRule(_localctx, 16, RULE_expr, _p);
+		int _startState = 22;
+		EnterRecursionRule(_localctx, 22, RULE_expr, _p);
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 113;
+			State = 159;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,3,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,7,Context) ) {
 			case 1:
 				{
-				State = 96;
+				State = 138;
 				value();
 				}
 				break;
 			case 2:
 				{
-				State = 97;
+				State = 139;
 				Match(IDENTIFIER);
 				}
 				break;
 			case 3:
 				{
-				State = 98;
+				State = 140;
 				funccall();
 				}
 				break;
 			case 4:
 				{
-				State = 99;
-				Match(PARANSTART);
-				State = 100;
-				expr(0);
-				State = 101;
-				Match(PARANEND);
+				State = 141;
+				Match(MINUS);
+				State = 142;
+				expr(8);
 				}
 				break;
 			case 5:
 				{
-				State = 103;
-				Match(LABEL);
-				State = 104;
-				expr(0);
-				State = 105;
-				Match(LABEL);
+				State = 143;
+				Match(PLUS);
+				State = 144;
+				expr(7);
 				}
 				break;
 			case 6:
 				{
-				State = 107;
+				State = 145;
+				Match(PARANSTART);
+				State = 146;
+				expr(0);
+				State = 147;
+				Match(PARANEND);
+				}
+				break;
+			case 7:
+				{
+				State = 149;
+				Match(LABEL);
+				State = 150;
+				expr(0);
+				State = 151;
+				Match(LABEL);
+				}
+				break;
+			case 8:
+				{
+				State = 153;
 				Match(SETSTART);
-				State = 108;
+				State = 154;
 				Match(IDENTIFIER);
-				State = 109;
+				State = 155;
 				arrow();
-				State = 110;
+				State = 156;
 				Match(IDENTIFIER);
-				State = 111;
+				State = 157;
 				Match(SETEND);
 				}
 				break;
 			}
 			Context.Stop = TokenStream.LT(-1);
-			State = 129;
+			State = 175;
 			ErrorHandler.Sync(this);
-			_alt = Interpreter.AdaptivePredict(TokenStream,5,Context);
+			_alt = Interpreter.AdaptivePredict(TokenStream,9,Context);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( ParseListeners!=null )
 						TriggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					State = 127;
+					State = 173;
 					ErrorHandler.Sync(this);
-					switch ( Interpreter.AdaptivePredict(TokenStream,4,Context) ) {
+					switch ( Interpreter.AdaptivePredict(TokenStream,8,Context) ) {
 					case 1:
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
-						State = 115;
+						State = 161;
 						if (!(Precpred(Context, 6))) throw new FailedPredicateException(this, "Precpred(Context, 6)");
-						State = 116;
+						State = 162;
 						numop();
-						State = 117;
+						State = 163;
 						expr(7);
 						}
 						break;
@@ -733,11 +1108,11 @@ public partial class NerdyNodeParser : Parser {
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
-						State = 119;
+						State = 165;
 						if (!(Precpred(Context, 5))) throw new FailedPredicateException(this, "Precpred(Context, 5)");
-						State = 120;
+						State = 166;
 						boolop();
-						State = 121;
+						State = 167;
 						expr(6);
 						}
 						break;
@@ -745,20 +1120,20 @@ public partial class NerdyNodeParser : Parser {
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
-						State = 123;
+						State = 169;
 						if (!(Precpred(Context, 4))) throw new FailedPredicateException(this, "Precpred(Context, 4)");
-						State = 124;
+						State = 170;
 						graphop();
-						State = 125;
+						State = 171;
 						expr(5);
 						}
 						break;
 					}
 					} 
 				}
-				State = 131;
+				State = 177;
 				ErrorHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(TokenStream,5,Context);
+				_alt = Interpreter.AdaptivePredict(TokenStream,9,Context);
 			}
 			}
 		}
@@ -794,6 +1169,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_value; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterValue(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitValue(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitValue(this);
@@ -804,50 +1189,50 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public ValueContext value() {
 		ValueContext _localctx = new ValueContext(Context, State);
-		EnterRule(_localctx, 18, RULE_value);
+		EnterRule(_localctx, 24, RULE_value);
 		try {
-			State = 138;
+			State = 184;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,6,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,10,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 132;
+				State = 178;
 				Match(INT);
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 133;
+				State = 179;
 				Match(STRING);
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 134;
+				State = 180;
 				@bool();
 				}
 				break;
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 135;
+				State = 181;
 				graph();
 				}
 				break;
 			case 5:
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 136;
+				State = 182;
 				nodeset();
 				}
 				break;
 			case 6:
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 137;
+				State = 183;
 				edgeset();
 				}
 				break;
@@ -873,6 +1258,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_bool; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterBool(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitBool(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitBool(this);
@@ -883,12 +1278,12 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public BoolContext @bool() {
 		BoolContext _localctx = new BoolContext(Context, State);
-		EnterRule(_localctx, 20, RULE_bool);
+		EnterRule(_localctx, 26, RULE_bool);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 140;
+			State = 186;
 			_la = TokenStream.LA(1);
 			if ( !(_la==TRUE || _la==FALSE) ) {
 			ErrorHandler.RecoverInline(this);
@@ -920,6 +1315,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_arrow; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterArrow(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitArrow(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitArrow(this);
@@ -930,14 +1335,14 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public ArrowContext arrow() {
 		ArrowContext _localctx = new ArrowContext(Context, State);
-		EnterRule(_localctx, 22, RULE_arrow);
+		EnterRule(_localctx, 28, RULE_arrow);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 142;
+			State = 188;
 			_la = TokenStream.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 492581209243648L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 1970324836974592L) != 0)) ) {
 			ErrorHandler.RecoverInline(this);
 			}
 			else {
@@ -974,6 +1379,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_list; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterList(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitList(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitList(this);
@@ -984,30 +1399,30 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public ListContext list() {
 		ListContext _localctx = new ListContext(Context, State);
-		EnterRule(_localctx, 24, RULE_list);
+		EnterRule(_localctx, 30, RULE_list);
 		try {
-			State = 151;
+			State = 197;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case LISTSTART:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 144;
+				State = 190;
 				Match(LISTSTART);
-				State = 145;
+				State = 191;
 				expr(0);
-				State = 146;
+				State = 192;
 				Match(ELLIPSIS);
-				State = 147;
+				State = 193;
 				expr(0);
-				State = 148;
+				State = 194;
 				Match(LISTEND);
 				}
 				break;
 			case IDENTIFIER:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 150;
+				State = 196;
 				Match(IDENTIFIER);
 				}
 				break;
@@ -1038,6 +1453,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_numop; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterNumop(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitNumop(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNumop(this);
@@ -1048,14 +1473,14 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public NumopContext numop() {
 		NumopContext _localctx = new NumopContext(Context, State);
-		EnterRule(_localctx, 26, RULE_numop);
+		EnterRule(_localctx, 32, RULE_numop);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 153;
+			State = 199;
 			_la = TokenStream.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 133143986176L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 266287972352L) != 0)) ) {
 			ErrorHandler.RecoverInline(this);
 			}
 			else {
@@ -1090,6 +1515,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_boolop; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterBoolop(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitBoolop(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitBoolop(this);
@@ -1100,14 +1535,14 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public BoolopContext boolop() {
 		BoolopContext _localctx = new BoolopContext(Context, State);
-		EnterRule(_localctx, 28, RULE_boolop);
+		EnterRule(_localctx, 34, RULE_boolop);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 155;
+			State = 201;
 			_la = TokenStream.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 35046933135360L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 70093866270720L) != 0)) ) {
 			ErrorHandler.RecoverInline(this);
 			}
 			else {
@@ -1135,6 +1570,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_graphop; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterGraphop(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitGraphop(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitGraphop(this);
@@ -1145,11 +1590,11 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public GraphopContext graphop() {
 		GraphopContext _localctx = new GraphopContext(Context, State);
-		EnterRule(_localctx, 30, RULE_graphop);
+		EnterRule(_localctx, 36, RULE_graphop);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 157;
+			State = 203;
 			Match(UNION);
 			}
 		}
@@ -1180,6 +1625,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_graph; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterGraph(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitGraph(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitGraph(this);
@@ -1190,19 +1645,19 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public GraphContext graph() {
 		GraphContext _localctx = new GraphContext(Context, State);
-		EnterRule(_localctx, 32, RULE_graph);
+		EnterRule(_localctx, 38, RULE_graph);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 159;
+			State = 205;
 			Match(PARANSTART);
-			State = 160;
+			State = 206;
 			nodeset();
-			State = 161;
+			State = 207;
 			Match(COMMA);
-			State = 162;
+			State = 208;
 			edgeset();
-			State = 163;
+			State = 209;
 			Match(PARANEND);
 			}
 		}
@@ -1229,6 +1684,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_nodeset; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterNodeset(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitNodeset(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodeset(this);
@@ -1239,15 +1704,15 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public NodesetContext nodeset() {
 		NodesetContext _localctx = new NodesetContext(Context, State);
-		EnterRule(_localctx, 34, RULE_nodeset);
+		EnterRule(_localctx, 40, RULE_nodeset);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 165;
+			State = 211;
 			Match(SETSTART);
-			State = 166;
+			State = 212;
 			identlist();
-			State = 167;
+			State = 213;
 			Match(SETEND);
 			}
 		}
@@ -1274,6 +1739,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_edgeset; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterEdgeset(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitEdgeset(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitEdgeset(this);
@@ -1284,15 +1759,15 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public EdgesetContext edgeset() {
 		EdgesetContext _localctx = new EdgesetContext(Context, State);
-		EnterRule(_localctx, 36, RULE_edgeset);
+		EnterRule(_localctx, 42, RULE_edgeset);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 169;
+			State = 215;
 			Match(SETSTART);
-			State = 170;
+			State = 216;
 			identlist();
-			State = 171;
+			State = 217;
 			Match(SETEND);
 			}
 		}
@@ -1322,6 +1797,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_identlist; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterIdentlist(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitIdentlist(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitIdentlist(this);
@@ -1332,22 +1817,22 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public IdentlistContext identlist() {
 		IdentlistContext _localctx = new IdentlistContext(Context, State);
-		EnterRule(_localctx, 38, RULE_identlist);
+		EnterRule(_localctx, 44, RULE_identlist);
 		int _la;
 		try {
 			int _alt;
-			State = 183;
+			State = 229;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,10,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,14,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 174;
+				State = 220;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 				if (_la==IDENTIFIER) {
 					{
-					State = 173;
+					State = 219;
 					Match(IDENTIFIER);
 					}
 				}
@@ -1357,7 +1842,7 @@ public partial class NerdyNodeParser : Parser {
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 178;
+				State = 224;
 				ErrorHandler.Sync(this);
 				_alt = 1;
 				do {
@@ -1365,9 +1850,9 @@ public partial class NerdyNodeParser : Parser {
 					case 1:
 						{
 						{
-						State = 176;
+						State = 222;
 						Match(IDENTIFIER);
-						State = 177;
+						State = 223;
 						Match(COMMA);
 						}
 						}
@@ -1375,11 +1860,11 @@ public partial class NerdyNodeParser : Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					State = 180;
+					State = 226;
 					ErrorHandler.Sync(this);
-					_alt = Interpreter.AdaptivePredict(TokenStream,9,Context);
+					_alt = Interpreter.AdaptivePredict(TokenStream,13,Context);
 				} while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER );
-				State = 182;
+				State = 228;
 				Match(IDENTIFIER);
 				}
 				break;
@@ -1401,17 +1886,27 @@ public partial class NerdyNodeParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER(int i) {
 			return GetToken(NerdyNodeParser.IDENTIFIER, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DOT() { return GetToken(NerdyNodeParser.DOT, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PARANSTART() { return GetToken(NerdyNodeParser.PARANSTART, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ParamlistContext paramlist() {
 			return GetRuleContext<ParamlistContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PARANEND() { return GetToken(NerdyNodeParser.PARANEND, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DOT() { return GetToken(NerdyNodeParser.DOT, 0); }
 		public FunccallContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_funccall; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterFunccall(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitFunccall(this);
+		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
@@ -1423,21 +1918,29 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public FunccallContext funccall() {
 		FunccallContext _localctx = new FunccallContext(Context, State);
-		EnterRule(_localctx, 40, RULE_funccall);
+		EnterRule(_localctx, 46, RULE_funccall);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 185;
+			State = 233;
+			ErrorHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(TokenStream,15,Context) ) {
+			case 1:
+				{
+				State = 231;
+				Match(IDENTIFIER);
+				State = 232;
+				Match(DOT);
+				}
+				break;
+			}
+			State = 235;
 			Match(IDENTIFIER);
-			State = 186;
-			Match(DOT);
-			State = 187;
-			Match(IDENTIFIER);
-			State = 188;
+			State = 236;
 			Match(PARANSTART);
-			State = 189;
+			State = 237;
 			paramlist();
-			State = 190;
+			State = 238;
 			Match(PARANEND);
 			}
 		}
@@ -1469,6 +1972,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_paramlist; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterParamlist(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitParamlist(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitParamlist(this);
@@ -1479,22 +1992,22 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public ParamlistContext paramlist() {
 		ParamlistContext _localctx = new ParamlistContext(Context, State);
-		EnterRule(_localctx, 42, RULE_paramlist);
+		EnterRule(_localctx, 48, RULE_paramlist);
 		int _la;
 		try {
 			int _alt;
-			State = 204;
+			State = 252;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,13,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,18,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 193;
+				State = 241;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 9007199262640640L) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 72057619815631360L) != 0)) {
 					{
-					State = 192;
+					State = 240;
 					expr(0);
 					}
 				}
@@ -1504,7 +2017,7 @@ public partial class NerdyNodeParser : Parser {
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 198;
+				State = 246;
 				ErrorHandler.Sync(this);
 				_alt = 1;
 				do {
@@ -1512,9 +2025,9 @@ public partial class NerdyNodeParser : Parser {
 					case 1:
 						{
 						{
-						State = 195;
+						State = 243;
 						expr(0);
-						State = 196;
+						State = 244;
 						Match(COMMA);
 						}
 						}
@@ -1522,11 +2035,11 @@ public partial class NerdyNodeParser : Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					State = 200;
+					State = 248;
 					ErrorHandler.Sync(this);
-					_alt = Interpreter.AdaptivePredict(TokenStream,12,Context);
+					_alt = Interpreter.AdaptivePredict(TokenStream,17,Context);
 				} while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER );
-				State = 202;
+				State = 250;
 				expr(0);
 				}
 				break;
@@ -1563,6 +2076,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_graphfunc; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterGraphfunc(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitGraphfunc(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitGraphfunc(this);
@@ -1573,40 +2096,40 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public GraphfuncContext graphfunc() {
 		GraphfuncContext _localctx = new GraphfuncContext(Context, State);
-		EnterRule(_localctx, 44, RULE_graphfunc);
+		EnterRule(_localctx, 50, RULE_graphfunc);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 208;
+			State = 256;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,14,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,19,Context) ) {
 			case 1:
 				{
-				State = 206;
+				State = 254;
 				Match(IDENTIFIER);
 				}
 				break;
 			case 2:
 				{
-				State = 207;
+				State = 255;
 				funccall();
 				}
 				break;
 			}
-			State = 210;
+			State = 258;
 			addtograph();
-			State = 213;
+			State = 261;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,15,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,20,Context) ) {
 			case 1:
 				{
-				State = 211;
+				State = 259;
 				Match(IDENTIFIER);
 				}
 				break;
 			case 2:
 				{
-				State = 212;
+				State = 260;
 				funccall();
 				}
 				break;
@@ -1628,11 +2151,22 @@ public partial class NerdyNodeParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ADDUNDIRECTED() { return GetToken(NerdyNodeParser.ADDUNDIRECTED, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ADDLEFTDIRECTION() { return GetToken(NerdyNodeParser.ADDLEFTDIRECTION, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ADDRIGHTDIRECTION() { return GetToken(NerdyNodeParser.ADDRIGHTDIRECTION, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ADD_TO() { return GetToken(NerdyNodeParser.ADD_TO, 0); }
 		public AddtographContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_addtograph; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterAddtograph(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitAddtograph(this);
+		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
@@ -1644,20 +2178,72 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public AddtographContext addtograph() {
 		AddtographContext _localctx = new AddtographContext(Context, State);
-		EnterRule(_localctx, 46, RULE_addtograph);
+		EnterRule(_localctx, 52, RULE_addtograph);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 215;
+			State = 263;
 			_la = TokenStream.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 3940649673949184L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 15903336184152064L) != 0)) ) {
 			ErrorHandler.RecoverInline(this);
 			}
 			else {
 				ErrorHandler.ReportMatch(this);
 			    Consume();
 			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class ReturnstmtContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RETURN() { return GetToken(NerdyNodeParser.RETURN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ExprContext expr() {
+			return GetRuleContext<ExprContext>(0);
+		}
+		public ReturnstmtContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_returnstmt; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterReturnstmt(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitReturnstmt(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitReturnstmt(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public ReturnstmtContext returnstmt() {
+		ReturnstmtContext _localctx = new ReturnstmtContext(Context, State);
+		EnterRule(_localctx, 54, RULE_returnstmt);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 265;
+			Match(RETURN);
+			State = 266;
+			expr(0);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1682,6 +2268,16 @@ public partial class NerdyNodeParser : Parser {
 		}
 		public override int RuleIndex { get { return RULE_print; } }
 		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterPrint(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitPrint(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitPrint(this);
@@ -1692,13 +2288,65 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public PrintContext print() {
 		PrintContext _localctx = new PrintContext(Context, State);
-		EnterRule(_localctx, 48, RULE_print);
+		EnterRule(_localctx, 56, RULE_print);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 217;
+			State = 268;
 			Match(PRINT);
-			State = 218;
+			State = 269;
+			expr(0);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class DrawContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DRAW() { return GetToken(NerdyNodeParser.DRAW, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ExprContext expr() {
+			return GetRuleContext<ExprContext>(0);
+		}
+		public DrawContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_draw; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterDraw(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitDraw(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitDraw(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public DrawContext draw() {
+		DrawContext _localctx = new DrawContext(Context, State);
+		EnterRule(_localctx, 58, RULE_draw);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 271;
+			Match(DRAW);
+			State = 272;
 			expr(0);
 			}
 		}
@@ -1715,7 +2363,7 @@ public partial class NerdyNodeParser : Parser {
 
 	public override bool Sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 8: return expr_sempred((ExprContext)_localctx, predIndex);
+		case 11: return expr_sempred((ExprContext)_localctx, predIndex);
 		}
 		return true;
 	}
@@ -1729,75 +2377,94 @@ public partial class NerdyNodeParser : Parser {
 	}
 
 	private static int[] _serializedATN = {
-		4,1,56,221,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
+		4,1,59,275,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
 		7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,2,14,7,14,
 		2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,7,20,2,21,7,21,
-		2,22,7,22,2,23,7,23,2,24,7,24,1,0,1,0,1,0,1,1,1,1,1,1,1,1,5,1,58,8,1,10,
-		1,12,1,61,9,1,1,1,1,1,1,2,1,2,1,2,1,2,1,2,1,2,1,2,3,2,72,8,2,1,3,1,3,1,
-		3,1,3,1,3,1,3,1,4,1,4,1,4,1,4,1,4,3,4,85,8,4,1,5,1,5,1,5,1,6,1,6,1,6,1,
-		6,1,7,1,7,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,
-		1,8,1,8,1,8,3,8,114,8,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,
-		8,5,8,128,8,8,10,8,12,8,131,9,8,1,9,1,9,1,9,1,9,1,9,1,9,3,9,139,8,9,1,
-		10,1,10,1,11,1,11,1,12,1,12,1,12,1,12,1,12,1,12,1,12,3,12,152,8,12,1,13,
-		1,13,1,14,1,14,1,15,1,15,1,16,1,16,1,16,1,16,1,16,1,16,1,17,1,17,1,17,
-		1,17,1,18,1,18,1,18,1,18,1,19,3,19,175,8,19,1,19,1,19,4,19,179,8,19,11,
-		19,12,19,180,1,19,3,19,184,8,19,1,20,1,20,1,20,1,20,1,20,1,20,1,20,1,21,
-		3,21,194,8,21,1,21,1,21,1,21,4,21,199,8,21,11,21,12,21,200,1,21,1,21,3,
-		21,205,8,21,1,22,1,22,3,22,209,8,22,1,22,1,22,1,22,3,22,214,8,22,1,23,
-		1,23,1,24,1,24,1,24,1,24,0,1,16,25,0,2,4,6,8,10,12,14,16,18,20,22,24,26,
-		28,30,32,34,36,38,40,42,44,46,48,0,6,2,0,16,18,23,27,1,0,21,22,1,0,46,
-		48,1,0,32,36,1,0,37,44,1,0,49,51,225,0,50,1,0,0,0,2,53,1,0,0,0,4,71,1,
-		0,0,0,6,73,1,0,0,0,8,79,1,0,0,0,10,86,1,0,0,0,12,89,1,0,0,0,14,93,1,0,
-		0,0,16,113,1,0,0,0,18,138,1,0,0,0,20,140,1,0,0,0,22,142,1,0,0,0,24,151,
-		1,0,0,0,26,153,1,0,0,0,28,155,1,0,0,0,30,157,1,0,0,0,32,159,1,0,0,0,34,
-		165,1,0,0,0,36,169,1,0,0,0,38,183,1,0,0,0,40,185,1,0,0,0,42,204,1,0,0,
-		0,44,208,1,0,0,0,46,215,1,0,0,0,48,217,1,0,0,0,50,51,3,2,1,0,51,52,5,0,
-		0,1,52,1,1,0,0,0,53,59,5,5,0,0,54,55,3,4,2,0,55,56,5,2,0,0,56,58,1,0,0,
-		0,57,54,1,0,0,0,58,61,1,0,0,0,59,57,1,0,0,0,59,60,1,0,0,0,60,62,1,0,0,
-		0,61,59,1,0,0,0,62,63,5,6,0,0,63,3,1,0,0,0,64,72,3,6,3,0,65,72,3,8,4,0,
-		66,72,3,10,5,0,67,72,3,12,6,0,68,72,3,40,20,0,69,72,3,44,22,0,70,72,3,
-		48,24,0,71,64,1,0,0,0,71,65,1,0,0,0,71,66,1,0,0,0,71,67,1,0,0,0,71,68,
-		1,0,0,0,71,69,1,0,0,0,71,70,1,0,0,0,72,5,1,0,0,0,73,74,5,28,0,0,74,75,
-		5,53,0,0,75,76,5,29,0,0,76,77,3,24,12,0,77,78,3,2,1,0,78,7,1,0,0,0,79,
-		80,5,30,0,0,80,81,3,16,8,0,81,84,3,2,1,0,82,83,5,31,0,0,83,85,3,2,1,0,
-		84,82,1,0,0,0,84,85,1,0,0,0,85,9,1,0,0,0,86,87,3,14,7,0,87,88,3,12,6,0,
-		88,11,1,0,0,0,89,90,5,53,0,0,90,91,5,1,0,0,91,92,3,16,8,0,92,13,1,0,0,
-		0,93,94,7,0,0,0,94,15,1,0,0,0,95,96,6,8,-1,0,96,114,3,18,9,0,97,114,5,
-		53,0,0,98,114,3,40,20,0,99,100,5,11,0,0,100,101,3,16,8,0,101,102,5,12,
-		0,0,102,114,1,0,0,0,103,104,5,15,0,0,104,105,3,16,8,0,105,106,5,15,0,0,
-		106,114,1,0,0,0,107,108,5,9,0,0,108,109,5,53,0,0,109,110,3,22,11,0,110,
-		111,5,53,0,0,111,112,5,10,0,0,112,114,1,0,0,0,113,95,1,0,0,0,113,97,1,
-		0,0,0,113,98,1,0,0,0,113,99,1,0,0,0,113,103,1,0,0,0,113,107,1,0,0,0,114,
-		129,1,0,0,0,115,116,10,6,0,0,116,117,3,26,13,0,117,118,3,16,8,7,118,128,
-		1,0,0,0,119,120,10,5,0,0,120,121,3,28,14,0,121,122,3,16,8,6,122,128,1,
-		0,0,0,123,124,10,4,0,0,124,125,3,30,15,0,125,126,3,16,8,5,126,128,1,0,
-		0,0,127,115,1,0,0,0,127,119,1,0,0,0,127,123,1,0,0,0,128,131,1,0,0,0,129,
-		127,1,0,0,0,129,130,1,0,0,0,130,17,1,0,0,0,131,129,1,0,0,0,132,139,5,19,
-		0,0,133,139,5,20,0,0,134,139,3,20,10,0,135,139,3,32,16,0,136,139,3,34,
-		17,0,137,139,3,36,18,0,138,132,1,0,0,0,138,133,1,0,0,0,138,134,1,0,0,0,
-		138,135,1,0,0,0,138,136,1,0,0,0,138,137,1,0,0,0,139,19,1,0,0,0,140,141,
-		7,1,0,0,141,21,1,0,0,0,142,143,7,2,0,0,143,23,1,0,0,0,144,145,5,7,0,0,
-		145,146,3,16,8,0,146,147,5,14,0,0,147,148,3,16,8,0,148,149,5,8,0,0,149,
-		152,1,0,0,0,150,152,5,53,0,0,151,144,1,0,0,0,151,150,1,0,0,0,152,25,1,
-		0,0,0,153,154,7,3,0,0,154,27,1,0,0,0,155,156,7,4,0,0,156,29,1,0,0,0,157,
-		158,5,45,0,0,158,31,1,0,0,0,159,160,5,11,0,0,160,161,3,34,17,0,161,162,
-		5,13,0,0,162,163,3,36,18,0,163,164,5,12,0,0,164,33,1,0,0,0,165,166,5,9,
-		0,0,166,167,3,38,19,0,167,168,5,10,0,0,168,35,1,0,0,0,169,170,5,9,0,0,
-		170,171,3,38,19,0,171,172,5,10,0,0,172,37,1,0,0,0,173,175,5,53,0,0,174,
-		173,1,0,0,0,174,175,1,0,0,0,175,184,1,0,0,0,176,177,5,53,0,0,177,179,5,
-		13,0,0,178,176,1,0,0,0,179,180,1,0,0,0,180,178,1,0,0,0,180,181,1,0,0,0,
-		181,182,1,0,0,0,182,184,5,53,0,0,183,174,1,0,0,0,183,178,1,0,0,0,184,39,
-		1,0,0,0,185,186,5,53,0,0,186,187,5,4,0,0,187,188,5,53,0,0,188,189,5,11,
-		0,0,189,190,3,42,21,0,190,191,5,12,0,0,191,41,1,0,0,0,192,194,3,16,8,0,
-		193,192,1,0,0,0,193,194,1,0,0,0,194,205,1,0,0,0,195,196,3,16,8,0,196,197,
-		5,13,0,0,197,199,1,0,0,0,198,195,1,0,0,0,199,200,1,0,0,0,200,198,1,0,0,
-		0,200,201,1,0,0,0,201,202,1,0,0,0,202,203,3,16,8,0,203,205,1,0,0,0,204,
-		193,1,0,0,0,204,198,1,0,0,0,205,43,1,0,0,0,206,209,5,53,0,0,207,209,3,
-		40,20,0,208,206,1,0,0,0,208,207,1,0,0,0,209,210,1,0,0,0,210,213,3,46,23,
-		0,211,214,5,53,0,0,212,214,3,40,20,0,213,211,1,0,0,0,213,212,1,0,0,0,214,
-		45,1,0,0,0,215,216,7,5,0,0,216,47,1,0,0,0,217,218,5,52,0,0,218,219,3,16,
-		8,0,219,49,1,0,0,0,16,59,71,84,113,127,129,138,151,174,180,183,193,200,
-		204,208,213
+		2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,2,27,7,27,2,28,7,28,
+		2,29,7,29,1,0,1,0,5,0,63,8,0,10,0,12,0,66,9,0,1,0,1,0,1,1,1,1,1,1,1,1,
+		5,1,74,8,1,10,1,12,1,77,9,1,1,1,1,1,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,3,3,
+		3,89,8,3,1,3,1,3,1,3,4,3,94,8,3,11,3,12,3,95,1,3,1,3,3,3,100,8,3,1,4,1,
+		4,1,4,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,3,5,114,8,5,1,6,1,6,1,6,1,6,
+		1,6,1,6,1,7,1,7,1,7,1,7,1,7,3,7,127,8,7,1,8,1,8,1,8,1,9,1,9,1,9,1,9,1,
+		10,1,10,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,
+		11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,3,11,160,8,11,1,11,1,11,
+		1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,5,11,174,8,11,10,11,
+		12,11,177,9,11,1,12,1,12,1,12,1,12,1,12,1,12,3,12,185,8,12,1,13,1,13,1,
+		14,1,14,1,15,1,15,1,15,1,15,1,15,1,15,1,15,3,15,198,8,15,1,16,1,16,1,17,
+		1,17,1,18,1,18,1,19,1,19,1,19,1,19,1,19,1,19,1,20,1,20,1,20,1,20,1,21,
+		1,21,1,21,1,21,1,22,3,22,221,8,22,1,22,1,22,4,22,225,8,22,11,22,12,22,
+		226,1,22,3,22,230,8,22,1,23,1,23,3,23,234,8,23,1,23,1,23,1,23,1,23,1,23,
+		1,24,3,24,242,8,24,1,24,1,24,1,24,4,24,247,8,24,11,24,12,24,248,1,24,1,
+		24,3,24,253,8,24,1,25,1,25,3,25,257,8,25,1,25,1,25,1,25,3,25,262,8,25,
+		1,26,1,26,1,27,1,27,1,27,1,28,1,28,1,28,1,29,1,29,1,29,1,29,0,1,22,30,
+		0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,
+		50,52,54,56,58,0,6,2,0,16,18,23,27,1,0,21,22,1,0,48,50,1,0,33,37,1,0,38,
+		45,2,0,47,47,51,53,283,0,60,1,0,0,0,2,69,1,0,0,0,4,80,1,0,0,0,6,99,1,0,
+		0,0,8,101,1,0,0,0,10,113,1,0,0,0,12,115,1,0,0,0,14,121,1,0,0,0,16,128,
+		1,0,0,0,18,131,1,0,0,0,20,135,1,0,0,0,22,159,1,0,0,0,24,184,1,0,0,0,26,
+		186,1,0,0,0,28,188,1,0,0,0,30,197,1,0,0,0,32,199,1,0,0,0,34,201,1,0,0,
+		0,36,203,1,0,0,0,38,205,1,0,0,0,40,211,1,0,0,0,42,215,1,0,0,0,44,229,1,
+		0,0,0,46,233,1,0,0,0,48,252,1,0,0,0,50,256,1,0,0,0,52,263,1,0,0,0,54,265,
+		1,0,0,0,56,268,1,0,0,0,58,271,1,0,0,0,60,64,3,2,1,0,61,63,3,4,2,0,62,61,
+		1,0,0,0,63,66,1,0,0,0,64,62,1,0,0,0,64,65,1,0,0,0,65,67,1,0,0,0,66,64,
+		1,0,0,0,67,68,5,0,0,1,68,1,1,0,0,0,69,75,5,5,0,0,70,71,3,10,5,0,71,72,
+		5,2,0,0,72,74,1,0,0,0,73,70,1,0,0,0,74,77,1,0,0,0,75,73,1,0,0,0,75,76,
+		1,0,0,0,76,78,1,0,0,0,77,75,1,0,0,0,78,79,5,6,0,0,79,3,1,0,0,0,80,81,3,
+		20,10,0,81,82,5,56,0,0,82,83,5,11,0,0,83,84,3,6,3,0,84,85,5,12,0,0,85,
+		86,3,2,1,0,86,5,1,0,0,0,87,89,3,8,4,0,88,87,1,0,0,0,88,89,1,0,0,0,89,100,
+		1,0,0,0,90,91,3,8,4,0,91,92,5,13,0,0,92,94,1,0,0,0,93,90,1,0,0,0,94,95,
+		1,0,0,0,95,93,1,0,0,0,95,96,1,0,0,0,96,97,1,0,0,0,97,98,3,8,4,0,98,100,
+		1,0,0,0,99,88,1,0,0,0,99,93,1,0,0,0,100,7,1,0,0,0,101,102,3,20,10,0,102,
+		103,5,56,0,0,103,9,1,0,0,0,104,114,3,12,6,0,105,114,3,14,7,0,106,114,3,
+		16,8,0,107,114,3,18,9,0,108,114,3,46,23,0,109,114,3,50,25,0,110,114,3,
+		56,28,0,111,114,3,58,29,0,112,114,3,54,27,0,113,104,1,0,0,0,113,105,1,
+		0,0,0,113,106,1,0,0,0,113,107,1,0,0,0,113,108,1,0,0,0,113,109,1,0,0,0,
+		113,110,1,0,0,0,113,111,1,0,0,0,113,112,1,0,0,0,114,11,1,0,0,0,115,116,
+		5,28,0,0,116,117,5,56,0,0,117,118,5,29,0,0,118,119,3,30,15,0,119,120,3,
+		2,1,0,120,13,1,0,0,0,121,122,5,30,0,0,122,123,3,22,11,0,123,126,3,2,1,
+		0,124,125,5,31,0,0,125,127,3,2,1,0,126,124,1,0,0,0,126,127,1,0,0,0,127,
+		15,1,0,0,0,128,129,3,20,10,0,129,130,3,18,9,0,130,17,1,0,0,0,131,132,5,
+		56,0,0,132,133,5,1,0,0,133,134,3,22,11,0,134,19,1,0,0,0,135,136,7,0,0,
+		0,136,21,1,0,0,0,137,138,6,11,-1,0,138,160,3,24,12,0,139,160,5,56,0,0,
+		140,160,3,46,23,0,141,142,5,34,0,0,142,160,3,22,11,8,143,144,5,33,0,0,
+		144,160,3,22,11,7,145,146,5,11,0,0,146,147,3,22,11,0,147,148,5,12,0,0,
+		148,160,1,0,0,0,149,150,5,15,0,0,150,151,3,22,11,0,151,152,5,15,0,0,152,
+		160,1,0,0,0,153,154,5,9,0,0,154,155,5,56,0,0,155,156,3,28,14,0,156,157,
+		5,56,0,0,157,158,5,10,0,0,158,160,1,0,0,0,159,137,1,0,0,0,159,139,1,0,
+		0,0,159,140,1,0,0,0,159,141,1,0,0,0,159,143,1,0,0,0,159,145,1,0,0,0,159,
+		149,1,0,0,0,159,153,1,0,0,0,160,175,1,0,0,0,161,162,10,6,0,0,162,163,3,
+		32,16,0,163,164,3,22,11,7,164,174,1,0,0,0,165,166,10,5,0,0,166,167,3,34,
+		17,0,167,168,3,22,11,6,168,174,1,0,0,0,169,170,10,4,0,0,170,171,3,36,18,
+		0,171,172,3,22,11,5,172,174,1,0,0,0,173,161,1,0,0,0,173,165,1,0,0,0,173,
+		169,1,0,0,0,174,177,1,0,0,0,175,173,1,0,0,0,175,176,1,0,0,0,176,23,1,0,
+		0,0,177,175,1,0,0,0,178,185,5,19,0,0,179,185,5,20,0,0,180,185,3,26,13,
+		0,181,185,3,38,19,0,182,185,3,40,20,0,183,185,3,42,21,0,184,178,1,0,0,
+		0,184,179,1,0,0,0,184,180,1,0,0,0,184,181,1,0,0,0,184,182,1,0,0,0,184,
+		183,1,0,0,0,185,25,1,0,0,0,186,187,7,1,0,0,187,27,1,0,0,0,188,189,7,2,
+		0,0,189,29,1,0,0,0,190,191,5,7,0,0,191,192,3,22,11,0,192,193,5,14,0,0,
+		193,194,3,22,11,0,194,195,5,8,0,0,195,198,1,0,0,0,196,198,5,56,0,0,197,
+		190,1,0,0,0,197,196,1,0,0,0,198,31,1,0,0,0,199,200,7,3,0,0,200,33,1,0,
+		0,0,201,202,7,4,0,0,202,35,1,0,0,0,203,204,5,46,0,0,204,37,1,0,0,0,205,
+		206,5,11,0,0,206,207,3,40,20,0,207,208,5,13,0,0,208,209,3,42,21,0,209,
+		210,5,12,0,0,210,39,1,0,0,0,211,212,5,9,0,0,212,213,3,44,22,0,213,214,
+		5,10,0,0,214,41,1,0,0,0,215,216,5,9,0,0,216,217,3,44,22,0,217,218,5,10,
+		0,0,218,43,1,0,0,0,219,221,5,56,0,0,220,219,1,0,0,0,220,221,1,0,0,0,221,
+		230,1,0,0,0,222,223,5,56,0,0,223,225,5,13,0,0,224,222,1,0,0,0,225,226,
+		1,0,0,0,226,224,1,0,0,0,226,227,1,0,0,0,227,228,1,0,0,0,228,230,5,56,0,
+		0,229,220,1,0,0,0,229,224,1,0,0,0,230,45,1,0,0,0,231,232,5,56,0,0,232,
+		234,5,4,0,0,233,231,1,0,0,0,233,234,1,0,0,0,234,235,1,0,0,0,235,236,5,
+		56,0,0,236,237,5,11,0,0,237,238,3,48,24,0,238,239,5,12,0,0,239,47,1,0,
+		0,0,240,242,3,22,11,0,241,240,1,0,0,0,241,242,1,0,0,0,242,253,1,0,0,0,
+		243,244,3,22,11,0,244,245,5,13,0,0,245,247,1,0,0,0,246,243,1,0,0,0,247,
+		248,1,0,0,0,248,246,1,0,0,0,248,249,1,0,0,0,249,250,1,0,0,0,250,251,3,
+		22,11,0,251,253,1,0,0,0,252,241,1,0,0,0,252,246,1,0,0,0,253,49,1,0,0,0,
+		254,257,5,56,0,0,255,257,3,46,23,0,256,254,1,0,0,0,256,255,1,0,0,0,257,
+		258,1,0,0,0,258,261,3,52,26,0,259,262,5,56,0,0,260,262,3,46,23,0,261,259,
+		1,0,0,0,261,260,1,0,0,0,262,51,1,0,0,0,263,264,7,5,0,0,264,53,1,0,0,0,
+		265,266,5,32,0,0,266,267,3,22,11,0,267,55,1,0,0,0,268,269,5,54,0,0,269,
+		270,3,22,11,0,270,57,1,0,0,0,271,272,5,55,0,0,272,273,3,22,11,0,273,59,
+		1,0,0,0,21,64,75,88,95,99,113,126,159,173,175,184,197,220,226,229,233,
+		241,248,252,256,261
 	};
 
 	public static readonly ATN _ATN =

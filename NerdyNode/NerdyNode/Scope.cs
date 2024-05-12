@@ -30,7 +30,7 @@ public class Scope
         }
         else
         {
-            throw new Exception("Variable not found");
+            throw new Exception($"Variable '{name}' not found in scope");
         }
     }
 
@@ -46,7 +46,7 @@ public class Scope
         }
         else
         {
-            throw new Exception("Variable not found");
+            throw new Exception($"Variable '{name}' not found");
         }
     }
 
@@ -54,7 +54,7 @@ public class Scope
     {
         if (this.variables.ContainsKey(name))
         {
-            throw new Exception("Variable already declared");
+            throw new Exception($"Variable {name} already declared");
         }
         else
         {

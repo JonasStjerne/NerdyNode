@@ -1,3 +1,6 @@
+//
+// antlr4 -lib . -Dlanguage=CSharp -o ../antlr4 -visitor NerdyNodeParser.g4 NerdyNodeLexer.g4
+//
 parser grammar NerdyNodeParser;
 options {
 	tokenVocab = NerdyNodeLexer;
@@ -21,6 +24,7 @@ statement:
 	| funccall
 	| graphfunc
 	| print
+	| draw
 	| returnstmt;
 
 forstmt: FOR IDENTIFIER IN list block;
@@ -45,6 +49,8 @@ expr:
 	value
 	| IDENTIFIER
 	| funccall
+	| MINUS expr
+	| PLUS expr
 	| expr numop expr
 	| expr boolop expr
 	| expr graphop expr
@@ -95,7 +101,11 @@ graphfunc:
 addtograph:
 	ADDUNDIRECTED
 	| ADDLEFTDIRECTION
-	| ADDRIGHTDIRECTION;
+	| ADDRIGHTDIRECTION
+	| ADD_TO
+	;
 
 returnstmt: RETURN expr;
+
 print: PRINT expr;
+draw: DRAW expr;

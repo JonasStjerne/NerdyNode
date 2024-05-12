@@ -1,15 +1,29 @@
 public class Edge
 {
-    Node endNode { get; }
-    public int? weight { get; }
-    public Edge(Node endNode, int? weight = null)
+    public bool Directed { get; }
+    public Node StartNode { get; }
+    public Node EndNode { get; }
+    public int? Weight { get; }
+
+    public Edge(Node startNode, Node endNode, bool directed, int? weight = null)
     {
-        this.endNode = endNode;
-        this.weight = weight;
+        this.StartNode = startNode;
+        this.EndNode = endNode;
+        this.Directed = directed;
+        this.Weight = weight;
     }
 
-    public Node GetEndNode()
+    public string GetAttributes()
     {
-        return endNode;
+        string dir = Directed ? "forward" : "none";
+        string attributes = $"[dir={dir}";
+        if (Weight != null)
+        {
+            attributes += $", weight={Weight}";
+        }
+        attributes += "]";
+        return attributes;
     }
+
+
 }

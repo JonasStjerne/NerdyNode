@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using System.Text;
 using Antlr4.Runtime;
+
+[assembly: CLSCompliant(false)]
 
 class Program
 {
@@ -10,7 +11,7 @@ class Program
         if (args.Length == 0)
         {
             Console.WriteLine("No path to file provided. Defaulting to test.0-0");
-            args = new string[] { "test.0-0" };
+            args = new string[] { "samples/test.0-0" };
         }
 
         string filePath = args[0];
@@ -43,6 +44,7 @@ class Program
             NerdyNodeParser.ProgramContext programContext = nerdyNodeParser.program();
             BasicNerdyNodeVisitor visitor = new BasicNerdyNodeVisitor();
             visitor.Visit(programContext);
+
         }
         catch (Exception ex)
         {

@@ -1,28 +1,11 @@
 begin
-    int depth = 4;
-    node initialNode = |"1"|;
-    graph binaryTree = ({initialNode},{});
-    for i in [2..depth] begin
-        graph left = binaryTree;
-        graph right = binaryTree.Copy();
-        binaryTree = left union right;
-        node newRootNode = |i|;
-        binaryTree.AddNode(newRootNode);
-        nodeset ns = binaryTree.GetNodes((i-1)+"");
-        for n in ns begin
-            newRootNode --> n;
-        end;
-    end;
-    print "Binary Tree with depth " + depth; 
-    print binaryTree;
-
     int width = 4;
     int height = 4;
     graph latticeGraph = ({},{});
     for y in [1..height] begin
         for x in [1..width] begin
             node newNode = |x+","+y|;
-            latticeGraph.AddNode(newNode);
+            latticeGraph << newNode;
             if x > 1 begin
                 node n = latticeGraph.GetNode((x-1)+","+y);
                 newNode <--> n;
@@ -35,4 +18,5 @@ begin
     end;
     print "Lattice Graph with width " + width + " and height " + height; 
     print latticeGraph;
+    draw latticeGraph;
 end

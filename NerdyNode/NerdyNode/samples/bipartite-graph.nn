@@ -1,0 +1,27 @@
+begin
+    int size = 4;
+
+    graph G = ({}, {});
+
+    for i in [1 .. size] begin
+      node n = |"u" + i|;
+      G << n;
+    end;
+
+    for i in [1 .. size] begin
+      node n = |"v" + i|;
+      G << n;
+    end;
+
+    for i in [1 .. size] begin
+      node ux = G.GetNode("u" + i);
+
+      for j in [1 .. size] begin
+        node vx = G.GetNode("v" + j);
+        ux <--> vx;
+      end;
+    end;
+
+    print G;
+    draw G;
+end
