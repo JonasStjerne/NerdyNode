@@ -195,7 +195,7 @@ public partial class NerdyNodeParserBaseVisitor<Result> : AbstractParseTreeVisit
 	/// <return>The visitor result.</return>
 	public virtual Result VisitList([NotNull] NerdyNodeParser.ListContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="NerdyNodeParser.numop"/>.
+	/// Visit a parse tree produced by <see cref="NerdyNodeParser.numop1"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -203,7 +203,17 @@ public partial class NerdyNodeParserBaseVisitor<Result> : AbstractParseTreeVisit
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNumop([NotNull] NerdyNodeParser.NumopContext context) { return VisitChildren(context); }
+	public virtual Result VisitNumop1([NotNull] NerdyNodeParser.Numop1Context context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="NerdyNodeParser.numop2"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitNumop2([NotNull] NerdyNodeParser.Numop2Context context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="NerdyNodeParser.boolop"/>.
 	/// <para>

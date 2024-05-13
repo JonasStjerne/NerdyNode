@@ -235,11 +235,25 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
             var value = Visit(context.expr(0));
             return AssertInt(value, context.expr(0).GetText());
         }
-        else if (context.numop() != null)
+        else if (context.numop1() != null)
         {
             var left = Visit(context.expr(0));
             var right = Visit(context.expr(1));
-            switch (context.numop().GetText())
+            switch (context.numop1().GetText())
+            {
+                case "*":
+                    return AssertInt(left, context.expr(0).GetText()) * AssertInt(right, context.expr(1).GetText());
+                case "/":
+                    return AssertInt(left, context.expr(0).GetText()) / AssertInt(right, context.expr(1).GetText());
+                case "%":
+                    return AssertInt(left, context.expr(0).GetText()) % AssertInt(right, context.expr(1).GetText());
+            }
+        }
+        else if (context.numop2() != null)
+        {
+            var left = Visit(context.expr(0));
+            var right = Visit(context.expr(1));
+            switch (context.numop2().GetText())
             {
                 case "+":
                     if (left is string || right is string)
@@ -252,12 +266,6 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
                     }
                 case "-":
                     return AssertInt(left, context.expr(0).GetText()) - AssertInt(right, context.expr(1).GetText());
-                case "*":
-                    return AssertInt(left, context.expr(0).GetText()) * AssertInt(right, context.expr(1).GetText());
-                case "/":
-                    return AssertInt(left, context.expr(0).GetText()) / AssertInt(right, context.expr(1).GetText());
-                case "%":
-                    return AssertInt(left, context.expr(0).GetText()) % AssertInt(right, context.expr(1).GetText());
             }
         }
         else if (context.boolop() != null)
@@ -467,7 +475,7 @@ public class BasicNerdyNodeVisitor : NerdyNodeParserBaseVisitor<object>
         }
 
 
-        // First setup a new symbol table with all parameter names set
+        // First Setup a new symbol table with all parameter names set
         // The function symbol table should inherit from root table and not the current symbol table
         var functionCallScope = new Scope(globalScope);
 

@@ -128,11 +128,17 @@ public interface INerdyNodeParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitList([NotNull] NerdyNodeParser.ListContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="NerdyNodeParser.numop"/>.
+	/// Visit a parse tree produced by <see cref="NerdyNodeParser.numop1"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitNumop([NotNull] NerdyNodeParser.NumopContext context);
+	Result VisitNumop1([NotNull] NerdyNodeParser.Numop1Context context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="NerdyNodeParser.numop2"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNumop2([NotNull] NerdyNodeParser.Numop2Context context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="NerdyNodeParser.boolop"/>.
 	/// </summary>

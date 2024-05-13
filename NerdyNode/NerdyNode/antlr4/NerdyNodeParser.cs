@@ -50,17 +50,17 @@ public partial class NerdyNodeParser : Parser {
 		RULE_program = 0, RULE_block = 1, RULE_funcdeclaration = 2, RULE_paramdecllist = 3, 
 		RULE_paramdecl = 4, RULE_statement = 5, RULE_forstmt = 6, RULE_ifstmt = 7, 
 		RULE_declaration = 8, RULE_assignment = 9, RULE_type = 10, RULE_expr = 11, 
-		RULE_value = 12, RULE_bool = 13, RULE_arrow = 14, RULE_list = 15, RULE_numop = 16, 
-		RULE_boolop = 17, RULE_graphop = 18, RULE_graph = 19, RULE_nodeset = 20, 
-		RULE_edgeset = 21, RULE_identlist = 22, RULE_funccall = 23, RULE_paramlist = 24, 
-		RULE_graphfunc = 25, RULE_addtograph = 26, RULE_returnstmt = 27, RULE_print = 28, 
-		RULE_draw = 29;
+		RULE_value = 12, RULE_bool = 13, RULE_arrow = 14, RULE_list = 15, RULE_numop1 = 16, 
+		RULE_numop2 = 17, RULE_boolop = 18, RULE_graphop = 19, RULE_graph = 20, 
+		RULE_nodeset = 21, RULE_edgeset = 22, RULE_identlist = 23, RULE_funccall = 24, 
+		RULE_paramlist = 25, RULE_graphfunc = 26, RULE_addtograph = 27, RULE_returnstmt = 28, 
+		RULE_print = 29, RULE_draw = 30;
 	public static readonly string[] ruleNames = {
 		"program", "block", "funcdeclaration", "paramdecllist", "paramdecl", "statement", 
 		"forstmt", "ifstmt", "declaration", "assignment", "type", "expr", "value", 
-		"bool", "arrow", "list", "numop", "boolop", "graphop", "graph", "nodeset", 
-		"edgeset", "identlist", "funccall", "paramlist", "graphfunc", "addtograph", 
-		"returnstmt", "print", "draw"
+		"bool", "arrow", "list", "numop1", "numop2", "boolop", "graphop", "graph", 
+		"nodeset", "edgeset", "identlist", "funccall", "paramlist", "graphfunc", 
+		"addtograph", "returnstmt", "print", "draw"
 	};
 
 	private static readonly string[] _LiteralNames = {
@@ -157,23 +157,23 @@ public partial class NerdyNodeParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 60;
+			State = 62;
 			block();
-			State = 64;
+			State = 66;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 260505600L) != 0)) {
 				{
 				{
-				State = 61;
+				State = 63;
 				funcdeclaration();
 				}
 				}
-				State = 66;
+				State = 68;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 67;
+			State = 69;
 			Match(Eof);
 			}
 		}
@@ -232,25 +232,25 @@ public partial class NerdyNodeParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 69;
+			State = 71;
 			Match(BEGIN);
-			State = 75;
+			State = 77;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 126100795464024064L) != 0)) {
 				{
 				{
-				State = 70;
+				State = 72;
 				statement();
-				State = 71;
+				State = 73;
 				Match(SEMI);
 				}
 				}
-				State = 77;
+				State = 79;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 78;
+			State = 80;
 			Match(END);
 			}
 		}
@@ -308,17 +308,17 @@ public partial class NerdyNodeParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 80;
-			type();
-			State = 81;
-			Match(IDENTIFIER);
 			State = 82;
-			Match(PARANSTART);
+			type();
 			State = 83;
-			paramdecllist();
+			Match(IDENTIFIER);
 			State = 84;
-			Match(PARANEND);
+			Match(PARANSTART);
 			State = 85;
+			paramdecllist();
+			State = 86;
+			Match(PARANEND);
+			State = 87;
 			block();
 			}
 		}
@@ -374,18 +374,18 @@ public partial class NerdyNodeParser : Parser {
 		int _la;
 		try {
 			int _alt;
-			State = 99;
+			State = 101;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,4,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 88;
+				State = 90;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 260505600L) != 0)) {
 					{
-					State = 87;
+					State = 89;
 					paramdecl();
 					}
 				}
@@ -395,7 +395,7 @@ public partial class NerdyNodeParser : Parser {
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 93;
+				State = 95;
 				ErrorHandler.Sync(this);
 				_alt = 1;
 				do {
@@ -403,9 +403,9 @@ public partial class NerdyNodeParser : Parser {
 					case 1:
 						{
 						{
-						State = 90;
+						State = 92;
 						paramdecl();
-						State = 91;
+						State = 93;
 						Match(COMMA);
 						}
 						}
@@ -413,11 +413,11 @@ public partial class NerdyNodeParser : Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					State = 95;
+					State = 97;
 					ErrorHandler.Sync(this);
 					_alt = Interpreter.AdaptivePredict(TokenStream,3,Context);
 				} while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER );
-				State = 97;
+				State = 99;
 				paramdecl();
 				}
 				break;
@@ -469,9 +469,9 @@ public partial class NerdyNodeParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 101;
+			State = 103;
 			type();
-			State = 102;
+			State = 104;
 			Match(IDENTIFIER);
 			}
 		}
@@ -542,69 +542,69 @@ public partial class NerdyNodeParser : Parser {
 		StatementContext _localctx = new StatementContext(Context, State);
 		EnterRule(_localctx, 10, RULE_statement);
 		try {
-			State = 113;
+			State = 115;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,5,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 104;
+				State = 106;
 				forstmt();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 105;
+				State = 107;
 				ifstmt();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 106;
+				State = 108;
 				declaration();
 				}
 				break;
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 107;
+				State = 109;
 				assignment();
 				}
 				break;
 			case 5:
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 108;
+				State = 110;
 				funccall();
 				}
 				break;
 			case 6:
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 109;
+				State = 111;
 				graphfunc();
 				}
 				break;
 			case 7:
 				EnterOuterAlt(_localctx, 7);
 				{
-				State = 110;
+				State = 112;
 				print();
 				}
 				break;
 			case 8:
 				EnterOuterAlt(_localctx, 8);
 				{
-				State = 111;
+				State = 113;
 				draw();
 				}
 				break;
 			case 9:
 				EnterOuterAlt(_localctx, 9);
 				{
-				State = 112;
+				State = 114;
 				returnstmt();
 				}
 				break;
@@ -661,15 +661,15 @@ public partial class NerdyNodeParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 115;
-			Match(FOR);
-			State = 116;
-			Match(IDENTIFIER);
 			State = 117;
-			Match(IN);
+			Match(FOR);
 			State = 118;
-			list();
+			Match(IDENTIFIER);
 			State = 119;
+			Match(IN);
+			State = 120;
+			list();
+			State = 121;
 			block();
 			}
 		}
@@ -727,20 +727,20 @@ public partial class NerdyNodeParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 121;
-			Match(IF);
-			State = 122;
-			expr(0);
 			State = 123;
+			Match(IF);
+			State = 124;
+			expr(0);
+			State = 125;
 			block();
-			State = 126;
+			State = 128;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			if (_la==ELSE) {
 				{
-				State = 124;
+				State = 126;
 				Match(ELSE);
-				State = 125;
+				State = 127;
 				block();
 				}
 			}
@@ -795,9 +795,9 @@ public partial class NerdyNodeParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 128;
+			State = 130;
 			type();
-			State = 129;
+			State = 131;
 			assignment();
 			}
 		}
@@ -848,11 +848,11 @@ public partial class NerdyNodeParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 131;
-			Match(IDENTIFIER);
-			State = 132;
-			Match(EQ);
 			State = 133;
+			Match(IDENTIFIER);
+			State = 134;
+			Match(EQ);
+			State = 135;
 			expr(0);
 			}
 		}
@@ -907,7 +907,7 @@ public partial class NerdyNodeParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 135;
+			State = 137;
 			_la = TokenStream.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 260505600L) != 0)) ) {
 			ErrorHandler.RecoverInline(this);
@@ -933,13 +933,6 @@ public partial class NerdyNodeParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ValueContext value() {
 			return GetRuleContext<ValueContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(NerdyNodeParser.IDENTIFIER); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER(int i) {
-			return GetToken(NerdyNodeParser.IDENTIFIER, i);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public FunccallContext funccall() {
-			return GetRuleContext<FunccallContext>(0);
-		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MINUS() { return GetToken(NerdyNodeParser.MINUS, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExprContext[] expr() {
 			return GetRuleContexts<ExprContext>();
@@ -950,6 +943,13 @@ public partial class NerdyNodeParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PLUS() { return GetToken(NerdyNodeParser.PLUS, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PARANSTART() { return GetToken(NerdyNodeParser.PARANSTART, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PARANEND() { return GetToken(NerdyNodeParser.PARANEND, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IDENTIFIER() { return GetTokens(NerdyNodeParser.IDENTIFIER); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IDENTIFIER(int i) {
+			return GetToken(NerdyNodeParser.IDENTIFIER, i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public FunccallContext funccall() {
+			return GetRuleContext<FunccallContext>(0);
+		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] LABEL() { return GetTokens(NerdyNodeParser.LABEL); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LABEL(int i) {
 			return GetToken(NerdyNodeParser.LABEL, i);
@@ -959,8 +959,11 @@ public partial class NerdyNodeParser : Parser {
 			return GetRuleContext<ArrowContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SETEND() { return GetToken(NerdyNodeParser.SETEND, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public NumopContext numop() {
-			return GetRuleContext<NumopContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public Numop1Context numop1() {
+			return GetRuleContext<Numop1Context>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public Numop2Context numop2() {
+			return GetRuleContext<Numop2Context>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public BoolopContext boolop() {
 			return GetRuleContext<BoolopContext>(0);
@@ -1007,44 +1010,32 @@ public partial class NerdyNodeParser : Parser {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 159;
+			State = 161;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,7,Context) ) {
 			case 1:
 				{
-				State = 138;
+				State = 140;
 				value();
 				}
 				break;
 			case 2:
 				{
-				State = 139;
-				Match(IDENTIFIER);
+				State = 141;
+				Match(MINUS);
+				State = 142;
+				expr(11);
 				}
 				break;
 			case 3:
 				{
-				State = 140;
-				funccall();
-				}
-				break;
-			case 4:
-				{
-				State = 141;
-				Match(MINUS);
-				State = 142;
-				expr(8);
-				}
-				break;
-			case 5:
-				{
 				State = 143;
 				Match(PLUS);
 				State = 144;
-				expr(7);
+				expr(10);
 				}
 				break;
-			case 6:
+			case 4:
 				{
 				State = 145;
 				Match(PARANSTART);
@@ -1054,33 +1045,45 @@ public partial class NerdyNodeParser : Parser {
 				Match(PARANEND);
 				}
 				break;
-			case 7:
+			case 5:
 				{
 				State = 149;
-				Match(LABEL);
+				Match(IDENTIFIER);
+				}
+				break;
+			case 6:
+				{
 				State = 150;
-				expr(0);
+				funccall();
+				}
+				break;
+			case 7:
+				{
 				State = 151;
+				Match(LABEL);
+				State = 152;
+				expr(0);
+				State = 153;
 				Match(LABEL);
 				}
 				break;
 			case 8:
 				{
-				State = 153;
-				Match(SETSTART);
-				State = 154;
-				Match(IDENTIFIER);
 				State = 155;
-				arrow();
+				Match(SETSTART);
 				State = 156;
 				Match(IDENTIFIER);
 				State = 157;
+				arrow();
+				State = 158;
+				Match(IDENTIFIER);
+				State = 159;
 				Match(SETEND);
 				}
 				break;
 			}
 			Context.Stop = TokenStream.LT(-1);
-			State = 175;
+			State = 181;
 			ErrorHandler.Sync(this);
 			_alt = Interpreter.AdaptivePredict(TokenStream,9,Context);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
@@ -1089,49 +1092,61 @@ public partial class NerdyNodeParser : Parser {
 						TriggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					State = 173;
+					State = 179;
 					ErrorHandler.Sync(this);
 					switch ( Interpreter.AdaptivePredict(TokenStream,8,Context) ) {
 					case 1:
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
-						State = 161;
-						if (!(Precpred(Context, 6))) throw new FailedPredicateException(this, "Precpred(Context, 6)");
-						State = 162;
-						numop();
 						State = 163;
-						expr(7);
+						if (!(Precpred(Context, 9))) throw new FailedPredicateException(this, "Precpred(Context, 9)");
+						State = 164;
+						numop1();
+						State = 165;
+						expr(10);
 						}
 						break;
 					case 2:
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
-						State = 165;
-						if (!(Precpred(Context, 5))) throw new FailedPredicateException(this, "Precpred(Context, 5)");
-						State = 166;
-						boolop();
 						State = 167;
-						expr(6);
+						if (!(Precpred(Context, 8))) throw new FailedPredicateException(this, "Precpred(Context, 8)");
+						State = 168;
+						numop2();
+						State = 169;
+						expr(9);
 						}
 						break;
 					case 3:
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
-						State = 169;
-						if (!(Precpred(Context, 4))) throw new FailedPredicateException(this, "Precpred(Context, 4)");
-						State = 170;
-						graphop();
 						State = 171;
-						expr(5);
+						if (!(Precpred(Context, 7))) throw new FailedPredicateException(this, "Precpred(Context, 7)");
+						State = 172;
+						boolop();
+						State = 173;
+						expr(8);
+						}
+						break;
+					case 4:
+						{
+						_localctx = new ExprContext(_parentctx, _parentState);
+						PushNewRecursionContext(_localctx, _startState, RULE_expr);
+						State = 175;
+						if (!(Precpred(Context, 6))) throw new FailedPredicateException(this, "Precpred(Context, 6)");
+						State = 176;
+						graphop();
+						State = 177;
+						expr(7);
 						}
 						break;
 					}
 					} 
 				}
-				State = 177;
+				State = 183;
 				ErrorHandler.Sync(this);
 				_alt = Interpreter.AdaptivePredict(TokenStream,9,Context);
 			}
@@ -1191,48 +1206,48 @@ public partial class NerdyNodeParser : Parser {
 		ValueContext _localctx = new ValueContext(Context, State);
 		EnterRule(_localctx, 24, RULE_value);
 		try {
-			State = 184;
+			State = 190;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,10,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 178;
+				State = 184;
 				Match(INT);
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 179;
+				State = 185;
 				Match(STRING);
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 180;
+				State = 186;
 				@bool();
 				}
 				break;
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 181;
+				State = 187;
 				graph();
 				}
 				break;
 			case 5:
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 182;
+				State = 188;
 				nodeset();
 				}
 				break;
 			case 6:
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 183;
+				State = 189;
 				edgeset();
 				}
 				break;
@@ -1283,7 +1298,7 @@ public partial class NerdyNodeParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 186;
+			State = 192;
 			_la = TokenStream.LA(1);
 			if ( !(_la==TRUE || _la==FALSE) ) {
 			ErrorHandler.RecoverInline(this);
@@ -1340,7 +1355,7 @@ public partial class NerdyNodeParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 188;
+			State = 194;
 			_la = TokenStream.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 1970324836974592L) != 0)) ) {
 			ErrorHandler.RecoverInline(this);
@@ -1401,28 +1416,28 @@ public partial class NerdyNodeParser : Parser {
 		ListContext _localctx = new ListContext(Context, State);
 		EnterRule(_localctx, 30, RULE_list);
 		try {
-			State = 197;
+			State = 203;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case LISTSTART:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 190;
+				State = 196;
 				Match(LISTSTART);
-				State = 191;
+				State = 197;
 				expr(0);
-				State = 192;
+				State = 198;
 				Match(ELLIPSIS);
-				State = 193;
+				State = 199;
 				expr(0);
-				State = 194;
+				State = 200;
 				Match(LISTEND);
 				}
 				break;
 			case IDENTIFIER:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 196;
+				State = 202;
 				Match(IDENTIFIER);
 				}
 				break;
@@ -1441,46 +1456,100 @@ public partial class NerdyNodeParser : Parser {
 		return _localctx;
 	}
 
-	public partial class NumopContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PLUS() { return GetToken(NerdyNodeParser.PLUS, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MINUS() { return GetToken(NerdyNodeParser.MINUS, 0); }
+	public partial class Numop1Context : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DIVIDE() { return GetToken(NerdyNodeParser.DIVIDE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TIMES() { return GetToken(NerdyNodeParser.TIMES, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MODOLUS() { return GetToken(NerdyNodeParser.MODOLUS, 0); }
-		public NumopContext(ParserRuleContext parent, int invokingState)
+		public Numop1Context(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_numop; } }
+		public override int RuleIndex { get { return RULE_numop1; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
-			if (typedListener != null) typedListener.EnterNumop(this);
+			if (typedListener != null) typedListener.EnterNumop1(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
-			if (typedListener != null) typedListener.ExitNumop(this);
+			if (typedListener != null) typedListener.ExitNumop1(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitNumop(this);
+			if (typedVisitor != null) return typedVisitor.VisitNumop1(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public NumopContext numop() {
-		NumopContext _localctx = new NumopContext(Context, State);
-		EnterRule(_localctx, 32, RULE_numop);
+	public Numop1Context numop1() {
+		Numop1Context _localctx = new Numop1Context(Context, State);
+		EnterRule(_localctx, 32, RULE_numop1);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 199;
+			State = 205;
 			_la = TokenStream.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 266287972352L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 240518168576L) != 0)) ) {
+			ErrorHandler.RecoverInline(this);
+			}
+			else {
+				ErrorHandler.ReportMatch(this);
+			    Consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class Numop2Context : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PLUS() { return GetToken(NerdyNodeParser.PLUS, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MINUS() { return GetToken(NerdyNodeParser.MINUS, 0); }
+		public Numop2Context(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_numop2; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.EnterNumop2(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			INerdyNodeParserListener typedListener = listener as INerdyNodeParserListener;
+			if (typedListener != null) typedListener.ExitNumop2(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			INerdyNodeParserVisitor<TResult> typedVisitor = visitor as INerdyNodeParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitNumop2(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public Numop2Context numop2() {
+		Numop2Context _localctx = new Numop2Context(Context, State);
+		EnterRule(_localctx, 34, RULE_numop2);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 207;
+			_la = TokenStream.LA(1);
+			if ( !(_la==PLUS || _la==MINUS) ) {
 			ErrorHandler.RecoverInline(this);
 			}
 			else {
@@ -1535,12 +1604,12 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public BoolopContext boolop() {
 		BoolopContext _localctx = new BoolopContext(Context, State);
-		EnterRule(_localctx, 34, RULE_boolop);
+		EnterRule(_localctx, 36, RULE_boolop);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 201;
+			State = 209;
 			_la = TokenStream.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 70093866270720L) != 0)) ) {
 			ErrorHandler.RecoverInline(this);
@@ -1590,11 +1659,11 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public GraphopContext graphop() {
 		GraphopContext _localctx = new GraphopContext(Context, State);
-		EnterRule(_localctx, 36, RULE_graphop);
+		EnterRule(_localctx, 38, RULE_graphop);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 203;
+			State = 211;
 			Match(UNION);
 			}
 		}
@@ -1645,19 +1714,19 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public GraphContext graph() {
 		GraphContext _localctx = new GraphContext(Context, State);
-		EnterRule(_localctx, 38, RULE_graph);
+		EnterRule(_localctx, 40, RULE_graph);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 205;
+			State = 213;
 			Match(PARANSTART);
-			State = 206;
+			State = 214;
 			nodeset();
-			State = 207;
+			State = 215;
 			Match(COMMA);
-			State = 208;
+			State = 216;
 			edgeset();
-			State = 209;
+			State = 217;
 			Match(PARANEND);
 			}
 		}
@@ -1704,15 +1773,15 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public NodesetContext nodeset() {
 		NodesetContext _localctx = new NodesetContext(Context, State);
-		EnterRule(_localctx, 40, RULE_nodeset);
+		EnterRule(_localctx, 42, RULE_nodeset);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 211;
+			State = 219;
 			Match(SETSTART);
-			State = 212;
+			State = 220;
 			identlist();
-			State = 213;
+			State = 221;
 			Match(SETEND);
 			}
 		}
@@ -1759,15 +1828,15 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public EdgesetContext edgeset() {
 		EdgesetContext _localctx = new EdgesetContext(Context, State);
-		EnterRule(_localctx, 42, RULE_edgeset);
+		EnterRule(_localctx, 44, RULE_edgeset);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 215;
+			State = 223;
 			Match(SETSTART);
-			State = 216;
+			State = 224;
 			identlist();
-			State = 217;
+			State = 225;
 			Match(SETEND);
 			}
 		}
@@ -1817,22 +1886,22 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public IdentlistContext identlist() {
 		IdentlistContext _localctx = new IdentlistContext(Context, State);
-		EnterRule(_localctx, 44, RULE_identlist);
+		EnterRule(_localctx, 46, RULE_identlist);
 		int _la;
 		try {
 			int _alt;
-			State = 229;
+			State = 237;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,14,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 220;
+				State = 228;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 				if (_la==IDENTIFIER) {
 					{
-					State = 219;
+					State = 227;
 					Match(IDENTIFIER);
 					}
 				}
@@ -1842,7 +1911,7 @@ public partial class NerdyNodeParser : Parser {
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 224;
+				State = 232;
 				ErrorHandler.Sync(this);
 				_alt = 1;
 				do {
@@ -1850,9 +1919,9 @@ public partial class NerdyNodeParser : Parser {
 					case 1:
 						{
 						{
-						State = 222;
+						State = 230;
 						Match(IDENTIFIER);
-						State = 223;
+						State = 231;
 						Match(COMMA);
 						}
 						}
@@ -1860,11 +1929,11 @@ public partial class NerdyNodeParser : Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					State = 226;
+					State = 234;
 					ErrorHandler.Sync(this);
 					_alt = Interpreter.AdaptivePredict(TokenStream,13,Context);
 				} while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER );
-				State = 228;
+				State = 236;
 				Match(IDENTIFIER);
 				}
 				break;
@@ -1918,29 +1987,29 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public FunccallContext funccall() {
 		FunccallContext _localctx = new FunccallContext(Context, State);
-		EnterRule(_localctx, 46, RULE_funccall);
+		EnterRule(_localctx, 48, RULE_funccall);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 233;
+			State = 241;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,15,Context) ) {
 			case 1:
 				{
-				State = 231;
+				State = 239;
 				Match(IDENTIFIER);
-				State = 232;
+				State = 240;
 				Match(DOT);
 				}
 				break;
 			}
-			State = 235;
+			State = 243;
 			Match(IDENTIFIER);
-			State = 236;
+			State = 244;
 			Match(PARANSTART);
-			State = 237;
+			State = 245;
 			paramlist();
-			State = 238;
+			State = 246;
 			Match(PARANEND);
 			}
 		}
@@ -1992,22 +2061,22 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public ParamlistContext paramlist() {
 		ParamlistContext _localctx = new ParamlistContext(Context, State);
-		EnterRule(_localctx, 48, RULE_paramlist);
+		EnterRule(_localctx, 50, RULE_paramlist);
 		int _la;
 		try {
 			int _alt;
-			State = 252;
+			State = 260;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,18,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 241;
+				State = 249;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 72057619815631360L) != 0)) {
 					{
-					State = 240;
+					State = 248;
 					expr(0);
 					}
 				}
@@ -2017,7 +2086,7 @@ public partial class NerdyNodeParser : Parser {
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 246;
+				State = 254;
 				ErrorHandler.Sync(this);
 				_alt = 1;
 				do {
@@ -2025,9 +2094,9 @@ public partial class NerdyNodeParser : Parser {
 					case 1:
 						{
 						{
-						State = 243;
+						State = 251;
 						expr(0);
-						State = 244;
+						State = 252;
 						Match(COMMA);
 						}
 						}
@@ -2035,11 +2104,11 @@ public partial class NerdyNodeParser : Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					State = 248;
+					State = 256;
 					ErrorHandler.Sync(this);
 					_alt = Interpreter.AdaptivePredict(TokenStream,17,Context);
 				} while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER );
-				State = 250;
+				State = 258;
 				expr(0);
 				}
 				break;
@@ -2096,40 +2165,40 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public GraphfuncContext graphfunc() {
 		GraphfuncContext _localctx = new GraphfuncContext(Context, State);
-		EnterRule(_localctx, 50, RULE_graphfunc);
+		EnterRule(_localctx, 52, RULE_graphfunc);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 256;
+			State = 264;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,19,Context) ) {
 			case 1:
 				{
-				State = 254;
+				State = 262;
 				Match(IDENTIFIER);
 				}
 				break;
 			case 2:
 				{
-				State = 255;
+				State = 263;
 				funccall();
 				}
 				break;
 			}
-			State = 258;
+			State = 266;
 			addtograph();
-			State = 261;
+			State = 269;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,20,Context) ) {
 			case 1:
 				{
-				State = 259;
+				State = 267;
 				Match(IDENTIFIER);
 				}
 				break;
 			case 2:
 				{
-				State = 260;
+				State = 268;
 				funccall();
 				}
 				break;
@@ -2178,12 +2247,12 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public AddtographContext addtograph() {
 		AddtographContext _localctx = new AddtographContext(Context, State);
-		EnterRule(_localctx, 52, RULE_addtograph);
+		EnterRule(_localctx, 54, RULE_addtograph);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 263;
+			State = 271;
 			_la = TokenStream.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 15903336184152064L) != 0)) ) {
 			ErrorHandler.RecoverInline(this);
@@ -2236,13 +2305,13 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public ReturnstmtContext returnstmt() {
 		ReturnstmtContext _localctx = new ReturnstmtContext(Context, State);
-		EnterRule(_localctx, 54, RULE_returnstmt);
+		EnterRule(_localctx, 56, RULE_returnstmt);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 265;
+			State = 273;
 			Match(RETURN);
-			State = 266;
+			State = 274;
 			expr(0);
 			}
 		}
@@ -2288,13 +2357,13 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public PrintContext print() {
 		PrintContext _localctx = new PrintContext(Context, State);
-		EnterRule(_localctx, 56, RULE_print);
+		EnterRule(_localctx, 58, RULE_print);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 268;
+			State = 276;
 			Match(PRINT);
-			State = 269;
+			State = 277;
 			expr(0);
 			}
 		}
@@ -2340,13 +2409,13 @@ public partial class NerdyNodeParser : Parser {
 	[RuleVersion(0)]
 	public DrawContext draw() {
 		DrawContext _localctx = new DrawContext(Context, State);
-		EnterRule(_localctx, 58, RULE_draw);
+		EnterRule(_localctx, 60, RULE_draw);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 271;
+			State = 279;
 			Match(DRAW);
-			State = 272;
+			State = 280;
 			expr(0);
 			}
 		}
@@ -2369,102 +2438,105 @@ public partial class NerdyNodeParser : Parser {
 	}
 	private bool expr_sempred(ExprContext _localctx, int predIndex) {
 		switch (predIndex) {
-		case 0: return Precpred(Context, 6);
-		case 1: return Precpred(Context, 5);
-		case 2: return Precpred(Context, 4);
+		case 0: return Precpred(Context, 9);
+		case 1: return Precpred(Context, 8);
+		case 2: return Precpred(Context, 7);
+		case 3: return Precpred(Context, 6);
 		}
 		return true;
 	}
 
 	private static int[] _serializedATN = {
-		4,1,59,275,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
+		4,1,59,283,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
 		7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,2,14,7,14,
 		2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,7,20,2,21,7,21,
 		2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,2,27,7,27,2,28,7,28,
-		2,29,7,29,1,0,1,0,5,0,63,8,0,10,0,12,0,66,9,0,1,0,1,0,1,1,1,1,1,1,1,1,
-		5,1,74,8,1,10,1,12,1,77,9,1,1,1,1,1,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,3,3,
-		3,89,8,3,1,3,1,3,1,3,4,3,94,8,3,11,3,12,3,95,1,3,1,3,3,3,100,8,3,1,4,1,
-		4,1,4,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,3,5,114,8,5,1,6,1,6,1,6,1,6,
-		1,6,1,6,1,7,1,7,1,7,1,7,1,7,3,7,127,8,7,1,8,1,8,1,8,1,9,1,9,1,9,1,9,1,
-		10,1,10,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,
-		11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,3,11,160,8,11,1,11,1,11,
-		1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,5,11,174,8,11,10,11,
-		12,11,177,9,11,1,12,1,12,1,12,1,12,1,12,1,12,3,12,185,8,12,1,13,1,13,1,
-		14,1,14,1,15,1,15,1,15,1,15,1,15,1,15,1,15,3,15,198,8,15,1,16,1,16,1,17,
-		1,17,1,18,1,18,1,19,1,19,1,19,1,19,1,19,1,19,1,20,1,20,1,20,1,20,1,21,
-		1,21,1,21,1,21,1,22,3,22,221,8,22,1,22,1,22,4,22,225,8,22,11,22,12,22,
-		226,1,22,3,22,230,8,22,1,23,1,23,3,23,234,8,23,1,23,1,23,1,23,1,23,1,23,
-		1,24,3,24,242,8,24,1,24,1,24,1,24,4,24,247,8,24,11,24,12,24,248,1,24,1,
-		24,3,24,253,8,24,1,25,1,25,3,25,257,8,25,1,25,1,25,1,25,3,25,262,8,25,
-		1,26,1,26,1,27,1,27,1,27,1,28,1,28,1,28,1,29,1,29,1,29,1,29,0,1,22,30,
-		0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,
-		50,52,54,56,58,0,6,2,0,16,18,23,27,1,0,21,22,1,0,48,50,1,0,33,37,1,0,38,
-		45,2,0,47,47,51,53,283,0,60,1,0,0,0,2,69,1,0,0,0,4,80,1,0,0,0,6,99,1,0,
-		0,0,8,101,1,0,0,0,10,113,1,0,0,0,12,115,1,0,0,0,14,121,1,0,0,0,16,128,
-		1,0,0,0,18,131,1,0,0,0,20,135,1,0,0,0,22,159,1,0,0,0,24,184,1,0,0,0,26,
-		186,1,0,0,0,28,188,1,0,0,0,30,197,1,0,0,0,32,199,1,0,0,0,34,201,1,0,0,
-		0,36,203,1,0,0,0,38,205,1,0,0,0,40,211,1,0,0,0,42,215,1,0,0,0,44,229,1,
-		0,0,0,46,233,1,0,0,0,48,252,1,0,0,0,50,256,1,0,0,0,52,263,1,0,0,0,54,265,
-		1,0,0,0,56,268,1,0,0,0,58,271,1,0,0,0,60,64,3,2,1,0,61,63,3,4,2,0,62,61,
-		1,0,0,0,63,66,1,0,0,0,64,62,1,0,0,0,64,65,1,0,0,0,65,67,1,0,0,0,66,64,
-		1,0,0,0,67,68,5,0,0,1,68,1,1,0,0,0,69,75,5,5,0,0,70,71,3,10,5,0,71,72,
-		5,2,0,0,72,74,1,0,0,0,73,70,1,0,0,0,74,77,1,0,0,0,75,73,1,0,0,0,75,76,
-		1,0,0,0,76,78,1,0,0,0,77,75,1,0,0,0,78,79,5,6,0,0,79,3,1,0,0,0,80,81,3,
-		20,10,0,81,82,5,56,0,0,82,83,5,11,0,0,83,84,3,6,3,0,84,85,5,12,0,0,85,
-		86,3,2,1,0,86,5,1,0,0,0,87,89,3,8,4,0,88,87,1,0,0,0,88,89,1,0,0,0,89,100,
-		1,0,0,0,90,91,3,8,4,0,91,92,5,13,0,0,92,94,1,0,0,0,93,90,1,0,0,0,94,95,
-		1,0,0,0,95,93,1,0,0,0,95,96,1,0,0,0,96,97,1,0,0,0,97,98,3,8,4,0,98,100,
-		1,0,0,0,99,88,1,0,0,0,99,93,1,0,0,0,100,7,1,0,0,0,101,102,3,20,10,0,102,
-		103,5,56,0,0,103,9,1,0,0,0,104,114,3,12,6,0,105,114,3,14,7,0,106,114,3,
-		16,8,0,107,114,3,18,9,0,108,114,3,46,23,0,109,114,3,50,25,0,110,114,3,
-		56,28,0,111,114,3,58,29,0,112,114,3,54,27,0,113,104,1,0,0,0,113,105,1,
-		0,0,0,113,106,1,0,0,0,113,107,1,0,0,0,113,108,1,0,0,0,113,109,1,0,0,0,
-		113,110,1,0,0,0,113,111,1,0,0,0,113,112,1,0,0,0,114,11,1,0,0,0,115,116,
-		5,28,0,0,116,117,5,56,0,0,117,118,5,29,0,0,118,119,3,30,15,0,119,120,3,
-		2,1,0,120,13,1,0,0,0,121,122,5,30,0,0,122,123,3,22,11,0,123,126,3,2,1,
-		0,124,125,5,31,0,0,125,127,3,2,1,0,126,124,1,0,0,0,126,127,1,0,0,0,127,
-		15,1,0,0,0,128,129,3,20,10,0,129,130,3,18,9,0,130,17,1,0,0,0,131,132,5,
-		56,0,0,132,133,5,1,0,0,133,134,3,22,11,0,134,19,1,0,0,0,135,136,7,0,0,
-		0,136,21,1,0,0,0,137,138,6,11,-1,0,138,160,3,24,12,0,139,160,5,56,0,0,
-		140,160,3,46,23,0,141,142,5,34,0,0,142,160,3,22,11,8,143,144,5,33,0,0,
-		144,160,3,22,11,7,145,146,5,11,0,0,146,147,3,22,11,0,147,148,5,12,0,0,
-		148,160,1,0,0,0,149,150,5,15,0,0,150,151,3,22,11,0,151,152,5,15,0,0,152,
-		160,1,0,0,0,153,154,5,9,0,0,154,155,5,56,0,0,155,156,3,28,14,0,156,157,
-		5,56,0,0,157,158,5,10,0,0,158,160,1,0,0,0,159,137,1,0,0,0,159,139,1,0,
-		0,0,159,140,1,0,0,0,159,141,1,0,0,0,159,143,1,0,0,0,159,145,1,0,0,0,159,
-		149,1,0,0,0,159,153,1,0,0,0,160,175,1,0,0,0,161,162,10,6,0,0,162,163,3,
-		32,16,0,163,164,3,22,11,7,164,174,1,0,0,0,165,166,10,5,0,0,166,167,3,34,
-		17,0,167,168,3,22,11,6,168,174,1,0,0,0,169,170,10,4,0,0,170,171,3,36,18,
-		0,171,172,3,22,11,5,172,174,1,0,0,0,173,161,1,0,0,0,173,165,1,0,0,0,173,
-		169,1,0,0,0,174,177,1,0,0,0,175,173,1,0,0,0,175,176,1,0,0,0,176,23,1,0,
-		0,0,177,175,1,0,0,0,178,185,5,19,0,0,179,185,5,20,0,0,180,185,3,26,13,
-		0,181,185,3,38,19,0,182,185,3,40,20,0,183,185,3,42,21,0,184,178,1,0,0,
-		0,184,179,1,0,0,0,184,180,1,0,0,0,184,181,1,0,0,0,184,182,1,0,0,0,184,
-		183,1,0,0,0,185,25,1,0,0,0,186,187,7,1,0,0,187,27,1,0,0,0,188,189,7,2,
-		0,0,189,29,1,0,0,0,190,191,5,7,0,0,191,192,3,22,11,0,192,193,5,14,0,0,
-		193,194,3,22,11,0,194,195,5,8,0,0,195,198,1,0,0,0,196,198,5,56,0,0,197,
-		190,1,0,0,0,197,196,1,0,0,0,198,31,1,0,0,0,199,200,7,3,0,0,200,33,1,0,
-		0,0,201,202,7,4,0,0,202,35,1,0,0,0,203,204,5,46,0,0,204,37,1,0,0,0,205,
-		206,5,11,0,0,206,207,3,40,20,0,207,208,5,13,0,0,208,209,3,42,21,0,209,
-		210,5,12,0,0,210,39,1,0,0,0,211,212,5,9,0,0,212,213,3,44,22,0,213,214,
-		5,10,0,0,214,41,1,0,0,0,215,216,5,9,0,0,216,217,3,44,22,0,217,218,5,10,
-		0,0,218,43,1,0,0,0,219,221,5,56,0,0,220,219,1,0,0,0,220,221,1,0,0,0,221,
-		230,1,0,0,0,222,223,5,56,0,0,223,225,5,13,0,0,224,222,1,0,0,0,225,226,
-		1,0,0,0,226,224,1,0,0,0,226,227,1,0,0,0,227,228,1,0,0,0,228,230,5,56,0,
-		0,229,220,1,0,0,0,229,224,1,0,0,0,230,45,1,0,0,0,231,232,5,56,0,0,232,
-		234,5,4,0,0,233,231,1,0,0,0,233,234,1,0,0,0,234,235,1,0,0,0,235,236,5,
-		56,0,0,236,237,5,11,0,0,237,238,3,48,24,0,238,239,5,12,0,0,239,47,1,0,
-		0,0,240,242,3,22,11,0,241,240,1,0,0,0,241,242,1,0,0,0,242,253,1,0,0,0,
-		243,244,3,22,11,0,244,245,5,13,0,0,245,247,1,0,0,0,246,243,1,0,0,0,247,
-		248,1,0,0,0,248,246,1,0,0,0,248,249,1,0,0,0,249,250,1,0,0,0,250,251,3,
-		22,11,0,251,253,1,0,0,0,252,241,1,0,0,0,252,246,1,0,0,0,253,49,1,0,0,0,
-		254,257,5,56,0,0,255,257,3,46,23,0,256,254,1,0,0,0,256,255,1,0,0,0,257,
-		258,1,0,0,0,258,261,3,52,26,0,259,262,5,56,0,0,260,262,3,46,23,0,261,259,
-		1,0,0,0,261,260,1,0,0,0,262,51,1,0,0,0,263,264,7,5,0,0,264,53,1,0,0,0,
-		265,266,5,32,0,0,266,267,3,22,11,0,267,55,1,0,0,0,268,269,5,54,0,0,269,
-		270,3,22,11,0,270,57,1,0,0,0,271,272,5,55,0,0,272,273,3,22,11,0,273,59,
-		1,0,0,0,21,64,75,88,95,99,113,126,159,173,175,184,197,220,226,229,233,
-		241,248,252,256,261
+		2,29,7,29,2,30,7,30,1,0,1,0,5,0,65,8,0,10,0,12,0,68,9,0,1,0,1,0,1,1,1,
+		1,1,1,1,1,5,1,76,8,1,10,1,12,1,79,9,1,1,1,1,1,1,2,1,2,1,2,1,2,1,2,1,2,
+		1,2,1,3,3,3,91,8,3,1,3,1,3,1,3,4,3,96,8,3,11,3,12,3,97,1,3,1,3,3,3,102,
+		8,3,1,4,1,4,1,4,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,3,5,116,8,5,1,6,1,
+		6,1,6,1,6,1,6,1,6,1,7,1,7,1,7,1,7,1,7,3,7,129,8,7,1,8,1,8,1,8,1,9,1,9,
+		1,9,1,9,1,10,1,10,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,
+		11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,3,11,162,8,11,
+		1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,1,11,
+		1,11,1,11,5,11,180,8,11,10,11,12,11,183,9,11,1,12,1,12,1,12,1,12,1,12,
+		1,12,3,12,191,8,12,1,13,1,13,1,14,1,14,1,15,1,15,1,15,1,15,1,15,1,15,1,
+		15,3,15,204,8,15,1,16,1,16,1,17,1,17,1,18,1,18,1,19,1,19,1,20,1,20,1,20,
+		1,20,1,20,1,20,1,21,1,21,1,21,1,21,1,22,1,22,1,22,1,22,1,23,3,23,229,8,
+		23,1,23,1,23,4,23,233,8,23,11,23,12,23,234,1,23,3,23,238,8,23,1,24,1,24,
+		3,24,242,8,24,1,24,1,24,1,24,1,24,1,24,1,25,3,25,250,8,25,1,25,1,25,1,
+		25,4,25,255,8,25,11,25,12,25,256,1,25,1,25,3,25,261,8,25,1,26,1,26,3,26,
+		265,8,26,1,26,1,26,1,26,3,26,270,8,26,1,27,1,27,1,28,1,28,1,28,1,29,1,
+		29,1,29,1,30,1,30,1,30,1,30,0,1,22,31,0,2,4,6,8,10,12,14,16,18,20,22,24,
+		26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,0,7,2,0,16,18,23,
+		27,1,0,21,22,1,0,48,50,1,0,35,37,1,0,33,34,1,0,38,45,2,0,47,47,51,53,291,
+		0,62,1,0,0,0,2,71,1,0,0,0,4,82,1,0,0,0,6,101,1,0,0,0,8,103,1,0,0,0,10,
+		115,1,0,0,0,12,117,1,0,0,0,14,123,1,0,0,0,16,130,1,0,0,0,18,133,1,0,0,
+		0,20,137,1,0,0,0,22,161,1,0,0,0,24,190,1,0,0,0,26,192,1,0,0,0,28,194,1,
+		0,0,0,30,203,1,0,0,0,32,205,1,0,0,0,34,207,1,0,0,0,36,209,1,0,0,0,38,211,
+		1,0,0,0,40,213,1,0,0,0,42,219,1,0,0,0,44,223,1,0,0,0,46,237,1,0,0,0,48,
+		241,1,0,0,0,50,260,1,0,0,0,52,264,1,0,0,0,54,271,1,0,0,0,56,273,1,0,0,
+		0,58,276,1,0,0,0,60,279,1,0,0,0,62,66,3,2,1,0,63,65,3,4,2,0,64,63,1,0,
+		0,0,65,68,1,0,0,0,66,64,1,0,0,0,66,67,1,0,0,0,67,69,1,0,0,0,68,66,1,0,
+		0,0,69,70,5,0,0,1,70,1,1,0,0,0,71,77,5,5,0,0,72,73,3,10,5,0,73,74,5,2,
+		0,0,74,76,1,0,0,0,75,72,1,0,0,0,76,79,1,0,0,0,77,75,1,0,0,0,77,78,1,0,
+		0,0,78,80,1,0,0,0,79,77,1,0,0,0,80,81,5,6,0,0,81,3,1,0,0,0,82,83,3,20,
+		10,0,83,84,5,56,0,0,84,85,5,11,0,0,85,86,3,6,3,0,86,87,5,12,0,0,87,88,
+		3,2,1,0,88,5,1,0,0,0,89,91,3,8,4,0,90,89,1,0,0,0,90,91,1,0,0,0,91,102,
+		1,0,0,0,92,93,3,8,4,0,93,94,5,13,0,0,94,96,1,0,0,0,95,92,1,0,0,0,96,97,
+		1,0,0,0,97,95,1,0,0,0,97,98,1,0,0,0,98,99,1,0,0,0,99,100,3,8,4,0,100,102,
+		1,0,0,0,101,90,1,0,0,0,101,95,1,0,0,0,102,7,1,0,0,0,103,104,3,20,10,0,
+		104,105,5,56,0,0,105,9,1,0,0,0,106,116,3,12,6,0,107,116,3,14,7,0,108,116,
+		3,16,8,0,109,116,3,18,9,0,110,116,3,48,24,0,111,116,3,52,26,0,112,116,
+		3,58,29,0,113,116,3,60,30,0,114,116,3,56,28,0,115,106,1,0,0,0,115,107,
+		1,0,0,0,115,108,1,0,0,0,115,109,1,0,0,0,115,110,1,0,0,0,115,111,1,0,0,
+		0,115,112,1,0,0,0,115,113,1,0,0,0,115,114,1,0,0,0,116,11,1,0,0,0,117,118,
+		5,28,0,0,118,119,5,56,0,0,119,120,5,29,0,0,120,121,3,30,15,0,121,122,3,
+		2,1,0,122,13,1,0,0,0,123,124,5,30,0,0,124,125,3,22,11,0,125,128,3,2,1,
+		0,126,127,5,31,0,0,127,129,3,2,1,0,128,126,1,0,0,0,128,129,1,0,0,0,129,
+		15,1,0,0,0,130,131,3,20,10,0,131,132,3,18,9,0,132,17,1,0,0,0,133,134,5,
+		56,0,0,134,135,5,1,0,0,135,136,3,22,11,0,136,19,1,0,0,0,137,138,7,0,0,
+		0,138,21,1,0,0,0,139,140,6,11,-1,0,140,162,3,24,12,0,141,142,5,34,0,0,
+		142,162,3,22,11,11,143,144,5,33,0,0,144,162,3,22,11,10,145,146,5,11,0,
+		0,146,147,3,22,11,0,147,148,5,12,0,0,148,162,1,0,0,0,149,162,5,56,0,0,
+		150,162,3,48,24,0,151,152,5,15,0,0,152,153,3,22,11,0,153,154,5,15,0,0,
+		154,162,1,0,0,0,155,156,5,9,0,0,156,157,5,56,0,0,157,158,3,28,14,0,158,
+		159,5,56,0,0,159,160,5,10,0,0,160,162,1,0,0,0,161,139,1,0,0,0,161,141,
+		1,0,0,0,161,143,1,0,0,0,161,145,1,0,0,0,161,149,1,0,0,0,161,150,1,0,0,
+		0,161,151,1,0,0,0,161,155,1,0,0,0,162,181,1,0,0,0,163,164,10,9,0,0,164,
+		165,3,32,16,0,165,166,3,22,11,10,166,180,1,0,0,0,167,168,10,8,0,0,168,
+		169,3,34,17,0,169,170,3,22,11,9,170,180,1,0,0,0,171,172,10,7,0,0,172,173,
+		3,36,18,0,173,174,3,22,11,8,174,180,1,0,0,0,175,176,10,6,0,0,176,177,3,
+		38,19,0,177,178,3,22,11,7,178,180,1,0,0,0,179,163,1,0,0,0,179,167,1,0,
+		0,0,179,171,1,0,0,0,179,175,1,0,0,0,180,183,1,0,0,0,181,179,1,0,0,0,181,
+		182,1,0,0,0,182,23,1,0,0,0,183,181,1,0,0,0,184,191,5,19,0,0,185,191,5,
+		20,0,0,186,191,3,26,13,0,187,191,3,40,20,0,188,191,3,42,21,0,189,191,3,
+		44,22,0,190,184,1,0,0,0,190,185,1,0,0,0,190,186,1,0,0,0,190,187,1,0,0,
+		0,190,188,1,0,0,0,190,189,1,0,0,0,191,25,1,0,0,0,192,193,7,1,0,0,193,27,
+		1,0,0,0,194,195,7,2,0,0,195,29,1,0,0,0,196,197,5,7,0,0,197,198,3,22,11,
+		0,198,199,5,14,0,0,199,200,3,22,11,0,200,201,5,8,0,0,201,204,1,0,0,0,202,
+		204,5,56,0,0,203,196,1,0,0,0,203,202,1,0,0,0,204,31,1,0,0,0,205,206,7,
+		3,0,0,206,33,1,0,0,0,207,208,7,4,0,0,208,35,1,0,0,0,209,210,7,5,0,0,210,
+		37,1,0,0,0,211,212,5,46,0,0,212,39,1,0,0,0,213,214,5,11,0,0,214,215,3,
+		42,21,0,215,216,5,13,0,0,216,217,3,44,22,0,217,218,5,12,0,0,218,41,1,0,
+		0,0,219,220,5,9,0,0,220,221,3,46,23,0,221,222,5,10,0,0,222,43,1,0,0,0,
+		223,224,5,9,0,0,224,225,3,46,23,0,225,226,5,10,0,0,226,45,1,0,0,0,227,
+		229,5,56,0,0,228,227,1,0,0,0,228,229,1,0,0,0,229,238,1,0,0,0,230,231,5,
+		56,0,0,231,233,5,13,0,0,232,230,1,0,0,0,233,234,1,0,0,0,234,232,1,0,0,
+		0,234,235,1,0,0,0,235,236,1,0,0,0,236,238,5,56,0,0,237,228,1,0,0,0,237,
+		232,1,0,0,0,238,47,1,0,0,0,239,240,5,56,0,0,240,242,5,4,0,0,241,239,1,
+		0,0,0,241,242,1,0,0,0,242,243,1,0,0,0,243,244,5,56,0,0,244,245,5,11,0,
+		0,245,246,3,50,25,0,246,247,5,12,0,0,247,49,1,0,0,0,248,250,3,22,11,0,
+		249,248,1,0,0,0,249,250,1,0,0,0,250,261,1,0,0,0,251,252,3,22,11,0,252,
+		253,5,13,0,0,253,255,1,0,0,0,254,251,1,0,0,0,255,256,1,0,0,0,256,254,1,
+		0,0,0,256,257,1,0,0,0,257,258,1,0,0,0,258,259,3,22,11,0,259,261,1,0,0,
+		0,260,249,1,0,0,0,260,254,1,0,0,0,261,51,1,0,0,0,262,265,5,56,0,0,263,
+		265,3,48,24,0,264,262,1,0,0,0,264,263,1,0,0,0,265,266,1,0,0,0,266,269,
+		3,54,27,0,267,270,5,56,0,0,268,270,3,48,24,0,269,267,1,0,0,0,269,268,1,
+		0,0,0,270,53,1,0,0,0,271,272,7,6,0,0,272,55,1,0,0,0,273,274,5,32,0,0,274,
+		275,3,22,11,0,275,57,1,0,0,0,276,277,5,54,0,0,277,278,3,22,11,0,278,59,
+		1,0,0,0,279,280,5,55,0,0,280,281,3,22,11,0,281,61,1,0,0,0,21,66,77,90,
+		97,101,115,128,161,179,181,190,203,228,234,237,241,249,256,260,264,269
 	};
 
 	public static readonly ATN _ATN =

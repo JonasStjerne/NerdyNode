@@ -92,6 +92,19 @@ public class ArithmeticTests
         Assert.Equal(8, Int32.Parse(result));
     }
 
+    [Fact]
+    public void Precedence()
+    {
+        var result = Setup("2*2+3");
+        Assert.Equal(7, Int32.Parse(result));
+    }
+
+    [Fact]
+    public void Precedence2()
+    {
+        var result = Setup("3+2*2");
+        Assert.Equal(7, Int32.Parse(result));
+    }
 
     // [Fact]
     // public void ModulusParenthesis()

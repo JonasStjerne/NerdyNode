@@ -191,15 +191,25 @@ public interface INerdyNodeParserListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitList([NotNull] NerdyNodeParser.ListContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="NerdyNodeParser.numop"/>.
+	/// Enter a parse tree produced by <see cref="NerdyNodeParser.numop1"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterNumop([NotNull] NerdyNodeParser.NumopContext context);
+	void EnterNumop1([NotNull] NerdyNodeParser.Numop1Context context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="NerdyNodeParser.numop"/>.
+	/// Exit a parse tree produced by <see cref="NerdyNodeParser.numop1"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitNumop([NotNull] NerdyNodeParser.NumopContext context);
+	void ExitNumop1([NotNull] NerdyNodeParser.Numop1Context context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="NerdyNodeParser.numop2"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterNumop2([NotNull] NerdyNodeParser.Numop2Context context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="NerdyNodeParser.numop2"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitNumop2([NotNull] NerdyNodeParser.Numop2Context context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="NerdyNodeParser.boolop"/>.
 	/// </summary>

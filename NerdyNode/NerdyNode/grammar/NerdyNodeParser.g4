@@ -47,14 +47,15 @@ type:
 
 expr:
 	value
-	| IDENTIFIER
-	| funccall
 	| MINUS expr
 	| PLUS expr
-	| expr numop expr
+	| expr numop1 expr
+	| expr numop2 expr
 	| expr boolop expr
 	| expr graphop expr
 	| PARANSTART expr PARANEND
+	| IDENTIFIER
+	| funccall
 	| LABEL expr LABEL
 	| SETSTART IDENTIFIER arrow IDENTIFIER SETEND;
 
@@ -69,7 +70,8 @@ list:
 	//| nodeset | edgeset
 	| IDENTIFIER;
 
-numop: PLUS | MINUS | DIVIDE | TIMES | MODOLUS;
+numop1: DIVIDE | TIMES | MODOLUS;
+numop2: PLUS | MINUS;
 
 boolop:
 	EQUALS
