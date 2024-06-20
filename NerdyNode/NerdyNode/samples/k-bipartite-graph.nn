@@ -1,0 +1,102 @@
+begin
+ node n1 = |"bla"|;
+node n2 = |"bla"|;
+node n3 = |"bla"|;
+node n4 = |"bla"|;
+node n5 = |"bla"|;
+node n6 = |"bla"|;
+node n7 = |"bla"|;
+
+graph bd = ({n1,n2,n3,n4,n5,n6,n7},{});
+n1 <--> n2;
+n2 <--> n3;
+n3<--> n4;
+n4 <--> n1; 
+n4 <--> n5;
+n5 <--> n6;
+n6 <--> n7;
+
+
+
+    graph G = ({}, {});
+
+    int size = 4;
+
+    for i in [1 .. 2] begin
+      node n = |"u1" + i|;
+      G << n;
+    end;
+
+    for i in [1 .. 2] begin
+      node n = |"u2" + i|;
+      G << n;
+    end;
+
+        for i in [1 .. 2] begin
+      node n = |"u3" + i|;
+      G << n;
+    end;
+
+
+
+    for i in [1 .. 2] begin
+      node ux = G.GetNode("u1" + i);
+
+      for j in [1 .. 2] begin
+        node vx = G.GetNode("u2" + j);
+        ux <--> vx;
+      end;
+
+            for j in [1 .. 2] begin
+        node vx = G.GetNode("u3" + j);
+        ux <--> vx;
+      end;
+
+    end;
+
+
+      for i in [1 .. 2] begin
+      node ux = G.GetNode("u2" + i);
+
+      for j in [1 .. 2] begin
+        node vx = G.GetNode("u3" + j);
+        ux <--> vx;
+      end;
+
+    end;
+
+graph GG = fancytree(5,1);
+
+int x = 7;
+for i in [1 .. x] begin
+x =10;
+print i;
+end;
+
+
+
+
+end
+
+
+graph fancytree(int levelsleft, int nochildren) begin
+  graph ret = ({},{});
+  if (levelsleft == 0) begin
+    return ret;
+    end
+  else begin
+     for i in [1 .. nochildren] begin
+             ret = ret union fancytree(levelsleft-1, nochildren+1);
+      end;
+       node root = |"r" + levelsleft|;
+     ret << root;
+           
+          nodeset roots = ret.GetNodes("r" +( levelsleft-1));
+      for croot in roots begin
+        root <--> croot;
+
+     end; 
+return ret;
+  end;
+
+end
